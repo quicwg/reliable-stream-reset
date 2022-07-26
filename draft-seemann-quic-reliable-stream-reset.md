@@ -157,9 +157,9 @@ application before surfacing the stream reset error.  It MUST NOT expect the
 delivery of any data beyond that byte offset.
 
 When sending another RELIABLE_RESET_STREAM frame for the same stream, the
-initiator MUST NOT change the Application Error Code and the Final Size. The
-receiver MUST close the connection with a connection error of type
-STREAM_STATE_ERROR.
+initiator MUST NOT change the Application Error Code or the Final Size. If the
+receiver detects a change in those fields, it MUST close the connection with a
+connection error of type STREAM_STATE_ERROR.
 
 Reordering of packets might lead to a RELIABLE_RESET_STREAM frame with a higher
 Reliable Size to be received after a RELIABLE_RESET_STREAM frame with a lower
