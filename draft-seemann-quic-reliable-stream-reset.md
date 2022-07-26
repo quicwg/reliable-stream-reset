@@ -110,16 +110,45 @@ connection with a connection error of type FRAME_ENCODING_ERROR.
 Semantically, a RESET_STREAM frame is equivalent to a RELIABLE_RESET_STREAM
 frame with the Reliable Size set to 0.
 
-RELIABLE_RESET_STREAM frames are ack-eliciting.
+RELIABLE_RESET_STREAM frames are ack-eliciting. When lost,
+RELIABLE_RESET_STREAM frames MUST be retransmitted, unless another
+RELIABLE_RESET_STREAM was sent for the same stream (see {{multiple-frames}}).
 
 # Resetting Streams
 
-When resetting a stream, the node has the choice between using a RESET_STREAM frame and a RELIABLE_RESET_STREAM frame. When using a RESET_STREAM frame, the behavior is unchanged from RFC 9000.
+When resetting a stream, the node has the choice between using a RESET_STREAM
+frame and a RELIABLE_RESET_STREAM frame. When using a RESET_STREAM frame, the
+behavior is unchanged the behavior desrcibed in ({{QUIC-TRANSPORT}}).
 
-When using the RELIALBE_RESET_STREAM frame:
+When using the RELIABLE_RESET_STREAM frame:
 
-* The initiator guarantees reliable delivery of stream data of at least Reliable Size bytes. If STREAM frames containing data up to that byte offset are lost, the initiator MUST retransmit this data,  as described in ({{Section 13.3 of QUIC-TRANSPORT}}). Data sent beyond that byte offset SHOULD NOT be retransmitted.
-* The receiver MUST deliver at least Reliable Size bytes to the application before surfacing the stream reset error. As described in TODO, it MAY deliver data beyond that offset to the application.
+- The initiator guarantees reliable delivery of stream data of at least
+  Reliable Size bytes. If STREAM frames containing data up to that byte offset
+  are lost, the initiator MUST retransmit this data,  as described in
+  ({{Section 13.3 of QUIC-TRANSPORT}}). Data sent beyond that byte offset
+  SHOULD NOT be retransmitted.
+- The receiver MUST deliver at least Reliable Size bytes to the application
+  before surfacing the stream reset error. As described in TODO, it MAY deliver
+  data beyond that offset to the application.
+
+## Multiple RELIABLE_RESET_STREAM frames {#multiple-frames}
+
+The initiator MAY send multiple RELIABLE_RESET_STREAM frames for the same
+stream in order to reduce the Reliable Size.  It MUST NOT increase the Reliable
+Size.  When receiving a RELIABLE_RESET_STREAM frame with a lower Reliable Size,
+the receiver only needs to deliver the new amout of bytes to the application
+before surfacing the stream reset error.  It MUST NOT expect the delivery of
+any data beyond that byte offset.
+
+When sending another RELIABLE_RESET_STREAM frame for the same stream, the
+initiator MUST NOT change the Application Error Code and the Final Size. The
+receiver MUST close the connection with a connection error of type
+STREAM_STATE_ERROR.
+
+Reordering of packets might lead to a RELIABLE_RESET_STREAM frame with a higher
+Reliable Size to be received after a RELIABLE_RESET_STREAM frame with a lower
+Reliable Size.  The receiver MUST ignore any RELIABLE_RESET_STREAM frame that
+increases the Reliable Size.
 
 # Security Considerations
 
