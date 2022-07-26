@@ -78,19 +78,38 @@ TODO: 0-RTT interaction.
 
 The RELIABLE_RESET_STREAM frame adds an additional Reliable Size field to the RESET_STREAM frame.
 
-```
 ~~~
 RELIABLE_RESET_STREAM Frame {
   Type (i) = TBD,
-	Stream ID (i),
-	Application Protocol Error Code (i),
-	Final Size (i),
-	Reliable Size (i)
+  Stream ID (i),
+  Application Protocol Error Code (i),
+  Final Size (i),
+  Reliable Size (i)
 }
 ~~~
-```
 
-Semantically, a RESET_STREAM frame is equivalent to a RELIABLE_RESET_STREAM frame with the Reliable Size set to 0.
+RELIABLE_RESET_STREAM frames contain the following fields:
+
+Stream ID:  A variable-length integer encoding of the stream ID of
+      the stream being terminated.
+
+Application Protocol Error Code:  A variable-length integer
+    containing the application protocol error code (see Section 20.2)
+    that indicates why the stream is being closed.
+
+Final Size:  A variable-length integer indicating the final size of
+    the stream by the RESET_STREAM sender, in units of bytes; see
+    ({{Section 4.5 of QUIC-TRANSPORT}}).
+
+Reliable Size:  A varialbe-length integer inidicating the amount of
+    data that needs to be delivered to the application before the
+    error code can be surfaced, in units of bytes.
+
+If the Reliable Size is larger than the Final Size, the receiver MUST close the
+connection with a connection error of type FRAME_ENCODING_ERROR.
+
+Semantically, a RESET_STREAM frame is equivalent to a RELIABLE_RESET_STREAM
+frame with the Reliable Size set to 0.
 
 # Resetting Streams
 
