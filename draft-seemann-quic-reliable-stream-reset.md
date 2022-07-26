@@ -52,16 +52,28 @@ TODO Abstract
 
 # Introduction
 
-This document describes a QUIC extension to allow the reset of streams which
-guarantees the reliable delivery of parts of the data sent on the stream.
+QUIC v1 ({{QUIC-TRANSPORT}}) allows streams to be reset.  When a stream is
+reset, the sender doesn't retransmit stream data for the respective stream.
+On the receiver side, the QUIC stack is free to surface the stream reset to the
+application immediately, even if it has already received stream data for that
+stream.
+
+Application running on top of QUIC might need to send an identifier at the
+beginning of the stream in order to associate that stream with a specific
+subpart of the application.  For example, WebTransport (TODO: cite) uses a
+QUIC varint to encode the ID of the WebTransport session.
+
+It is desireable that the receiver is able to associate incoming streams with
+their respective subpart of the application, even if the QUIC stream is reset
+before the identifier at the beginning of the stream was read.
+
+This document describes a QUIC extension that allows an endpoint to mark a
+portion at the beginning of the stream, which will then be guaranteed to be
+delivered to receiver's application, even if the stream was reset.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
-
-# Motivation
-
-QUIC allows resetting of streams. When a stream is reset, the sender doesn't retransmit stream data for the respective stream. On the receiver side, the QUIC stack is free to surface the stream reset to the application, even if stream data is received.
 
 # Negotiating Extension Use
 
