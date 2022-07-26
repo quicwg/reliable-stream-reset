@@ -66,11 +66,10 @@ QUIC allows resetting of streams. When a stream is reset, the sender doesn't ret
 # Negotiating Extension Use
 
 Endpoints advertise their support of the extension described in this document by
-sending the following transport parameter ({{Section 7.2 of QUIC-TRANSPORT}}):
-
-reliable_reset_stream (TBD):
-
-: A variable-length integer encoding a 1.
+sending the reliable_reset_stream (TBD) transport parameter
+({{Section 7.2 of QUIC-TRANSPORT}}) with an empty value. An implementation that
+understands this transport parameter MUST treat the receipt of a non-empty
+value as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
 TODO: 0-RTT interaction.
 
