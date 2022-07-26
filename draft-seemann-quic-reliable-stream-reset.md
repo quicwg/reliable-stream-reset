@@ -110,6 +110,8 @@ connection with a connection error of type FRAME_ENCODING_ERROR.
 Semantically, a RESET_STREAM frame is equivalent to a RELIABLE_RESET_STREAM
 frame with the Reliable Size set to 0.
 
+RELIABLE_RESET_STREAM frames are ack-eliciting.
+
 # Resetting Streams
 
 When resetting a stream, the node has the choice between using a RESET_STREAM frame and a RELIABLE_RESET_STREAM frame. When using a RESET_STREAM frame, the behavior is unchanged from RFC 9000.
