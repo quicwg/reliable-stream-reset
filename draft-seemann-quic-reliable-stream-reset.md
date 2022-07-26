@@ -83,7 +83,10 @@ sending the reliable_reset_stream (TBD) transport parameter
 understands this transport parameter MUST treat the receipt of a non-empty
 value as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
-TODO: 0-RTT interaction.
+In order to allow reliable stream resets in 0-RTT packets, the client MUST
+remember the value of this transport parameter.  If 0-RTT data is accepted by
+the server, the server MUST not disable this extension on the resumed
+connection.
 
 # RELIABLE_RESET_STREAM Frame
 
