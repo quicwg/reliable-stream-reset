@@ -63,7 +63,7 @@ beginning of the stream in order to associate that stream with a specific
 subpart of the application.  For example, WebTransport (TODO: cite) uses a
 QUIC varint to encode the ID of the WebTransport session.
 
-It is desireable that the receiver is able to associate incoming streams with
+It is desirable that the receiver is able to associate incoming streams with
 their respective subpart of the application, even if the QUIC stream is reset
 before the identifier at the beginning of the stream was read.
 
@@ -87,7 +87,8 @@ TODO: 0-RTT interaction.
 
 # RELIABLE_RESET_STREAM Frame
 
-The RELIABLE_RESET_STREAM frame adds an additional Reliable Size field to the RESET_STREAM frame.
+Conceptually, the RELIABLE_RESET_STREAM frame is a RESET_STREAM frame with an
+added Reliable Size field.
 
 ~~~
 RELIABLE_RESET_STREAM Frame {
@@ -112,7 +113,7 @@ Final Size:  A variable-length integer indicating the final size of
     the stream by the RESET_STREAM sender, in units of bytes; see
     ({{Section 4.5 of QUIC-TRANSPORT}}).
 
-Reliable Size:  A varialbe-length integer inidicating the amount of
+Reliable Size:  A variable-length integer indicating the amount of
     data that needs to be delivered to the application before the
     error code can be surfaced, in units of bytes.
 
@@ -130,7 +131,7 @@ RELIABLE_RESET_STREAM was sent for the same stream (see {{multiple-frames}}).
 
 When resetting a stream, the node has the choice between using a RESET_STREAM
 frame and a RELIABLE_RESET_STREAM frame. When using a RESET_STREAM frame, the
-behavior is unchanged the behavior desrcibed in ({{QUIC-TRANSPORT}}).
+behavior is unchanged the behavior described in ({{QUIC-TRANSPORT}}).
 
 When using the RELIABLE_RESET_STREAM frame:
 
@@ -148,9 +149,9 @@ When using the RELIABLE_RESET_STREAM frame:
 The initiator MAY send multiple RELIABLE_RESET_STREAM frames for the same
 stream in order to reduce the Reliable Size.  It MUST NOT increase the Reliable
 Size.  When receiving a RELIABLE_RESET_STREAM frame with a lower Reliable Size,
-the receiver only needs to deliver the new amout of bytes to the application
-before surfacing the stream reset error.  It MUST NOT expect the delivery of
-any data beyond that byte offset.
+the receiver only needs to deliver data up the lower Reliable Size to the
+application before surfacing the stream reset error.  It MUST NOT expect the
+delivery of any data beyond that byte offset.
 
 When sending another RELIABLE_RESET_STREAM frame for the same stream, the
 initiator MUST NOT change the Application Error Code and the Final Size. The
