@@ -136,16 +136,16 @@ When resetting a stream, the node has the choice between using a RESET_STREAM
 frame and a RELIABLE_RESET_STREAM frame. When using a RESET_STREAM frame, the
 behavior is unchanged the behavior described in ({{QUIC-TRANSPORT}}).
 
-When using the RELIABLE_RESET_STREAM frame:
+The initiator MUST guarantee reliable delivery of stream data of at least
+Reliable Size bytes.  If STREAM frames containing data up to that byte offset
+are lost, the initiator MUST retransmit this data,  as described in
+({{Section 13.3 of QUIC-TRANSPORT}}). Data sent beyond that byte offset SHOULD
+NOT be retransmitted.
 
-- The initiator guarantees reliable delivery of stream data of at least
-  Reliable Size bytes. If STREAM frames containing data up to that byte offset
-  are lost, the initiator MUST retransmit this data,  as described in
-  ({{Section 13.3 of QUIC-TRANSPORT}}). Data sent beyond that byte offset
-  SHOULD NOT be retransmitted.
-- The receiver MUST deliver at least Reliable Size bytes to the application
-  before surfacing the stream reset error. As described in TODO, it MAY deliver
-  data beyond that offset to the application.
+A receiver that delivers stream data to the application as an ordered byte
+stream MUST deliver the reliable portion before surfacing the stream reset
+error.  As described in ({{Section 3.2 of QUIC-TRANSPORT}}), it MAY deliver
+data beyond that offset to the application.
 
 ## Multiple RELIABLE_RESET_STREAM frames {#multiple-frames}
 
