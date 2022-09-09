@@ -18,7 +18,7 @@ author:
     ins: M. Seemann
     name: Marten Seemann
     organization: Protocol Labs
-    email: marten@protocol.ai
+    email: martenseemann@gmail.com
 
 normative:
 
