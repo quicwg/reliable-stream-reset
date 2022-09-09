@@ -95,7 +95,7 @@ added Reliable Size field.
 
 ~~~
 RELIABLE_RESET_STREAM Frame {
-  Type (i) = TBD,
+  Type (i) = 0x72,
   Stream ID (i),
   Application Protocol Error Code (i),
   Final Size (i),
