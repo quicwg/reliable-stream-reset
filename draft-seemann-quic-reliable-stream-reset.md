@@ -5,7 +5,7 @@ docname: draft-seemann-quic-reliable-stream-reset-latest
 category: info
 
 ipr: trust200902
-area: General
+area: Transport
 workgroup: QUIC
 keyword: Internet-Draft
 
