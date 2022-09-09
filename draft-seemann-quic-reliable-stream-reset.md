@@ -22,24 +22,6 @@ author:
 
 normative:
 
-  QUIC-TRANSPORT:
-    title: "QUIC: A UDP-Based Multiplexed and Secure Transport"
-    date: 2021-05
-    seriesinfo:
-      RFC: 9000
-      DOI: 10.17487/RFC9000
-    author:
-      -
-        ins: J. Iyengar
-        name: Jana Iyengar
-        org: Fastly
-        role: editor
-      -
-        ins: M. Thomson
-        name: Martin Thomson
-        org: Mozilla
-        role: editor
-
 informative:
 
 
@@ -52,7 +34,7 @@ TODO Abstract
 
 # Introduction
 
-QUIC v1 ({{QUIC-TRANSPORT}}) allows streams to be reset.  When a stream is
+QUIC v1 ({{!RFC9000}}) allows streams to be reset.  When a stream is
 reset, the sender doesn't retransmit stream data for the respective stream.
 On the receiver side, the QUIC stack is free to surface the stream reset to the
 application immediately, even if it has already received stream data for that
@@ -60,8 +42,9 @@ stream.
 
 Application running on top of QUIC might need to send an identifier at the
 beginning of the stream in order to associate that stream with a specific
-subpart of the application.  For example, WebTransport (TODO: cite) uses a
-QUIC varint to encode the ID of the WebTransport session.
+subpart of the application.  For example, WebTransport
+({{!WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a QUIC varint to encode the
+ID of the WebTransport session.
 
 It is desirable that the receiver is able to associate incoming streams with
 their respective subpart of the application, even if the QUIC stream is reset
@@ -79,7 +62,7 @@ delivered to receiver's application, even if the stream was reset.
 
 Endpoints advertise their support of the extension described in this document by
 sending the reliable_reset_stream (0x727273) transport parameter
-({{Section 7.2 of QUIC-TRANSPORT}}) with an empty value. An implementation that
+(Section 7.2 of {{!RFC9000}}) with an empty value. An implementation that
 understands this transport parameter MUST treat the receipt of a non-empty
 value as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
@@ -114,7 +97,7 @@ Application Protocol Error Code:  A variable-length integer
 
 Final Size:  A variable-length integer indicating the final size of
     the stream by the RESET_STREAM sender, in units of bytes; see
-    ({{Section 4.5 of QUIC-TRANSPORT}}).
+    (Section 4.5 of {{!RFC9000}}).
 
 Reliable Size:  A variable-length integer indicating the amount of
     data that needs to be delivered to the application before the
@@ -134,18 +117,18 @@ RELIABLE_RESET_STREAM was sent for the same stream (see {{multiple-frames}}).
 
 When resetting a stream, the node has the choice between using a RESET_STREAM
 frame and a RELIABLE_RESET_STREAM frame. When using a RESET_STREAM frame, the
-behavior is unchanged the behavior described in ({{QUIC-TRANSPORT}}).
+behavior is unchanged the behavior described in ({{!RFC9000}}).
 
 The initiator MUST guarantee reliable delivery of stream data of at least
 Reliable Size bytes.  If STREAM frames containing data up to that byte offset
 are lost, the initiator MUST retransmit this data,  as described in
-({{Section 13.3 of QUIC-TRANSPORT}}). Data sent beyond that byte offset SHOULD
-NOT be retransmitted.
+(Section 13.3 of {{!RFC9000}}). Data sent beyond that byte offset SHOULD NOT be
+retransmitted.
 
 A receiver that delivers stream data to the application as an ordered byte
 stream MUST deliver the reliable portion before surfacing the stream reset
-error.  As described in ({{Section 3.2 of QUIC-TRANSPORT}}), it MAY deliver
-data beyond that offset to the application.
+error.  As described in (Section 3.2 of {{RFC9000}}), it MAY deliver data
+beyond that offset to the application.
 
 ## Multiple RELIABLE_RESET_STREAM frames {#multiple-frames}
 
