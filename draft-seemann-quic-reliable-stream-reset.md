@@ -27,8 +27,13 @@ informative:
 
 --- abstract
 
-TODO Abstract
-
+QUIC ({{!RFC9000}}) defines a RESET_STREAM frame to reset a stream. When a
+sender resets a stream, it stops retransmitting STREAM frames for this stream.
+On the receiver side, there is no guarantee that any of the data sent on that
+stream is delivered to the application.
+This document defines a new QUIC frame, the RELIABLE_RESET_STREAM frame, that
+resets a stream, while guaranteeing reliable delivery of stream data up to a
+certain byte offset.
 
 --- middle
 
