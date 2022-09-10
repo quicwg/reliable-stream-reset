@@ -68,7 +68,7 @@ receiver's application, even if the stream was reset.
 
 Endpoints advertise their support of the extension described in this document by
 sending the reliable_reset_stream (0x727273) transport parameter
-(Section 7.2 of {{!RFC9000}}) with an empty value. An implementation that
+(Section 7.4 of {{!RFC9000}}) with an empty value. An implementation that
 understands this transport parameter MUST treat the receipt of a non-empty
 value as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
