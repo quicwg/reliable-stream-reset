@@ -45,11 +45,12 @@ On the receiver side, the QUIC stack is free to surface the stream reset to the
 application immediately, even if it has already received stream data for that
 stream.
 
-Application running on top of QUIC might need to send an identifier at the
+Applications running on top of QUIC might need to send an identifier at the
 beginning of the stream in order to associate that stream with a specific
-subpart of the application.  For example, WebTransport
-({{!WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a QUIC varint to encode the
-ID of the WebTransport session.
+subpart of the application. For example, WebTransport
+({{!WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a variable-length-encoded
+integer (as defined in QUIC v1) to transmit the ID of the WebTransport session to
+the receiver.
 
 It is desirable that the receiver is able to associate incoming streams with
 their respective subpart of the application, even if the QUIC stream is reset
@@ -143,7 +144,7 @@ stream in order to reduce the Reliable Size.  It MAY also send a RESET_STREAM
 frame, which is equivalent to sending a RELIABLE_RESET_STREAM frame with a
 Reliable Size of 0.
 
-When sending multiple frames for the same stream, the iniator MUST NOT increase
+When sending multiple frames for the same stream, the initiator MUST NOT increase
 the Reliable Size.  When receiving a RELIABLE_RESET_STREAM frame with a lower
 Reliable Size, the receiver only needs to deliver data up the lower Reliable
 Size to the application before surfacing the stream reset error.
@@ -151,7 +152,7 @@ It MUST NOT expect the delivery of any data beyond
 that byte offset.
 
 Reordering of packets might lead to a RELIABLE_RESET_STREAM frame with a higher
-Reliable Size to be received after a RELIABLE_RESET_STREAM frame with a lower
+Reliable Size being received after a RELIABLE_RESET_STREAM frame with a lower
 Reliable Size.  The receiver MUST ignore any RELIABLE_RESET_STREAM frame that
 increases the Reliable Size.
 
