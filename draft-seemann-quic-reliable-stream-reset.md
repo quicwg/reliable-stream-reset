@@ -95,18 +95,18 @@ RELIABLE_RESET_STREAM Frame {
 
 RELIABLE_RESET_STREAM frames contain the following fields:
 
-Stream ID:  A variable-length-encoded integer encoding of the stream ID of
+Stream ID:  A variable-length integer encoding of the stream ID of
       the stream being terminated.
 
-Application Protocol Error Code:  A variable-length-encoded integer
+Application Protocol Error Code:  A variable-length integer
     containing the application protocol error code (see Section 20.2)
     that indicates why the stream is being closed.
 
-Final Size:  A variable-length-encoded integer indicating the final size of
+Final Size:  A variable-length integer indicating the final size of
     the stream by the RESET_STREAM sender, in units of bytes; see
     (Section 4.5 of {{!RFC9000}}).
 
-Reliable Size:  A variable-length-encoded integer indicating the amount of
+Reliable Size:  A variable-length integer indicating the amount of
     data that needs to be delivered to the application before the
     error code can be surfaced, in units of bytes.
 
