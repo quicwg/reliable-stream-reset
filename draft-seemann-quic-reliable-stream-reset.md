@@ -89,7 +89,7 @@ RELIABLE_RESET_STREAM Frame {
   Stream ID (i),
   Application Protocol Error Code (i),
   Final Size (i),
-  Reliable Size (i)
+  Reliable Size (i),
 }
 ~~~
 
