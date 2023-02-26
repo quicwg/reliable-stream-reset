@@ -1,6 +1,6 @@
 ---
-title: "Reliable QUIC Stream Resets"
-abbrev: "QUIC Reliable Stream Reset"
+title: "QUIC Stream Reset Payload"
+abbrev: "QUIC Stream Reset Payload"
 docname: draft-seemann-quic-reliable-stream-reset-latest
 category: info
 
@@ -30,10 +30,11 @@ informative:
 QUIC ({{!RFC9000}}) defines a RESET_STREAM frame to reset a stream. When a
 sender resets a stream, it stops retransmitting STREAM frames for this stream.
 On the receiver side, there is no guarantee that any of the data sent on that
-stream is delivered to the application.
-This document defines a new QUIC frame, the RELIABLE_RESET_STREAM frame, that
-resets a stream, while guaranteeing reliable delivery of stream data up to a
-certain byte offset.
+stream is delivered to the application. The only application protocol data
+contained in RESET_STREAM is a 62-bit error code.
+This document defines a new QUIC frame, RESET_STREAM_WITH_PAYLOAD, that
+acts in the same way as RESET_STREAM, but contains additional application
+protocol payload.
 
 --- middle
 
@@ -57,9 +58,10 @@ their respective subpart of the application, even if the QUIC stream is reset
 before the identifier at the beginning of the stream was read.
 
 This document describes a QUIC extension defining a new frame type, the
-RELIABLE_RESET_STREAM frame. This frame allows an endpoint to mark a portion at
-the beginning of the stream which will then be guaranteed to be delivered to
-receiver's application, even if the stream was reset.
+RESET_STREAM_WITH_PAYLOAD frame. This frame allows an endpoint to communicate
+additional application protocol data while resetting a stream; such data can be
+used to maintain stream associations, or to communicate additional error
+information on top of the 62-bit error code.
 
 # Conventions and Definitions
 
@@ -68,7 +70,7 @@ receiver's application, even if the stream was reset.
 # Negotiating Extension Use
 
 Endpoints advertise their support of the extension described in this document by
-sending the reliable_reset_stream (0x727273) transport parameter
+sending the reliable_reset_stream (0x727274) transport parameter
 (Section 7.4 of {{!RFC9000}}) with an empty value. An implementation that
 understands this transport parameter MUST treat the receipt of a non-empty
 value as a connection error of type TRANSPORT_PARAMETER_ERROR.
@@ -78,22 +80,23 @@ remember the value of this transport parameter.  If 0-RTT data is accepted by
 the server, the server MUST not disable this extension on the resumed
 connection.
 
-# RELIABLE_RESET_STREAM Frame
+# RESET_STREAM_WITH_PAYLOAD Frame
 
-Conceptually, the RELIABLE_RESET_STREAM frame is a RESET_STREAM frame with an
-added Reliable Size field.
+Conceptually, the RESET_STREAM_WITH_PAYLOAD frame is a RESET_STREAM frame with
+an added Application Protocol Payload field.
 
 ~~~
-RELIABLE_RESET_STREAM Frame {
-  Type (i) = 0x72,
+RESET_STREAM_WITH_PAYLOAD Frame {
+  Type (i) = 0x73,
   Stream ID (i),
   Application Protocol Error Code (i),
   Final Size (i),
-  Reliable Size (i),
+  Application Protocol Payload Size (i),
+  Application Protocol Payload (..),
 }
 ~~~
 
-RELIABLE_RESET_STREAM frames contain the following fields:
+RESET_STREAM_WITH_PAYLOAD frames contain the following fields:
 
 Stream ID:  A variable-length integer encoding of the stream ID of
       the stream being terminated.
@@ -106,60 +109,24 @@ Final Size:  A variable-length integer indicating the final size of
     the stream by the RESET_STREAM sender, in units of bytes; see
     (Section 4.5 of {{!RFC9000}}).
 
-Reliable Size:  A variable-length integer indicating the amount of
-    data that needs to be delivered to the application before the
-    error code can be surfaced, in units of bytes.
+Application Protocol Payload Size:  A variable-length integer specifying
+    the length of the application payload in bytes. Because
+    a RESET_STREAM_WITH_PAYLOAD frame cannot be split between packets,
+    any limits on packet size will also limit the space available for
+    the application payload.
 
-If the Reliable Size is larger than the Final Size, the receiver MUST close the
-connection with a connection error of type FRAME_ENCODING_ERROR.
+Application Protocol Payload:  An application-specific payload accompanying
+    the reset.  An application protocol MUST define the semantics of this field
+    in order for the RESET_STREAM_WITH_PAYLOAD frame to be used.
 
-Semantically, a RESET_STREAM frame is equivalent to a RELIABLE_RESET_STREAM
-frame with the Reliable Size set to 0.
+Semantically, a RESET_STREAM frame is equivalent to a RESET_STREAM_WITH_PAYLOAD
+frame with the Application Protocol Payload being empty.
 
-RELIABLE_RESET_STREAM frames are ack-eliciting. When lost, they MUST be
-retransmitted, unless a RESET_STREAM frame or another RELIABLE_RESET_STREAM
-frame was sent for the same stream (see {{multiple-frames}}).
-
-# Resetting Streams
-
-When resetting a stream, the node has the choice between using a RESET_STREAM
-frame and a RELIABLE_RESET_STREAM frame. When using a RESET_STREAM frame, the
-behavior is unchanged from the behavior described in ({{!RFC9000}}).
-
-The initiator MUST guarantee reliable delivery of stream data of at least
-Reliable Size bytes.  If STREAM frames containing data up to that byte offset
-are lost, the initiator MUST retransmit this data,  as described in
-(Section 13.3 of {{!RFC9000}}). Data sent beyond that byte offset SHOULD NOT be
+RESET_STREAM_WITH_PAYLOAD frames are ack-eliciting. When lost, they MUST be
 retransmitted.
 
-A receiver that delivers stream data to the application as an ordered byte
-stream MUST deliver all bytes up to the Reliable Size before surfacing the
-stream reset error.  As described in (Section 3.2 of {{RFC9000}}), it MAY
-deliver data beyond that offset to the application.
-
-## Multiple RELIABLE_RESET_STREAM / RESET_STREAM frames {#multiple-frames}
-
-The initiator MAY send multiple RELIABLE_RESET_STREAM frames for the same
-stream in order to reduce the Reliable Size.  It MAY also send a RESET_STREAM
-frame, which is equivalent to sending a RELIABLE_RESET_STREAM frame with a
-Reliable Size of 0.
-
-When sending multiple frames for the same stream, the initiator MUST NOT increase
-the Reliable Size.  When receiving a RELIABLE_RESET_STREAM frame with a lower
-Reliable Size, the receiver only needs to deliver data up the lower Reliable
-Size to the application before surfacing the stream reset error.
-It MUST NOT expect the delivery of any data beyond
-that byte offset.
-
-Reordering of packets might lead to a RELIABLE_RESET_STREAM frame with a higher
-Reliable Size being received after a RELIABLE_RESET_STREAM frame with a lower
-Reliable Size.  The receiver MUST ignore any RELIABLE_RESET_STREAM frame that
-increases the Reliable Size.
-
-When sending another RELIABLE_RESET_STREAM or RESET_STREAM frame for the same
-stream, the initiator MUST NOT change the Application Error Code or the Final
-Size. If the receiver detects a change in those fields, it MUST close the
-connection with a connection error of type STREAM_STATE_ERROR.
+TODO If we are using RESET_STREAM_WITH_PAYLOAD to communicate error codes, do
+we need to define a similar frame for STOP_SENDING?
 
 # Security Considerations
 
@@ -168,7 +135,7 @@ TODO Security
 
 # IANA Considerations
 
-This document has no IANA actions.
+TODO Register the new transport parameter and frame type.
 
 
 
