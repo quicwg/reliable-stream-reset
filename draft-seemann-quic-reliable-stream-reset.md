@@ -107,8 +107,8 @@ Final Size:  A variable-length integer indicating the final size of
     (Section 4.5 of {{!RFC9000}}).
 
 Reliable Size:  A variable-length integer indicating the amount of
-    data that needs to be delivered to the application before the
-    error code can be surfaced, in units of bytes.
+    data that needs to be delivered to the application even though
+    the stream is reset.
 
 If the Reliable Size is larger than the Final Size, the receiver MUST close the
 connection with a connection error of type FRAME_ENCODING_ERROR.
@@ -132,10 +132,8 @@ are lost, the initiator MUST retransmit this data,  as described in
 (Section 13.3 of {{!RFC9000}}). Data sent beyond that byte offset SHOULD NOT be
 retransmitted.
 
-A receiver that delivers stream data to the application as an ordered byte
-stream MUST deliver all bytes up to the Reliable Size before surfacing the
-stream reset error.  As described in (Section 3.2 of {{RFC9000}}), it MAY
-deliver data beyond that offset to the application.
+As described in (Section 3.2 of {{RFC9000}}), it MAY deliver data beyond that
+offset to the application.
 
 ## Multiple RELIABLE_RESET_STREAM / RESET_STREAM frames {#multiple-frames}
 
@@ -147,9 +145,8 @@ Reliable Size of 0.
 When sending multiple frames for the same stream, the initiator MUST NOT increase
 the Reliable Size.  When receiving a RELIABLE_RESET_STREAM frame with a lower
 Reliable Size, the receiver only needs to deliver data up the lower Reliable
-Size to the application before surfacing the stream reset error.
-It MUST NOT expect the delivery of any data beyond
-that byte offset.
+Size to the application. It MUST NOT expect the delivery of any data beyond that
+byte offset.
 
 Reordering of packets might lead to a RELIABLE_RESET_STREAM frame with a higher
 Reliable Size being received after a RELIABLE_RESET_STREAM frame with a lower
