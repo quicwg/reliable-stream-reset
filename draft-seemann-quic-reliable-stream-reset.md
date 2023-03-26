@@ -120,6 +120,13 @@ RELIABLE_RESET_STREAM frames are ack-eliciting. When lost, they MUST be
 retransmitted, unless a RESET_STREAM frame or another RELIABLE_RESET_STREAM
 frame was sent for the same stream (see {{multiple-frames}}).
 
+When retransmitting RELIABLE_RESET_STREAM frames for the same stream, the
+seder MUST NOT change the Application Error Code, the Final Size, or the
+Reliable Size.
+
+If the receiver detects a change in those fields, it MUST close the
+connection with a connection error of type STREAM_STATE_ERROR.
+
 # Resetting Streams
 
 When resetting a stream, the node has the choice between using a RESET_STREAM
@@ -137,26 +144,12 @@ offset to the application.
 
 ## Multiple RELIABLE_RESET_STREAM / RESET_STREAM frames {#multiple-frames}
 
-The initiator MAY send multiple RELIABLE_RESET_STREAM frames for the same
-stream in order to reduce the Reliable Size.  It MAY also send a RESET_STREAM
-frame, which is equivalent to sending a RELIABLE_RESET_STREAM frame with a
-Reliable Size of 0.
+The initiator MAY send RESET_STREAM frames on a stream that it has already sent
+RELIABLE_RESET_STREAM frames.
 
-When sending multiple frames for the same stream, the initiator MUST NOT increase
-the Reliable Size.  When receiving a RELIABLE_RESET_STREAM frame with a lower
-Reliable Size, the receiver only needs to deliver data up the lower Reliable
-Size to the application. It MUST NOT expect the delivery of any data beyond that
-byte offset.
-
-Reordering of packets might lead to a RELIABLE_RESET_STREAM frame with a higher
-Reliable Size being received after a RELIABLE_RESET_STREAM frame with a lower
-Reliable Size.  The receiver MUST ignore any RELIABLE_RESET_STREAM frame that
-increases the Reliable Size.
-
-When sending another RELIABLE_RESET_STREAM or RESET_STREAM frame for the same
-stream, the initiator MUST NOT change the Application Error Code or the Final
-Size. If the receiver detects a change in those fields, it MUST close the
-connection with a connection error of type STREAM_STATE_ERROR.
+When a receiver observes a RELIABLE_RESET_STREAM frame on a stream then
+receives a RESET_STREAM frame on the same stream, the receiver cannot expect
+delivery of any additional data on that stream.
 
 # Security Considerations
 
