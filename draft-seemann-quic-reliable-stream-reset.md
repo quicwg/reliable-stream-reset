@@ -54,10 +54,10 @@ the receiver. It is desirable that the receiver is able to associate incoming
 streams with their respective subpart of the application, even if the QUIC stream
 is reset before the identifier at the beginning of the stream was read.
 
-Another use-case is forwarding data from an external data source. When a forwarder
+Another use-case is relaying data from an external data source. When a relay
 is sending data being read from an external source and encounters an error, it
 might want to use a stream reset to signal that error, at the same time making
-sure that all data being read previously are delivered to the peer.
+sure that all data being read previously is delivered to the peer.
 
 This document describes a QUIC extension defining a new frame type, the
 RELIABLE_RESET_STREAM frame. This frame allows an endpoint to mark a portion at
