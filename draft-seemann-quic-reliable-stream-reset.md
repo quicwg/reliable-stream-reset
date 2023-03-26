@@ -50,11 +50,14 @@ beginning of the stream in order to associate that stream with a specific
 subpart of the application. For example, WebTransport
 ({{!WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a variable-length-encoded
 integer (as defined in QUIC v1) to transmit the ID of the WebTransport session to
-the receiver.
+the receiver. It is desirable that the receiver is able to associate incoming
+streams with their respective subpart of the application, even if the QUIC stream
+is reset before the identifier at the beginning of the stream was read.
 
-It is desirable that the receiver is able to associate incoming streams with
-their respective subpart of the application, even if the QUIC stream is reset
-before the identifier at the beginning of the stream was read.
+Another use-case is forwarding data from an external data source. When a forwarder
+is sending data being read from an external source and encounters an error, it
+might want to use a stream reset to signal that error, at the same time making
+sure that all data being read previously are delivered to the peer.
 
 This document describes a QUIC extension defining a new frame type, the
 RELIABLE_RESET_STREAM frame. This frame allows an endpoint to mark a portion at
