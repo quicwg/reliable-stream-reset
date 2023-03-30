@@ -19,6 +19,12 @@ author:
     name: Marten Seemann
     organization: Protocol Labs
     email: martenseemann@gmail.com
+ -
+    fullname:
+      :: 奥一穂
+      ascii: Kazuho Oku
+    org: Fastly
+    email: kazuhooku@gmail.com
 
 normative:
 
