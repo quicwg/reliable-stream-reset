@@ -1,7 +1,7 @@
 ---
 title: "Reliable QUIC Stream Resets"
 abbrev: "QUIC Reliable Stream Reset"
-docname: draft-seemann-quic-reliable-stream-reset-latest
+docname: draft-ietf-quic-reliable-stream-reset-latest
 category: std
 
 ipr: trust200902
