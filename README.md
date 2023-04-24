@@ -2,10 +2,10 @@
 
 This is the working area for the individual Internet-Draft, "Reliable QUIC Stream Resets".
 
-* [Editor's Copy](https://quicwg.github.io/draft-ietf-quic-reliable-stream-reset/#go.draft-ietf-quic-reliable-stream-reset.html)
+* [Editor's Copy](https://quicwg.github.io/reliable-stream-reset/#go.draft-ietf-quic-reliable-stream-reset.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-quic-reliable-stream-reset)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-ietf-quic-reliable-stream-reset)
-* [Compare Editor's Copy to Individual Draft](https://quicwg.github.io/draft-ietf-quic-reliable-stream-reset/#go.draft-ietf-quic-reliable-stream-reset.diff)
+* [Compare Editor's Copy to Individual Draft](https://quicwg.github.io/reliable-stream-reset/#go.draft-ietf-quic-reliable-stream-reset.diff)
 
 
 ## Contributing
