@@ -1,3 +1,3 @@
 # Automatically generated CODEOWNERS
 # Regenerate with `make update-codeowners`
-draft-seemann-quic-reliable-stream-reset.md marten@protocol.ai
+draft-ietf-quic-reliable-stream-reset.md martenseemann@gmail.com kazuhooku@gmail.com
