@@ -124,8 +124,8 @@ If the Reliable Size is larger than the Final Size, the receiver MUST close the
 connection with a connection error of type FRAME_ENCODING_ERROR.
 
 CLOSE_STREAM frames are ack-eliciting. When lost, they MUST be retransmitted,
-unless another frame that causes a state transition to the Data Sent or Reset
-Sent State was sent for the same stream (see {{multiple-frames}}).
+unless the stream state has transitioned to "Data Recvd" or "Reset Recvd" due
+to transmission and acknowledgement of other frames (see {{multiple-frames}}).
 
 # Closing Streams
 
@@ -146,7 +146,7 @@ When resetting a stream, the node has the choice between using a RESET_STREAM
 frame and a CLOSE_STREAM frame of type 0x21. When using a RESET_STREAM frame,
 the behavior is unchanged from the behavior described in ({{!RFC9000}}).
 
-The initiator MUST guarantee reliable delivery of stream data of at least
+When using the CLOSE_STREAM frame, the initiator MUST guarantee reliable delivery of stream data of at least
 Reliable Size bytes.  If STREAM frames containing data up to that byte offset
 are lost, the initiator MUST retransmit this data, as described in
 (Section 13.3 of {{!RFC9000}}). Data sent beyond that byte offset SHOULD NOT be
