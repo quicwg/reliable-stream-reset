@@ -82,10 +82,10 @@ sending the close_stream (0x17f7586d2cb570) transport parameter
 understands this transport parameter MUST treat the receipt of a non-empty
 value as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
-In order to allow reliable stream resets in 0-RTT packets, the client MUST
-remember the value of this transport parameter.  If 0-RTT data is accepted by
-the server, the server MUST not disable this extension on the resumed
-connection.
+In order to allow reliable stream resets in 0-RTT packets, both client and
+server MUST remember the value of this transport parameter.  If 0-RTT data is
+accepted by the server, the server MUST not disable this extension on the
+resumed connection.
 
 # CLOSE_STREAM Frame
 
