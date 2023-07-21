@@ -129,10 +129,10 @@ to transmission and acknowledgement of other frames (see {{multiple-frames}}).
 
 # Closing Streams
 
-## Without an Error
+## Without an Error Code
 
-When closing a stream with an error, the node has the choise between a STREAM
-frame that carries the FIN bit and a CLOSE_STREAM frame of type 0x20.
+When closing a stream without an error code, the node has the choice between a
+STREAM frame that carries the FIN bit and a CLOSE_STREAM frame of type 0x20.
 
 The CLOSE_STREAM frame can be used to reduce the reliable offset after a
 STREAM frame with a FIN bit has been sent. If STREAM frames containing data
@@ -146,11 +146,11 @@ When resetting a stream, the node has the choice between using a RESET_STREAM
 frame and a CLOSE_STREAM frame of type 0x21. When using a RESET_STREAM frame,
 the behavior is unchanged from the behavior described in ({{!RFC9000}}).
 
-When using the CLOSE_STREAM frame, the initiator MUST guarantee reliable delivery of stream data of at least
-Reliable Size bytes.  If STREAM frames containing data up to that byte offset
-are lost, the initiator MUST retransmit this data, as described in
-(Section 13.3 of {{!RFC9000}}). Data sent beyond that byte offset SHOULD NOT be
-retransmitted.
+When using a CLOSE_STREAM frame, the initiator MUST guarantee reliable delivery
+of stream data of at least Reliable Size bytes. If STREAM frames containing data
+up to that byte offset are lost, the initiator MUST retransmit this data, as
+described in (Section 13.3 of {{!RFC9000}}). Data sent beyond that byte offset
+SHOULD NOT be retransmitted.
 
 As described in (Section 3.2 of {{RFC9000}}), it MAY deliver data beyond that
 offset to the application.
