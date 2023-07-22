@@ -33,7 +33,7 @@ informative:
 
 --- abstract
 
-QUIC ({{!RFC9000}}) defines a RESET_STREAM frame to reset a stream. When a
+QUIC (RFC9000) defines a RESET_STREAM frame to reset a stream. When a
 sender resets a stream, it stops retransmitting STREAM frames for this stream.
 On the receiver side, there is no guarantee that any of the data sent on that
 stream is delivered to the application.
