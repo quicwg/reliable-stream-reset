@@ -45,7 +45,7 @@ stream data up to a certain byte offset.
 
 # Introduction
 
-QUIC v1 ({{!RFC9000}}) allows streams to be reset.  When a stream is
+QUIC version 1 ({{!RFC9000}}) allows streams to be reset.  When a stream is
 reset, the sender doesn't retransmit stream data for the respective stream.
 On the receiver side, the QUIC stack is free to surface the stream reset to the
 application immediately, even if it has already received stream data for that
@@ -55,7 +55,7 @@ Applications running on top of QUIC might need to send an identifier at the
 beginning of the stream in order to associate that stream with a specific
 subpart of the application. For example, WebTransport
 ({{!WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a variable-length-encoded
-integer (as defined in QUIC v1) to transmit the ID of the WebTransport session to
+integer (as defined in QUIC version 1) to transmit the ID of the WebTransport session to
 the receiver. It is desirable that the receiver is able to associate incoming
 streams with their respective subpart of the application, even if the QUIC stream
 is reset before the identifier at the beginning of the stream was read.
