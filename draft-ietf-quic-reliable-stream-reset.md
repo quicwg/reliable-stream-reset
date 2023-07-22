@@ -187,8 +187,6 @@ TODO Security
 
 # IANA Considerations
 
-## QUIC Transport Parameter
-
 This document registers the close_stream transport parameter in the "QUIC
 Transport Parameters" registry established in {{Section 22.3 of RFC9000}}. The
 following fields are registered:
