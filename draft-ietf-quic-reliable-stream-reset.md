@@ -187,6 +187,8 @@ TODO Security
 
 # IANA Considerations
 
+## QUIC Transport Parameter
+
 This document registers the close_stream transport parameter in the "QUIC
 Transport Parameters" registry established in {{Section 22.3 of RFC9000}}. The
 following fields are registered:
@@ -209,6 +211,29 @@ Change Controller:
 Contact:
 : QUIC Working Group (quic@ietf.org)
 
+## QUIC Frame Types
+
+This document registers two new values in the "QUIC Frame Types" registry
+established in {{Section 22.4 of RFC9000}}. The following fields are
+registered:
+
+Value:
+: 0x20-0x21
+
+Frame Type Name:
+: CLOSE_STREAM
+
+Status:
+: Permanent
+
+Specification:
+: This document
+
+Change Controller:
+: IETF (iesg@ietf.org)
+
+Contact:
+: QUIC Working Group (quic@ietf.org)
 
 --- back
 
