@@ -5,9 +5,16 @@ docname: draft-ietf-quic-reliable-stream-reset-latest
 category: std
 
 ipr: trust200902
-area: Transport
-workgroup: QUIC
+area: "Transport"
+workgroup: "QUIC"
 keyword: Internet-Draft
+venue:
+  group: "QUIC"
+  type: "Working Group"
+  mail: "quic@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/quic/"
+  github: "quicwg/reliable-stream-reset"
+  latest: "https://quicwg.github.io/reliable-stream-reset/draft-ietf-quic-reliable-stream-reset.html"
 
 stand_alone: yes
 smart_quotes: no
