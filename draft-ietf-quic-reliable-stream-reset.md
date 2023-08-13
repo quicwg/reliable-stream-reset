@@ -45,8 +45,8 @@ sender resets a stream, it stops retransmitting STREAM frames for this stream.
 On the receiver side, there is no guarantee that any of the data sent on that
 stream is delivered to the application.
 This document defines a new QUIC frame, the CLOSE_STREAM frame, that allows
-closing and resetting of a stream, while guaranteeing reliable delivery of
-stream data up to a certain byte offset.
+resetting of a stream, while guaranteeing reliable delivery of stream data
+up to a certain byte offset.
 
 --- middle
 
@@ -101,9 +101,9 @@ added Reliable Size field.
 
 ~~~
 CLOSE_STREAM Frame {
-  Type (i) = 0x20..0x21,
+  Type (i) = 0x20,
   Stream ID (i),
-  [Application Protocol Error Code (i)],
+  Application Protocol Error Code (i),
   Final Size (i),
   Reliable Size (i),
 }
@@ -116,8 +116,7 @@ Stream ID:  A variable-length integer encoding of the stream ID of
 
 Application Protocol Error Code:  A variable-length integer
     containing the application protocol error code (see Section 20.2)
-    that indicates why the stream is being closed. If the Type is 0x20,
-    this field is not included.
+    that indicates why the stream is being closed.
 
 Final Size:  A variable-length integer indicating the final size of
     the stream by the RESET_STREAM sender, in units of bytes; see
@@ -134,24 +133,11 @@ CLOSE_STREAM frames are ack-eliciting. When lost, they MUST be retransmitted,
 unless the stream state has transitioned to "Data Recvd" or "Reset Recvd" due
 to transmission and acknowledgement of other frames (see {{multiple-frames}}).
 
-# Closing Streams
-
-## Without an Error Code
-
-When closing a stream without an error code, the node has the choice between a
-STREAM frame that carries the FIN bit and a CLOSE_STREAM frame of type 0x20.
-
-The CLOSE_STREAM frame can be used to reduce the reliable offset after a
-STREAM frame with a FIN bit has been sent. If STREAM frames containing data
-up to that byte offset are lost, the initiator MUST retransmit this data, as
-described in (Section 13.3 of {{!RFC9000}}). Data sent beyond that byte offset
-SHOULD NOT be retransmitted.
-
-## Using an Error Code
+# Resetting Streams
 
 When resetting a stream, the node has the choice between using a RESET_STREAM
-frame and a CLOSE_STREAM frame of type 0x21. When using a RESET_STREAM frame,
-the behavior is unchanged from the behavior described in ({{!RFC9000}}).
+frame and a CLOSE_STREAM frame. When using a RESET_STREAM frame, the behavior is
+unchanged from the behavior described in ({{!RFC9000}}).
 
 When using a CLOSE_STREAM frame, the initiator MUST guarantee reliable delivery
 of stream data of at least Reliable Size bytes. If STREAM frames containing data
@@ -182,10 +168,8 @@ increases the Reliable Size.
 
 When sending another CLOSE_STREAM, RESET_STREAM or STREAM frame carrying a FIN
 bit for the same stream, the initiator MUST NOT change the Application Error
-Code or the Final Size.  This also means that sending CLOSE_STREAM frames of
-different types is not permitted. If the receiver detects a change in those
-fields, it MUST close the connection with a connection error of type
-STREAM_STATE_ERROR.
+Code or the Final Size. If the receiver detects a change in those fields, it
+MUST close the connection with a connection error of type STREAM_STATE_ERROR.
 
 # Security Considerations
 
@@ -220,12 +204,12 @@ Contact:
 
 ## QUIC Frame Types
 
-This document registers two new values in the "QUIC Frame Types" registry
+This document register one new value in the "QUIC Frame Types" registry
 established in {{Section 22.4 of RFC9000}}. The following fields are
 registered:
 
 Value:
-: 0x20-0x21
+: 0x20
 
 Frame Type Name:
 : CLOSE_STREAM
