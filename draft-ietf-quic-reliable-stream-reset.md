@@ -45,8 +45,8 @@ sender resets a stream, it stops retransmitting STREAM frames for this stream.
 On the receiver side, there is no guarantee that any of the data sent on that
 stream is delivered to the application.
 This document defines a new QUIC frame, the CLOSE_STREAM frame, that allows
-closing and resetting of a stream, while guaranteeing reliable delivery of
-stream data up to a certain byte offset.
+resetting of a stream, while guaranteeing reliable delivery of stream data
+up to a certain byte offset.
 
 --- middle
 
@@ -133,7 +133,7 @@ CLOSE_STREAM frames are ack-eliciting. When lost, they MUST be retransmitted,
 unless the stream state has transitioned to "Data Recvd" or "Reset Recvd" due
 to transmission and acknowledgement of other frames (see {{multiple-frames}}).
 
-# Closing Streams
+# Resetting Streams
 
 When resetting a stream, the node has the choice between using a RESET_STREAM
 frame and a CLOSE_STREAM frame. When using a RESET_STREAM frame, the behavior is
