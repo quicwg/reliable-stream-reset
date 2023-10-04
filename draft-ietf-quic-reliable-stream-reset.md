@@ -171,6 +171,16 @@ bit for the same stream, the initiator MUST NOT change the Application Error
 Code or the Final Size. If the receiver detects a change in those fields, it
 MUST close the connection with a connection error of type STREAM_STATE_ERROR.
 
+# Sender and Receiver Behavior during Reliable Reset
+
+When a sender wants to abort reliably by sending a CLOSE_STREAM frame, it MUST wait
+until the receiver has received and ACK'd the CLOSE_STREAM frame before the sender is allowed
+to abort its SEND path, even if the sender has sent enough data. This is to ensure 
+that the sender and receiver remain in-sync, and future state transitions only occur if and only 
+if both sender and receiver are aware of when to abort their send / recv paths once enough data 
+has been sent / received.
+
+
 # Security Considerations
 
 TODO Security
