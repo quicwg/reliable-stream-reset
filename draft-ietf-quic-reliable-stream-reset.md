@@ -44,9 +44,9 @@ QUIC (RFC9000) defines a RESET_STREAM frame to reset a stream. When a
 sender resets a stream, it stops retransmitting STREAM frames for this stream.
 On the receiver side, there is no guarantee that any of the data sent on that
 stream is delivered to the application.
-This document defines a new QUIC frame, the CLOSE_STREAM frame, that allows
-resetting of a stream, while guaranteeing reliable delivery of stream data
-up to a certain byte offset.
+This document defines two new QUIC frames, the CLOSE_STREAM and the ENOUGH
+frame, that allow resetting of a stream, while guaranteeing reliable delivery
+of stream data up to a certain byte offset.
 
 --- middle
 
@@ -94,7 +94,9 @@ remember the value of this transport parameter.  If 0-RTT data is
 accepted by the server, the server MUST NOT disable this extension on the
 resumed connection.
 
-# CLOSE_STREAM Frame
+# Frames
+
+## CLOSE_STREAM Frame
 
 Conceptually, the CLOSE_STREAM frame is a RESET_STREAM frame with an
 added Reliable Size field.
@@ -133,6 +135,31 @@ CLOSE_STREAM frames are ack-eliciting. When lost, they MUST be retransmitted,
 unless the stream state has transitioned to "Data Recvd" or "Reset Recvd" due
 to transmission and acknowledgement of other frames (see {{multiple-frames}}).
 
+## ENOUGH Frame
+
+Conceptually, the CLOSE_STREAM frame is a STOP_SENDING frame with an
+added Reliable Size field.
+
+ENOUGH Frame {
+  Type (i) = TBD,
+  Stream ID (i),
+  Application Protocol Error Code (i),
+  Reliable Size (i),
+}
+
+The ENOUGH frames contain the following fields:
+
+Stream ID:  A variable-length integer encoding of the stream ID of
+      the stream being terminated.
+
+Application Protocol Error Code:  A variable-length integer
+    containing the application protocol error code (see Section 20.2)
+    that indicates why the stream is being closed.
+
+Reliable Size:  A variable-length integer indicating the amount of
+    data that requested to be delivered to the application even though
+    the stream is reset.
+
 # Resetting Streams
 
 When resetting a stream, the node has the choice between using a RESET_STREAM
@@ -147,6 +174,21 @@ SHOULD NOT be retransmitted.
 
 As described in (Section 3.2 of {{RFC9000}}), it MAY deliver data beyond that
 offset to the application.
+
+# Aborting reading
+
+Using the STOP_SENDING frame, RFC 9000 allows the receiver of a stream to abort
+reading and to request the sender to reset the stream. Analogously, the ENOUGH
+frame can be used to request resetting the stream at a specific offset.
+
+The receiver of an ENOUGH frame MUST reset the stream, either by sending a
+RESET_STREAM frame, or by sending a CLOSE_STREAM frame. It MAY honor the
+receiver's request to reliably transmit the specified number of bytes, but it
+MAY choose any other offset as well.
+
+Note that if the sender has already sent a CLOSE_STREAM frame, it might not be
+possible to send another CLOSE_STREAM with a larger offset (see
+{{multiple-frames}}) for details.
 
 ## Multiple CLOSE_STREAM / RESET_STREAM frames {#multiple-frames}
 
