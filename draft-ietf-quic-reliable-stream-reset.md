@@ -181,10 +181,10 @@ Using the STOP_SENDING frame, RFC 9000 allows the receiver of a stream to abort
 reading and to request the sender to reset the stream. Analogously, the ENOUGH
 frame can be used to request resetting the stream at a specific offset.
 
-The receiver of an ENOUGH frame MUST reset the stream, either by sending a
-RESET_STREAM frame, or by sending a CLOSE_STREAM frame. It MAY honor the
-receiver's request to reliably transmit the specified number of bytes, but it
-MAY choose any other offset as well.
+The receiver of an ENOUGH frame MUST reset the stream by sending either a
+RESET_STREAM frame or a CLOSE_STREAM frame, if the stream is in the "Ready" or
+"Send" state. It MAY honor the receiver's request to reliably transmit the
+specified number of bytes, but it MAY choose any other offset as well.
 
 Note that if the sender has already sent a CLOSE_STREAM frame, it might not be
 possible to send another CLOSE_STREAM with a larger offset (see
