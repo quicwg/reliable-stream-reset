@@ -44,7 +44,7 @@ QUIC (RFC9000) defines a RESET_STREAM frame to reset a stream. When a
 sender resets a stream, it stops retransmitting STREAM frames for this stream.
 On the receiver side, there is no guarantee that any of the data sent on that
 stream is delivered to the application.
-This document defines a new QUIC frame, the CLOSE_STREAM frame, that allows
+This document defines a new QUIC frame, the RESET_STREAM_AT frame, that allows
 resetting of a stream, while guaranteeing reliable delivery of stream data
 up to a certain byte offset.
 
@@ -73,7 +73,7 @@ might want to use a stream reset to signal that error, at the same time making
 sure that all data being read previously is delivered to the peer.
 
 This document describes a QUIC extension defining a new frame type, the
-CLOSE_STREAM frame. This frame allows an endpoint to mark a portion at
+RESET_STREAM_AT frame. This frame allows an endpoint to mark a portion at
 the beginning of the stream which will then be guaranteed to be delivered to
 receiver's application, even if the stream was reset.
 
@@ -84,7 +84,7 @@ receiver's application, even if the stream was reset.
 # Negotiating Extension Use
 
 Endpoints advertise their support of the extension described in this document by
-sending the close_stream (0x17f7586d2cb570) transport parameter
+sending the RESET_STREAM_AT (0x17f7586d2cb570) transport parameter
 (Section 7.4 of {{!RFC9000}}) with an empty value. An implementation that
 understands this transport parameter MUST treat the receipt of a non-empty
 value as a connection error of type TRANSPORT_PARAMETER_ERROR.
@@ -94,13 +94,13 @@ remember the value of this transport parameter.  If 0-RTT data is
 accepted by the server, the server MUST NOT disable this extension on the
 resumed connection.
 
-# CLOSE_STREAM Frame
+# RESET_STREAM_AT Frame
 
-Conceptually, the CLOSE_STREAM frame is a RESET_STREAM frame with an
+Conceptually, the RESET_STREAM_AT frame is a RESET_STREAM frame with an
 added Reliable Size field.
 
 ~~~
-CLOSE_STREAM Frame {
+RESET_STREAM_AT Frame {
   Type (i) = 0x20,
   Stream ID (i),
   Application Protocol Error Code (i),
@@ -109,7 +109,7 @@ CLOSE_STREAM Frame {
 }
 ~~~
 
-The CLOSE_STREAM frames contain the following fields:
+The RESET_STREAM_AT frames contain the following fields:
 
 Stream ID:  A variable-length integer encoding of the stream ID of
       the stream being terminated.
@@ -129,17 +129,17 @@ Reliable Size:  A variable-length integer indicating the amount of
 If the Reliable Size is larger than the Final Size, the receiver MUST close the
 connection with a connection error of type FRAME_ENCODING_ERROR.
 
-CLOSE_STREAM frames are ack-eliciting. When lost, they MUST be retransmitted,
+RESET_STREAM_AT frames are ack-eliciting. When lost, they MUST be retransmitted,
 unless the stream state has transitioned to "Data Recvd" or "Reset Recvd" due
 to transmission and acknowledgement of other frames (see {{multiple-frames}}).
 
 # Resetting Streams
 
 When resetting a stream, the node has the choice between using a RESET_STREAM
-frame and a CLOSE_STREAM frame. When using a RESET_STREAM frame, the behavior is
+frame and a RESET_STREAM_AT frame. When using a RESET_STREAM frame, the behavior is
 unchanged from the behavior described in ({{!RFC9000}}).
 
-When using a CLOSE_STREAM frame, the initiator MUST guarantee reliable delivery
+When using a RESET_STREAM_AT frame, the initiator MUST guarantee reliable delivery
 of stream data of at least Reliable Size bytes. If STREAM frames containing data
 up to that byte offset are lost, the initiator MUST retransmit this data, as
 described in (Section 13.3 of {{!RFC9000}}). Data sent beyond that byte offset
@@ -148,25 +148,25 @@ SHOULD NOT be retransmitted.
 As described in (Section 3.2 of {{RFC9000}}), it MAY deliver data beyond that
 offset to the application.
 
-## Multiple CLOSE_STREAM / RESET_STREAM frames {#multiple-frames}
+## Multiple RESET_STREAM_AT / RESET_STREAM frames {#multiple-frames}
 
-The initiator MAY send multiple CLOSE_STREAM frames for the same
+The initiator MAY send multiple RESET_STREAM_AT frames for the same
 stream in order to reduce the Reliable Size.  It MAY also send a RESET_STREAM
-frame, which is equivalent to sending a CLOSE_STREAM frame with a
+frame, which is equivalent to sending a RESET_STREAM_AT frame with a
 Reliable Size of 0.
 
 When sending multiple frames for the same stream, the initiator MUST NOT increase
-the Reliable Size.  When receiving a CLOSE_STREAM frame with a lower
+the Reliable Size.  When receiving a RESET_STREAM_AT frame with a lower
 Reliable Size, the receiver only needs to deliver data up the lower Reliable
 Size to the application. It MUST NOT expect the delivery of any data beyond that
 byte offset.
 
-Reordering of packets might lead to a CLOSE_STREAM frame with a higher
-Reliable Size being received after a CLOSE_STREAM frame with a lower
-Reliable Size.  The receiver MUST ignore any CLOSE_STREAM frame that
+Reordering of packets might lead to a RESET_STREAM_AT frame with a higher
+Reliable Size being received after a RESET_STREAM_AT frame with a lower
+Reliable Size.  The receiver MUST ignore any RESET_STREAM_AT frame that
 increases the Reliable Size.
 
-When sending another CLOSE_STREAM, RESET_STREAM or STREAM frame carrying a FIN
+When sending another RESET_STREAM_AT, RESET_STREAM or STREAM frame carrying a FIN
 bit for the same stream, the initiator MUST NOT change the Application Error
 Code or the Final Size. If the receiver detects a change in those fields, it
 MUST close the connection with a connection error of type STREAM_STATE_ERROR.
@@ -180,7 +180,7 @@ TODO Security
 
 ## QUIC Transport Parameter
 
-This document registers the close_stream transport parameter in the "QUIC
+This document registers the RESET_STREAM_AT transport parameter in the "QUIC
 Transport Parameters" registry established in {{Section 22.3 of RFC9000}}. The
 following fields are registered:
 
@@ -188,7 +188,7 @@ Value:
 : 0x17f7586d2cb570
 
 Parameter Name:
-: close_stream
+: RESET_STREAM_AT
 
 Status:
 : Permanent
@@ -212,7 +212,7 @@ Value:
 : 0x20
 
 Frame Type Name:
-: CLOSE_STREAM
+: RESET_STREAM_AT
 
 Status:
 : Permanent
