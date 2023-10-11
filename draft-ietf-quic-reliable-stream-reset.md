@@ -187,7 +187,7 @@ bit are:
   Final Size,
 - this offset might get reduced by subsequent RESET_STREAM_AT frames,
 - the closure is accompanied by an error code, and
-- the CLOSE_STREAM frame don't contain any payload like the STREAM frame with the
+- the CLOSE_STREAM frame does not contain any payload like the STREAM frame with the
   FIN bit does.
 
 Therefore, QUIC stacks might implement support for the CLOSE_STREAM frame by
