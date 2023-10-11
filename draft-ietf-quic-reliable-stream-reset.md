@@ -173,8 +173,8 @@ MUST close the connection with a connection error of type STREAM_STATE_ERROR.
 
 # Implementation Guidance
 
-Semantically, the CLOSE_STREAM frame is more akin to the FIN bit than to the
-RESET_STREAM frame.
+In terms of transport machinery, the CLOSE_STREAM frame is more akin to the FIN bit
+than to the RESET_STREAM frame.
 
 By sending a CLOSE_STREAM frame, the sender commits to delivering all bytes up
 to the Reliable Size. The state transitions to "Data Sent" on the sender side,
