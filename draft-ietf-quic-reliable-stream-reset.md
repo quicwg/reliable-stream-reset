@@ -185,7 +185,7 @@ To the endpoints, the only differences from closing a stream by using the FIN
 bit are:
 - the offset up to which the sender commits to sending might be smaller than
   Final Size,
-- this offset might get reduced,
+- this offset might get reduced by subsequent RESET_STREAM_AT frames,
 - the closure is accompanied by an error code, and
 - the CLOSE_STREAM frame never coveys payload like the STREAM frame with the
   FIN bit does.
