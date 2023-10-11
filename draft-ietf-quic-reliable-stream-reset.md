@@ -173,13 +173,13 @@ MUST close the connection with a connection error of type STREAM_STATE_ERROR.
 
 # Implementation Guidance
 
-In terms of transport machinery, the CLOSE_STREAM frame is more akin to the FIN bit
-than to the RESET_STREAM frame.
+In terms of transport machinery, the RESET_STREAM_AT frame is more akin to the
+FIN bit than to the RESET_STREAM frame.
 
-By sending a CLOSE_STREAM frame, the sender commits to delivering all bytes up
-to the Reliable Size. The state transitions to "Data Sent" on the sender side,
-or to "Size Known" on the receive side. Note that the flow control limit might prevent
-the sender from sending all bytes up to the Reliable Size at once.
+By sending a RESET_STREAM_AT frame, the sender commits to delivering all bytes
+up to the Reliable Size. The state transitions to "Data Sent" on the sender
+side, or to "Size Known" on the receive side. Note that the flow control limit
+might prevent the sender from sending all bytes up to the Reliable Size at once.
 
 To the endpoints, the only differences from closing a stream by using the FIN
 bit are:
@@ -187,10 +187,10 @@ bit are:
   Final Size,
 - this offset might get reduced by subsequent RESET_STREAM_AT frames,
 - the closure is accompanied by an error code, and
-- the CLOSE_STREAM frame does not contain any payload like the STREAM frame with the
-  FIN bit does.
+- the RESET_STREAM_AT frame does not contain any payload like the STREAM frame
+  with the FIN bit does.
 
-Therefore, QUIC stacks might implement support for the CLOSE_STREAM frame by
+Therefore, QUIC stacks might implement support for the RESET_STREAM_AT frame by
 extending their code path that deal with the FIN bit.
 
 # Security Considerations
