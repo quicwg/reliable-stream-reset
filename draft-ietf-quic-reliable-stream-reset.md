@@ -178,7 +178,7 @@ FIN bit than to the RESET_STREAM frame.
 
 By sending a RESET_STREAM_AT frame, the sender commits to delivering all bytes
 up to the Reliable Size. The state transitions to "Data Sent" on the sender
-side, or to "Size Known" on the receive side. Note that the flow control limit
+side, or to "Size Known" on the receiver side. Note that the flow control limit
 might prevent the sender from sending all bytes up to the Reliable Size at once.
 
 To the endpoints, the only differences from closing a stream by using the FIN
