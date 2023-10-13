@@ -191,7 +191,7 @@ bit are:
   with the FIN bit does.
 
 Therefore, QUIC stacks might implement support for the RESET_STREAM_AT frame by
-extending their code path that deal with the FIN bit.
+extending their code paths that deal with the FIN bit.
 
 # Security Considerations
 
