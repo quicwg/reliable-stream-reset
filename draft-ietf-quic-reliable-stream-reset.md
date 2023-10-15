@@ -171,6 +171,28 @@ bit for the same stream, the initiator MUST NOT change the Application Error
 Code or the Final Size. If the receiver detects a change in those fields, it
 MUST close the connection with a connection error of type STREAM_STATE_ERROR.
 
+# Implementation Guidance
+
+In terms of transport machinery, the RESET_STREAM_AT frame is more akin to the
+FIN bit than to the RESET_STREAM frame.
+
+By sending a RESET_STREAM_AT frame, the sender commits to delivering all bytes
+up to the Reliable Size. The state transitions to "Data Sent" on the sender
+side, or to "Size Known" on the receiver side. Note that the flow control limit
+might prevent the sender from sending all bytes up to the Reliable Size at once.
+
+To the endpoints, the only differences from closing a stream by using the FIN
+bit are:
+- the offset up to which the sender commits to sending might be smaller than
+  Final Size,
+- this offset might get reduced by subsequent RESET_STREAM_AT frames,
+- the closure is accompanied by an error code, and
+- the RESET_STREAM_AT frame does not contain any payload like the STREAM frame
+  with the FIN bit does.
+
+Therefore, QUIC stacks might implement support for the RESET_STREAM_AT frame by
+extending their code paths that deal with the FIN bit.
+
 # Security Considerations
 
 TODO Security
