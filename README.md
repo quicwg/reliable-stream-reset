@@ -1,6 +1,6 @@
 # Reliable QUIC Stream Resets
 
-This is the working area for the individual Internet-Draft, "Reliable QUIC Stream Resets".
+This is the working area for the QUIC WG Internet-Draft, "Reliable QUIC Stream Resets".
 
 * [Editor's Copy](https://quicwg.github.io/reliable-stream-reset/#go.draft-ietf-quic-reliable-stream-reset.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-quic-reliable-stream-reset)
