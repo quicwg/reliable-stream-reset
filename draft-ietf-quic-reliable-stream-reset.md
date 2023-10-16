@@ -135,7 +135,7 @@ to transmission and acknowledgement of other frames (see {{multiple-frames}}).
 
 # Resetting Streams
 
-When resetting a stream while requesting some bytes to delivered to the peer
+When resetting a stream requesting some bytes to delivered to the peer
 application, an endpoint sends a RESET_STREAM_AT frame with the Reliable Size field
 specifying the amount of data to be delivered to the peer.
 
