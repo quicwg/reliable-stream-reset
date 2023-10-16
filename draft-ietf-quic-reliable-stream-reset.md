@@ -140,7 +140,7 @@ the sender sends a RESET_STREAM_AT frame with the Reliable Size field specifying
 the amount of data to be delivered.
 
 When resetting a stream without the intent to deliver any data to the receiver,
-the sender uses a RESET_STREAM frame (Section 3.2 of {{!RFC9000}}). The sender
+the sender uses a RESET_STREAM frame ({{Section 3.2 of RFC9000}}). The sender
 MAY also use a RESET_STREAM_AT frame with a Reliable Size of zero in place of a
 a RESET_STREAM frame. These two are identical and the behavior of
 RESET_STREAM frame is unchanged from the behavior described in {{!RFC9000}}.
