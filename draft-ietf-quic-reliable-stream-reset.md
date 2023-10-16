@@ -85,7 +85,7 @@ receiver's application, even if the stream was reset.
 
 Endpoints advertise their support of the extension described in this document by
 sending the RESET_STREAM_AT (0x17f7586d2cb570) transport parameter
-(Section 7.4 of {{!RFC9000}}) with an empty value. An implementation that
+({{Section 7.4 of RFC9000}}) with an empty value. An implementation that
 understands this transport parameter MUST treat the receipt of a non-empty
 value as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
@@ -115,12 +115,13 @@ Stream ID:  A variable-length integer encoding of the stream ID of
       the stream being terminated.
 
 Application Protocol Error Code:  A variable-length integer
-    containing the application protocol error code (see Section 20.2)
-    that indicates why the stream is being closed.
+    containing the application protocol error code
+    ({{Section 20.2 of RFC9000}}) that indicates why the stream is being
+    closed.
 
 Final Size:  A variable-length integer indicating the final size of
     the stream by the RESET_STREAM sender, in units of bytes; see
-    (Section 4.5 of {{!RFC9000}}).
+    {{Section 4.5 of RFC9000}}.
 
 Reliable Size:  A variable-length integer indicating the amount of
     data that needs to be delivered to the application even though
@@ -142,10 +143,10 @@ unchanged from the behavior described in ({{!RFC9000}}).
 When using a RESET_STREAM_AT frame, the initiator MUST guarantee reliable delivery
 of stream data of at least Reliable Size bytes. If STREAM frames containing data
 up to that byte offset are lost, the initiator MUST retransmit this data, as
-described in (Section 13.3 of {{!RFC9000}}). Data sent beyond that byte offset
+described in ({{Section 13.3 of RFC9000}}). Data sent beyond that byte offset
 SHOULD NOT be retransmitted.
 
-As described in (Section 3.2 of {{RFC9000}}), it MAY deliver data beyond that
+As described in {{Section 3.2 of RFC9000}}, it MAY deliver data beyond that
 offset to the application.
 
 ## Multiple RESET_STREAM_AT / RESET_STREAM frames {#multiple-frames}
