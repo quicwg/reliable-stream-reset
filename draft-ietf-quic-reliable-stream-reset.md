@@ -146,11 +146,11 @@ up to that byte offset are lost, the initiator MUST retransmit this data, as
 described in ({{Section 13.3 of RFC9000}}). Data sent beyond that byte offset
 SHOULD NOT be retransmitted.
 
-As described in {{Section 3.2 of RFC9000}}, a receiver MAY deliver data beyond that
-offset to the application. An sender MAY choose a Reliable Size that is greater
-than the offset supplied by the application. There is no guarantee that the error
-code or the offset that were set by the sending application traverses to the
-receiving application.
+As described in {{Section 3.2 of RFC9000}}, QUIC stacks MAY deliver data beyond
+that offset to the receiving application. An sending QUIC stack MAY choose a
+Reliable Size that is greater than the offset supplied by the sending application.
+There is no guarantee that the error code or the offset that were set by the
+sending application traverses to the receiving application.
 
 ## Multiple RESET_STREAM_AT / RESET_STREAM frames {#multiple-frames}
 
