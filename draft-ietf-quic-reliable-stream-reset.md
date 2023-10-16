@@ -135,9 +135,15 @@ to transmission and acknowledgement of other frames (see {{multiple-frames}}).
 
 # Resetting Streams
 
-When resetting a stream, the node has the choice between using a RESET_STREAM
-frame and a RESET_STREAM_AT frame. When using a RESET_STREAM frame, the behavior is
-unchanged from the behavior described in ({{!RFC9000}}).
+When resetting a stream while requesting some bytes to delivered to the peer
+application, an endpoint sends a RESET_STREAM_AT frame with the Reliable Size field
+specifying the amount of data to be delivered to the peer.
+
+When resetting a stream without requesting any data to be delivered to the peer
+application, an endpoint MAY use a RESET_STREAM_AT frame with a Reliable Size of
+zero instead of using a RESET_STREAM frame. These two are identical and the
+behavior of RESET_STREAM frame is unchanged from the behavior described in
+{{!RFC9000}}.
 
 When using a RESET_STREAM_AT frame, the initiator MUST guarantee reliable delivery
 of stream data of at least Reliable Size bytes. If STREAM frames containing data
