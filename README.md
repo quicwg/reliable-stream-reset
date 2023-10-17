@@ -11,7 +11,7 @@ This is the working area for the IETF [QUIC Working Group](https://datatracker.i
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/quicwg/reliable-stream-reset/blob/master/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/quicwg/reliable-stream-reset/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
