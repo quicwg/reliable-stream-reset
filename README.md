@@ -1,17 +1,17 @@
 # Reliable QUIC Stream Resets
 
-This is the working area for the QUIC WG Internet-Draft, "Reliable QUIC Stream Resets".
+This is the working area for the IETF [QUIC Working Group](https://datatracker.ietf.org/wg/quic/documents/) Internet-Draft, "Reliable QUIC Stream Resets".
 
 * [Editor's Copy](https://quicwg.github.io/reliable-stream-reset/#go.draft-ietf-quic-reliable-stream-reset.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-quic-reliable-stream-reset)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-ietf-quic-reliable-stream-reset)
-* [Compare Editor's Copy to Individual Draft](https://quicwg.github.io/reliable-stream-reset/#go.draft-ietf-quic-reliable-stream-reset.diff)
+* [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-quic-reliable-stream-reset)
+* [Compare Editor's Copy to Working Group Draft](https://quicwg.github.io/reliable-stream-reset/#go.draft-ietf-quic-reliable-stream-reset.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/quicwg/draft-ietf-quic-reliable-stream-reset/blob/master/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/quicwg/reliable-stream-reset/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
