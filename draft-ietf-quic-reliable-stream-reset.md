@@ -146,7 +146,7 @@ up to that byte offset are lost, the initiator MUST retransmit this data, as
 described in ({{Section 13.3 of RFC9000}}). Data sent beyond that byte offset
 SHOULD NOT be retransmitted.
 
-As described in {{Section 3 of RFC 9000}}, stream reset signals are not guaranteed
+As described in {{Section 3 of RFC9000}}, stream reset signals are not guaranteed
 to traverse to the receiver. QUIC stacks might deliver data beyond the specified
 offset to the receiving application.
 
