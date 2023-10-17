@@ -149,7 +149,7 @@ SHOULD NOT be retransmitted.
 As described in {{Section 3.2 of RFC9000}}, a stream reset signal might be
 suppressed or withheld, and the same applies to a stream reset signal carried in
 a RESET_STREAM_AT frame. Similary, the Reliable Size of the RESET_STREAM_AT
-frame does not prevent the QUIC stacks from delivering data beyond the
+frame does not prevent a QUIC stack from delivering data beyond the
 specified offset to the receiving application.
 
 ## Multiple RESET_STREAM_AT / RESET_STREAM frames {#multiple-frames}
