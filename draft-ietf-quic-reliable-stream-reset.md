@@ -111,21 +111,25 @@ RESET_STREAM_AT Frame {
 
 The RESET_STREAM_AT frames contain the following fields:
 
-Stream ID:  A variable-length integer encoding of the stream ID of
-      the stream being terminated.
+Stream ID:
 
-Application Protocol Error Code:  A variable-length integer
-    containing the application protocol error code
-    ({{Section 20.2 of RFC9000}}) that indicates why the stream is being
-    closed.
+: A variable-length integer encoding of the stream ID of the stream being
+  terminated.
 
-Final Size:  A variable-length integer indicating the final size of
-    the stream by the RESET_STREAM sender, in units of bytes; see
-    {{Section 4.5 of RFC9000}}.
+Application Protocol Error Code:
 
-Reliable Size:  A variable-length integer indicating the amount of
-    data that needs to be delivered to the application even though
-    the stream is reset.
+: A variable-length integer containing the application protocol error code
+  ({{Section 20.2 of RFC9000}}) that indicates why the stream is being closed.
+
+Final Size:
+
+: A variable-length integer indicating the final size of the stream by the
+  RESET_STREAM sender, in units of bytes; see {{Section 4.5 of RFC9000}}.
+
+Reliable Size:
+
+: A variable-length integer indicating the amount of data that needs to be
+  delivered to the application even though the stream is reset.
 
 If the Reliable Size is larger than the Final Size, the receiver MUST close the
 connection with a connection error of type FRAME_ENCODING_ERROR.
