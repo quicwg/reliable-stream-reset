@@ -40,13 +40,14 @@ informative:
 
 --- abstract
 
-QUIC (RFC9000) defines a RESET_STREAM frame to reset a stream. When a
-sender resets a stream, it stops retransmitting STREAM frames for this stream.
-On the receiver side, there is no guarantee that any of the data sent on that
-stream is delivered to the application.
+QUIC (RFC9000) defines a RESET_STREAM frame to reset a stream. When a sender
+resets a stream, it stops retransmitting STREAM frames for this stream. On the
+receiver side, there is no guarantee that any of the data sent on that stream is
+delivered to the application.
+
 This document defines a new QUIC frame, the RESET_STREAM_AT frame, that allows
-resetting of a stream, while guaranteeing reliable delivery of stream data
-up to a certain byte offset.
+resetting a stream, while guaranteeing reliable delivery of stream data up to a
+certain byte offset.
 
 --- middle
 
@@ -62,20 +63,21 @@ Applications running on top of QUIC might need to send an identifier at the
 beginning of the stream in order to associate that stream with a specific
 subpart of the application. For example, WebTransport
 ({{!WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a variable-length-encoded
-integer (as defined in QUIC version 1) to transmit the ID of the WebTransport session to
-the receiver. It is desirable that the receiver is able to associate incoming
-streams with their respective subpart of the application, even if the QUIC stream
-is reset before the identifier at the beginning of the stream was read.
+integer (as defined in QUIC version 1) to transmit the ID of the WebTransport
+session to the receiver. It is desirable that the receiver is able to associate
+incoming streams with their respective subpart of the application, even if the
+QUIC stream is reset before the identifier at the beginning of the stream was
+read.
 
-Another use-case is relaying data from an external data source. When a relay
-is sending data being read from an external source and encounters an error, it
+Another use-case is relaying data from an external data source. When a relay is
+sending data being read from an external source and encounters an error, it
 might want to use a stream reset to signal that error, at the same time making
-sure that all data being read previously is delivered to the peer.
+sure that all data previously read is delivered to the peer.
 
 This document describes a QUIC extension defining a new frame type, the
 RESET_STREAM_AT frame. This frame allows an endpoint to mark a portion at
 the beginning of the stream which will then be guaranteed to be delivered to
-receiver's application, even if the stream was reset.
+the receiver's application, even if the stream was reset.
 
 # Conventions and Definitions
 
@@ -151,11 +153,11 @@ MAY also use a RESET_STREAM_AT frame with a Reliable Size of zero in place of a
 RESET_STREAM frame. These two have the same effect and the behavior of
 RESET_STREAM frame is unchanged from the behavior described in {{!RFC9000}}.
 
-When using a RESET_STREAM_AT frame, the initiator MUST guarantee reliable delivery
-of stream data of at least Reliable Size bytes. If STREAM frames containing data
-up to that byte offset are lost, the initiator MUST retransmit this data, as
-described in ({{Section 13.3 of RFC9000}}). Data sent beyond that byte offset
-SHOULD NOT be retransmitted.
+When using a RESET_STREAM_AT frame, the initiator MUST guarantee reliable
+delivery of stream data of at least Reliable Size bytes. If STREAM frames
+containing data up to that byte offset are lost, the initiator MUST retransmit
+this data, as described in {{Section 13.3 of RFC9000}}. Data sent beyond that
+byte offset SHOULD NOT be retransmitted.
 
 As described in {{Section 3.2 of RFC9000}}, a stream reset signal might be
 suppressed or withheld, and the same applies to a stream reset signal carried in
@@ -267,9 +269,8 @@ Contact:
 
 ## QUIC Frame Types
 
-This document register one new value in the "QUIC Frame Types" registry
-established in {{Section 22.4 of RFC9000}}. The following fields are
-registered:
+This document registers one new value in the "QUIC Frame Types" registry
+established in {{Section 22.4 of RFC9000}}. The following fields are registered:
 
 Value:
 : 0x20
