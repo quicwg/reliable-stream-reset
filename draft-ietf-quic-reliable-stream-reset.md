@@ -199,7 +199,8 @@ RESET_STREAM_AT frame are received.
 When sending multiple frames for the same stream, the initiator MUST NOT increase
 the Reliable Size.
 
-When receiving a RESET_STREAM_AT frame with a lower Reliable Size, the receiver only needs to deliver data up the lower Reliable Size to the application. It
+When receiving a RESET_STREAM_AT frame with a lower Reliable Size, the receiver
+only needs to deliver data up the lower Reliable Size to the application. It
 MUST NOT expect the delivery of any data beyond that byte offset.
 
 Reordering of packets might lead to a RESET_STREAM_AT frame with a higher
