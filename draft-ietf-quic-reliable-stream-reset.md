@@ -124,7 +124,7 @@ Application Protocol Error Code:
 Final Size:
 
 : A variable-length integer indicating the final size of the stream by the
-  RESET_STREAM sender, in units of bytes; see {{Section 4.5 of RFC9000}}.
+  sender, in units of bytes; see {{Section 4.5 of RFC9000}}.
 
 Reliable Size:
 
