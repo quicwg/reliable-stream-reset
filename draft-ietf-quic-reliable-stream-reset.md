@@ -160,7 +160,7 @@ specified offset to the receiving application.
 
 ## Stream States {#stream-states}
 
-In terms of stream state transitions ({{Section 3 of RFC 9000}}, the effect of
+In terms of stream state transitions ({{Section 3 of RFC9000}}, the effect of
 RESET_STREAM_AT frame is equivalent to that of the FIN bit. This is because both
 the RESET_STREAM_AT frame and the FIN bit serve the same role: signalling the
 amount of data to be delivered.
