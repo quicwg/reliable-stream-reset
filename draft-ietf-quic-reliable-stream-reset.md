@@ -90,9 +90,9 @@ understands this transport parameter MUST treat the receipt of a non-empty
 value as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
 When using 0-RTT, both endpoints MUST remember the value of this transport
-parameter. This allows use of this extension in 0-RTT packets. If 0-RTT data is
-accepted by the server, the server MUST NOT disable this extension on the
-resumed connection.
+parameter. This allows use of this extension in 0-RTT packets. When the server
+accepts 0-RTT data, the server MUST NOT disable this extension on the resumed
+connection.
 
 # RESET_STREAM_AT Frame
 
