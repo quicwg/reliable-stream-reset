@@ -134,9 +134,10 @@ Reliable Size:
 If the Reliable Size is larger than the Final Size, the receiver MUST close the
 connection with a connection error of type FRAME_ENCODING_ERROR.
 
-RESET_STREAM_AT frames are ack-eliciting. When lost, they MUST be retransmitted,
-unless the stream state has transitioned to "Data Recvd" or "Reset Recvd" due
-to transmission and acknowledgement of other frames (see {{multiple-frames}}).
+RESET_STREAM_AT frames are ack-eliciting, and MUST only be sent in the
+application data packet number space. When lost, they MUST be retransmitted,
+unless the stream state has transitioned to "Data Recvd" or "Reset Recvd" due to
+transmission and acknowledgement of other frames (see {{multiple-frames}}).
 
 # Resetting Streams
 
