@@ -171,6 +171,11 @@ Reliable Size, the receiver only needs to deliver data up the lower Reliable
 Size to the application. It MUST NOT expect the delivery of any data beyond that
 byte offset.
 
+After sending multiple frames for the same stream, the state transition to the
+"Reset Recvd" state only occurs when receiving the acknowledgement for the frame
+with the frame carrying the lowest Reliable Size. Acknowledgements for
+RESET_STREAM_AT frames with higher offsets don't cause a state transition.
+
 Reordering of packets might lead to a RESET_STREAM_AT frame with a higher
 Reliable Size being received after a RESET_STREAM_AT frame with a lower
 Reliable Size.  The receiver MUST ignore any RESET_STREAM_AT frame that
