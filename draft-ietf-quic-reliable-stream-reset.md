@@ -90,9 +90,9 @@ understands this transport parameter MUST treat the receipt of a non-empty
 value as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
 When using 0-RTT, both endpoints MUST remember the value of this transport
-parameter. This allows use of this extension in 0-RTT packets. If 0-RTT data is
-accepted by the server, the server MUST NOT disable this extension on the
-resumed connection.
+parameter. This allows use of this extension in 0-RTT packets. When the server
+accepts 0-RTT data, the server MUST NOT disable this extension on the resumed
+connection.
 
 # RESET_STREAM_AT Frame
 
@@ -124,7 +124,7 @@ Application Protocol Error Code:
 Final Size:
 
 : A variable-length integer indicating the final size of the stream by the
-  RESET_STREAM sender, in units of bytes; see {{Section 4.5 of RFC9000}}.
+  sender, in units of bytes; see {{Section 4.5 of RFC9000}}.
 
 Reliable Size:
 
@@ -147,7 +147,7 @@ the amount of data to be delivered.
 When resetting a stream without the intent to deliver any data to the receiver,
 the sender uses a RESET_STREAM frame ({{Section 3.2 of RFC9000}}). The sender
 MAY also use a RESET_STREAM_AT frame with a Reliable Size of zero in place of a
-a RESET_STREAM frame. These two are identical and the behavior of
+RESET_STREAM frame. These two have the same effect and the behavior of
 RESET_STREAM frame is unchanged from the behavior described in {{!RFC9000}}.
 
 When using a RESET_STREAM_AT frame, the initiator MUST guarantee reliable delivery
@@ -197,10 +197,11 @@ stream data up to that size, until all acknowledgements for stream data and the
 RESET_STREAM_AT frame are received.
 
 When sending multiple frames for the same stream, the initiator MUST NOT increase
-the Reliable Size.  When receiving a RESET_STREAM_AT frame with a lower
-Reliable Size, the receiver only needs to deliver data up the lower Reliable
-Size to the application. It MUST NOT expect the delivery of any data beyond that
-byte offset.
+the Reliable Size.
+
+When receiving a RESET_STREAM_AT frame with a lower Reliable Size, the receiver
+only needs to deliver data up the lower Reliable Size to the application. It
+MUST NOT expect the delivery of any data beyond that byte offset.
 
 Reordering of packets might lead to a RESET_STREAM_AT frame with a higher
 Reliable Size being received after a RESET_STREAM_AT frame with a lower
@@ -215,11 +216,9 @@ MUST close the connection with a connection error of type STREAM_STATE_ERROR.
 # Implementation Guidance
 
 In terms of transport machinery, the RESET_STREAM_AT frame is more akin to the
-FIN bit than to the RESET_STREAM frame (see {{stream-states}}).
-
-By sending a RESET_STREAM_AT frame, the sender commits to delivering all bytes
-up to the Reliable Size. The state transitions to "Data Sent" on the sender
-side, or to "Size Known" on the receiver side.
+FIN bit than to the RESET_STREAM frame (see {{stream-states}}). By sending a
+RESET_STREAM_AT frame, the sender commits to delivering all bytes up to the
+Reliable Size.
 
 To the endpoints, the only differences from closing a stream by using the FIN
 bit are:
