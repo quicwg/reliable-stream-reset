@@ -165,9 +165,10 @@ RESET_STREAM_AT frame is equivalent to that of the FIN bit. This is because both
 the RESET_STREAM_AT frame and the FIN bit serve the same role: signaling the
 amount of data to be delivered.
 
-On the sending side, when a RESET_STREAM_AT frame is sent, the sending part of
-the stream enters the "Data Sent" state. Once the RESET_STREAM_AT frame and all
-stream data up to the Reliable Size are acknowledged, the sending part of the
+On the sending side, when the first RESET_STREAM_AT frame is sent, the sending
+part of the stream enters the "Data Sent" state. Once the RESET_STREAM_AT frame
+and all stream data up to the smallest Reliable Size being sent are
+acknowledged, the sending part of the
 stream enters the "Data Recvd" state. Transition from "Data Sent" to "Data
 Recvd" happens immediately when the application resets a stream and if all bytes
 up to the specified Reliable Size have been sent and acknowledged already.
@@ -176,7 +177,8 @@ flow control credits issued by the receiver.
 
 On the receiving side, when a RESET_STREAM_AT frame is received, the receiving
 part of the stream enters the "Size Known" state. Once all data up to the
-Reliable Size have been received, it enters the "Data Recvd" state. Similarly to
+smallest Reliable Size have been received, it enters the "Data Recvd" state.
+Similarly to
 the sending side, transition from "Size Known" to "Data Recvd" might happen
 immediately or involve issuance of additional flow control credits.
 
