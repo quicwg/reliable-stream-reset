@@ -215,11 +215,9 @@ MUST close the connection with a connection error of type STREAM_STATE_ERROR.
 # Implementation Guidance
 
 In terms of transport machinery, the RESET_STREAM_AT frame is more akin to the
-FIN bit than to the RESET_STREAM frame (see {{stream-states}}).
-
-By sending a RESET_STREAM_AT frame, the sender commits to delivering all bytes
-up to the Reliable Size. The state transitions to "Data Sent" on the sender
-side, or to "Size Known" on the receiver side.
+FIN bit than to the RESET_STREAM frame (see {{stream-states}}). By sending a
+RESET_STREAM_AT frame, the sender commits to delivering all bytes up to the
+Reliable Size.
 
 To the endpoints, the only differences from closing a stream by using the FIN
 bit are:
