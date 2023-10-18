@@ -163,7 +163,9 @@ specified offset to the receiving application.
 The initiator MAY send multiple RESET_STREAM_AT frames for the same
 stream in order to reduce the Reliable Size.  It MAY also send a RESET_STREAM
 frame, which is equivalent to sending a RESET_STREAM_AT frame with a
-Reliable Size of 0.
+Reliable Size of 0. When reducing the Reliable Size, the sender MUST retransmit
+the RELIABLE_RESET_AT frame carrying the smallest Reliable Size as well as
+stream data up to that size, until acknowledgements are received.
 
 When sending multiple frames for the same stream, the initiator MUST NOT increase
 the Reliable Size.  When receiving a RESET_STREAM_AT frame with a lower
