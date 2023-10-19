@@ -47,8 +47,8 @@ the of packet loss. On the receiving side, there is no guarantee that any data
 sent on that stream is delivered.
 
 This document defines a new QUIC frame, the RESET_STREAM_AT frame, that allows
-resetting a stream, while guaranteeing reliable delivery of stream data up to a
-certain byte offset.
+resetting a stream, while guaranteeing delivery of stream data up to a certain
+byte offset.
 
 --- middle
 
