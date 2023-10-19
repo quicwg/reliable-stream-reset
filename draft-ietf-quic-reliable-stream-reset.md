@@ -69,7 +69,7 @@ incoming streams with their respective subcomponent of the application, even if
 the QUIC stream is reset before the identifier at the beginning of the stream
 was read by the application.
 
-Another use case is proxying data from an external data source. When a proxy is
+Another use case is relay data from an external data source. When a relay is
 sending data being read from an external source and encounters an error, it
 might want to use a stream reset to signal that error, while at the same time
 guaranteeing that all data received from the source is delivered to the peer.
