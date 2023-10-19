@@ -34,16 +34,17 @@ author:
     email: kazuhooku@gmail.com
 
 normative:
+  WEBTRANSPORT: I-D.ietf-webtrans-http3
 
 informative:
 
 
 --- abstract
 
-QUIC (RFC9000) defines a RESET_STREAM frame to reset a stream. When a sender
-resets a stream, it stops retransmitting STREAM frames for this stream. On the
-receiver side, there is no guarantee that any of the data sent on that stream is
-delivered to the application.
+QUIC defines a RESET_STREAM frame to abort sending on a stream. When a sender
+resets a stream, it also stops retransmitting STREAM frames for this stream in
+the of packet loss. On the receiver side, there is no guarantee that any data
+sent on that stream is delivered.
 
 This document defines a new QUIC frame, the RESET_STREAM_AT frame, that allows
 resetting a stream, while guaranteeing reliable delivery of stream data up to a
@@ -54,30 +55,29 @@ certain byte offset.
 # Introduction
 
 QUIC version 1 ({{!RFC9000}}) allows streams to be reset.  When a stream is
-reset, the sender doesn't retransmit stream data for the respective stream.
-On the receiver side, the QUIC stack is free to surface the stream reset to the
-application immediately, even if it has already received stream data for that
-stream.
+reset, the sender doesn't retransmit stream data for the respective stream. On
+the receiver side, the QUIC stack is free to surface the stream reset to the
+application immediately, even if it has already received more stream data for
+that stream.
 
-Applications running on top of QUIC might need to send an identifier at the
-beginning of the stream in order to associate that stream with a specific
-subpart of the application. For example, WebTransport
-({{!WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a variable-length-encoded
-integer (as defined in QUIC version 1) to transmit the ID of the WebTransport
-session to the receiver. It is desirable that the receiver is able to associate
-incoming streams with their respective subpart of the application, even if the
-QUIC stream is reset before the identifier at the beginning of the stream was
-read.
+Some applications running on top of QUIC send an identifier at the beginning of
+the stream in order to associate that stream with a specific subcomponent of the
+application. For example, WebTransport ({{!WEBTRANSPORT}}) uses a
+variable-length encoded integer to associate a stream with a particular
+WebTransport session. It is desirable that the receiver is able to associate
+incoming streams with their respective subcomponent of the application, even if
+the QUIC stream is reset before the identifier at the beginning of the stream
+was read by the application.
 
-Another use-case is relaying data from an external data source. When a relay is
+Another use case is proxying data from an external data source. When a proxy is
 sending data being read from an external source and encounters an error, it
-might want to use a stream reset to signal that error, at the same time making
-sure that all data previously read is delivered to the peer.
+might want to use a stream reset to signal that error, while at the same time
+guaranteeing that all data received from the source is delivered to the peer.
 
 This document describes a QUIC extension defining a new frame type, the
-RESET_STREAM_AT frame. This frame allows an endpoint to mark a portion at
-the beginning of the stream which will then be guaranteed to be delivered to
-the receiver's application, even if the stream was reset.
+RESET_STREAM_AT frame. This frame allows an endpoint to mark a portion at the
+beginning of the stream which will then be guaranteed to be delivered reliably,
+even if the stream was reset.
 
 # Conventions and Definitions
 
@@ -86,10 +86,10 @@ the receiver's application, even if the stream was reset.
 # Negotiating Extension Use
 
 Endpoints advertise their support of the extension described in this document by
-sending the RESET_STREAM_AT (0x17f7586d2cb570) transport parameter
+sending the reliable_stream_reset (0x17f7586d2cb570) transport parameter
 ({{Section 7.4 of RFC9000}}) with an empty value. An implementation that
-understands this transport parameter MUST treat the receipt of a non-empty
-value as a connection error of type TRANSPORT_PARAMETER_ERROR.
+understands this transport parameter MUST treat the receipt of a non-empty value
+as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
 When using 0-RTT, both endpoints MUST remember the value of this transport
 parameter. This allows use of this extension in 0-RTT packets. When the server
@@ -143,9 +143,9 @@ transmission and acknowledgement of other frames (see {{multiple-frames}}).
 
 # Resetting Streams
 
-When a sender wants to reset a stream but also deliver some bytes to the receiver,
-the sender sends a RESET_STREAM_AT frame with the Reliable Size field specifying
-the amount of data to be delivered.
+A sender that wants to reset a stream but also deliver some bytes to the
+receiver, the sender sends a RESET_STREAM_AT frame with the Reliable Size field
+specifying the amount of data to be delivered.
 
 When resetting a stream without the intent to deliver any data to the receiver,
 the sender uses a RESET_STREAM frame ({{Section 3.2 of RFC9000}}). The sender
@@ -162,21 +162,21 @@ byte offset SHOULD NOT be retransmitted.
 As described in {{Section 3.2 of RFC9000}}, a stream reset signal might be
 suppressed or withheld, and the same applies to a stream reset signal carried in
 a RESET_STREAM_AT frame. Similary, the Reliable Size of the RESET_STREAM_AT
-frame does not prevent a QUIC stack from delivering data beyond the
-specified offset to the receiving application.
+frame does not prevent a QUIC stack from delivering data beyond the specified
+offset to the receiving application.
 
 ## Multiple RESET_STREAM_AT / RESET_STREAM frames {#multiple-frames}
 
-The initiator MAY send multiple RESET_STREAM_AT frames for the same
-stream in order to reduce the Reliable Size.  It MAY also send a RESET_STREAM
-frame, which is equivalent to sending a RESET_STREAM_AT frame with a
-Reliable Size of 0. When reducing the Reliable Size, the sender MUST retransmit
-the RESET_STREAM_AT frame carrying the smallest Reliable Size as well as
-stream data up to that size, until all acknowledgements for stream data and the
-RESET_STREAM_AT frame are received.
+The initiator MAY send multiple RESET_STREAM_AT frames for the same stream in
+order to reduce the Reliable Size.  It MAY also send a RESET_STREAM frame, which
+is equivalent to sending a RESET_STREAM_AT frame with a Reliable Size of 0. When
+reducing the Reliable Size, the sender MUST retransmit the RESET_STREAM_AT frame
+carrying the smallest Reliable Size as well as stream data up to that size,
+until all acknowledgements for the stream data and the RESET_STREAM_AT frame are
+received.
 
-When sending multiple frames for the same stream, the initiator MUST NOT increase
-the Reliable Size.
+When sending multiple RESET_STREAM_AT and RESET_STREAM frames for the same
+stream, the initiator MUST NOT increase the Reliable Size.
 
 When receiving a RESET_STREAM_AT frame with a lower Reliable Size, the receiver
 only needs to deliver data up the lower Reliable Size to the application. It
@@ -194,27 +194,26 @@ MUST close the connection with a connection error of type STREAM_STATE_ERROR.
 
 ## Stream States {#stream-states}
 
-In terms of stream state transitions ({{Section 3 of RFC9000}}), the effect of
-RESET_STREAM_AT frame is equivalent to that of the FIN bit. This is because both
-the RESET_STREAM_AT frame and the FIN bit serve the same role: signaling the
-amount of data to be delivered.
+In terms of stream state transitions ({{Section 3 of RFC9000}}), the effect of a
+RESET_STREAM_AT frame is equivalent to that of the FIN bit. Both the
+RESET_STREAM_AT frame and the FIN bit on a STREAM frame serve the same role:
+signaling the amount of data to be delivered.
 
-On the sending side, when the first RESET_STREAM_AT frame is sent, the sending
+On the sender side, when the first RESET_STREAM_AT frame is sent, the sending
 part of the stream enters the "Data Sent" state. Once the RESET_STREAM_AT frame
-and all stream data up to the smallest Reliable Size being sent are
-acknowledged, the sending part of the
-stream enters the "Data Recvd" state. Transition from "Data Sent" to "Data
-Recvd" happens immediately when the application resets a stream and if all bytes
-up to the specified Reliable Size have been sent and acknowledged already.
-Conversely, the transition might take multiple roundtrips or require additional
-flow control credits issued by the receiver.
+carrying the smallest Reliable Size and all stream data up to that byte offset
+have been acknowledged, the sending part of the stream enters the "Data Recvd"
+state. The transition from "Data Sent" to "Data Recvd" happens immediately if
+the application resets a stream and all bytes up to the specified Reliable Size
+have already been sent and acknowledged. Conversely, the transition might take
+multiple network roundtrips or require additional flow control credit issued by
+the receiver.
 
-On the receiving side, when a RESET_STREAM_AT frame is received, the receiving
+On the receiver side, when a RESET_STREAM_AT frame is received, the receiving
 part of the stream enters the "Size Known" state. Once all data up to the
 smallest Reliable Size have been received, it enters the "Data Recvd" state.
-Similarly to
-the sending side, transition from "Size Known" to "Data Recvd" might happen
-immediately or involve issuance of additional flow control credits.
+Similarly to the server side, transition from "Size Known" to "Data Recvd" might
+happen immediately or involve issuance of additional flow control credit.
 
 # Implementation Guidance
 
@@ -228,13 +227,9 @@ bit are:
 
 - the offset up to which the sender commits to sending might be smaller than
   Final Size,
-- this offset might get reduced by subsequent RESET_STREAM_AT frames,
-- the closure is accompanied by an error code, and
-- the RESET_STREAM_AT frame does not contain any payload like the STREAM frame
-  with the FIN bit does.
+- this offset might get reduced by subsequent RESET_STREAM_AT frames, and
+- the closure is accompanied by an error code.
 
-Therefore, QUIC stacks might implement support for the RESET_STREAM_AT frame by
-extending their code paths that deal with the FIN bit.
 
 # Security Considerations
 
@@ -245,9 +240,9 @@ TODO Security
 
 ## QUIC Transport Parameter
 
-This document registers the RESET_STREAM_AT transport parameter in the "QUIC
-Transport Parameters" registry established in {{Section 22.3 of RFC9000}}. The
-following fields are registered:
+This document registers the reliable_stream_reset transport parameter in the
+"QUIC Transport Parameters" registry established in {{Section 22.3 of RFC9000}}.
+The following fields are registered:
 
 Value:
 : 0x17f7586d2cb570
