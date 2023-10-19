@@ -43,7 +43,7 @@ informative:
 
 QUIC defines a RESET_STREAM frame to abort sending on a stream. When a sender
 resets a stream, it also stops retransmitting STREAM frames for this stream in
-the of packet loss. On the receiver side, there is no guarantee that any data
+the of packet loss. On the receiving side, there is no guarantee that any data
 sent on that stream is delivered.
 
 This document defines a new QUIC frame, the RESET_STREAM_AT frame, that allows
@@ -56,8 +56,8 @@ certain byte offset.
 
 QUIC version 1 ({{!RFC9000}}) allows streams to be reset.  When a stream is
 reset, the sender doesn't retransmit stream data for the respective stream. On
-the receiver side, the QUIC stack is free to surface the stream reset to the
-application immediately, even if it has already received more stream data for
+the receiving side, the QUIC stack is free to surface the stream reset to the
+application immediately, without providing any stream data it has received for
 that stream.
 
 Some applications running on top of QUIC send an identifier at the beginning of
@@ -76,7 +76,7 @@ guaranteeing that all data received from the source is delivered to the peer.
 
 This document describes a QUIC extension defining a new frame type, the
 RESET_STREAM_AT frame. This frame allows an endpoint to mark a portion at the
-beginning of the stream which will then be guaranteed to be delivered reliably,
+beginning of the stream which will then be guaranteed to be reliably delivered,
 even if the stream was reset.
 
 # Conventions and Definitions
@@ -144,8 +144,8 @@ transmission and acknowledgement of other frames (see {{multiple-frames}}).
 # Resetting Streams
 
 A sender that wants to reset a stream but also deliver some bytes to the
-receiver, the sender sends a RESET_STREAM_AT frame with the Reliable Size field
-specifying the amount of data to be delivered.
+receiver sends a RESET_STREAM_AT frame with the Reliable Size field specifying
+the amount of data to be delivered.
 
 When resetting a stream without the intent to deliver any data to the receiver,
 the sender uses a RESET_STREAM frame ({{Section 3.2 of RFC9000}}). The sender
@@ -175,7 +175,7 @@ carrying the smallest Reliable Size as well as stream data up to that size,
 until all acknowledgements for the stream data and the RESET_STREAM_AT frame are
 received.
 
-When sending multiple RESET_STREAM_AT and RESET_STREAM frames for the same
+When sending multiple RESET_STREAM_AT or RESET_STREAM frames for the same
 stream, the initiator MUST NOT increase the Reliable Size.
 
 When receiving a RESET_STREAM_AT frame with a lower Reliable Size, the receiver
@@ -199,7 +199,7 @@ RESET_STREAM_AT frame is equivalent to that of the FIN bit. Both the
 RESET_STREAM_AT frame and the FIN bit on a STREAM frame serve the same role:
 signaling the amount of data to be delivered.
 
-On the sender side, when the first RESET_STREAM_AT frame is sent, the sending
+On the sending side, when the first RESET_STREAM_AT frame is sent, the sending
 part of the stream enters the "Data Sent" state. Once the RESET_STREAM_AT frame
 carrying the smallest Reliable Size and all stream data up to that byte offset
 have been acknowledged, the sending part of the stream enters the "Data Recvd"
@@ -209,11 +209,11 @@ have already been sent and acknowledged. Conversely, the transition might take
 multiple network roundtrips or require additional flow control credit issued by
 the receiver.
 
-On the receiver side, when a RESET_STREAM_AT frame is received, the receiving
+On the receiving side, when a RESET_STREAM_AT frame is received, the receiving
 part of the stream enters the "Size Known" state. Once all data up to the
 smallest Reliable Size have been received, it enters the "Data Recvd" state.
-Similarly to the server side, transition from "Size Known" to "Data Recvd" might
-happen immediately or involve issuance of additional flow control credit.
+Similarly to the sending side, transition from "Size Known" to "Data Recvd"
+might happen immediately or involve issuance of additional flow control credit.
 
 # Implementation Guidance
 
@@ -222,7 +222,7 @@ FIN bit than to the RESET_STREAM frame (see {{stream-states}}). By sending a
 RESET_STREAM_AT frame, the sender commits to delivering all bytes up to the
 Reliable Size.
 
-To the endpoints, the only differences from closing a stream by using the FIN
+To the endpoints, the main differences from closing a stream by using the FIN
 bit are:
 
 - the offset up to which the sender commits to sending might be smaller than
