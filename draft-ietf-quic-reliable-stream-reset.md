@@ -248,7 +248,7 @@ Value:
 : 0x17f7586d2cb570
 
 Parameter Name:
-: RESET_STREAM_AT
+: reliable_stream_reset
 
 Status:
 : Permanent
