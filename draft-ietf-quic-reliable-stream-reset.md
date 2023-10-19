@@ -69,15 +69,15 @@ incoming streams with their respective subcomponent of the application, even if
 the QUIC stream is reset before the identifier at the beginning of the stream
 was read by the application.
 
-Another use case is relay data from an external data source. When a relay is
+Another use case is relaying data from an external data source. When a relay is
 sending data being read from an external source and encounters an error, it
 might want to use a stream reset to signal that error, while at the same time
 guaranteeing that all data received from the source is delivered to the peer.
 
 This document describes a QUIC extension defining a new frame type, the
 RESET_STREAM_AT frame. This frame allows an endpoint to mark a portion at the
-beginning of the stream which will then be guaranteed to be reliably delivered,
-even if the stream was reset.
+beginning of the stream which will then be reliably delivered, even if the
+stream was reset.
 
 # Conventions and Definitions
 
