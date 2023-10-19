@@ -165,30 +165,6 @@ a RESET_STREAM_AT frame. Similary, the Reliable Size of the RESET_STREAM_AT
 frame does not prevent a QUIC stack from delivering data beyond the
 specified offset to the receiving application.
 
-## Stream States {#stream-states}
-
-In terms of stream state transitions ({{Section 3 of RFC9000}}), the effect of
-RESET_STREAM_AT frame is equivalent to that of the FIN bit. This is because both
-the RESET_STREAM_AT frame and the FIN bit serve the same role: signaling the
-amount of data to be delivered.
-
-On the sending side, when the first RESET_STREAM_AT frame is sent, the sending
-part of the stream enters the "Data Sent" state. Once the RESET_STREAM_AT frame
-and all stream data up to the smallest Reliable Size being sent are
-acknowledged, the sending part of the
-stream enters the "Data Recvd" state. Transition from "Data Sent" to "Data
-Recvd" happens immediately when the application resets a stream and if all bytes
-up to the specified Reliable Size have been sent and acknowledged already.
-Conversely, the transition might take multiple roundtrips or require additional
-flow control credits issued by the receiver.
-
-On the receiving side, when a RESET_STREAM_AT frame is received, the receiving
-part of the stream enters the "Size Known" state. Once all data up to the
-smallest Reliable Size have been received, it enters the "Data Recvd" state.
-Similarly to
-the sending side, transition from "Size Known" to "Data Recvd" might happen
-immediately or involve issuance of additional flow control credits.
-
 ## Multiple RESET_STREAM_AT / RESET_STREAM frames {#multiple-frames}
 
 The initiator MAY send multiple RESET_STREAM_AT frames for the same
@@ -215,6 +191,30 @@ When sending another RESET_STREAM_AT, RESET_STREAM or STREAM frame carrying a FI
 bit for the same stream, the initiator MUST NOT change the Application Error
 Code or the Final Size. If the receiver detects a change in those fields, it
 MUST close the connection with a connection error of type STREAM_STATE_ERROR.
+
+## Stream States {#stream-states}
+
+In terms of stream state transitions ({{Section 3 of RFC9000}}), the effect of
+RESET_STREAM_AT frame is equivalent to that of the FIN bit. This is because both
+the RESET_STREAM_AT frame and the FIN bit serve the same role: signaling the
+amount of data to be delivered.
+
+On the sending side, when the first RESET_STREAM_AT frame is sent, the sending
+part of the stream enters the "Data Sent" state. Once the RESET_STREAM_AT frame
+and all stream data up to the smallest Reliable Size being sent are
+acknowledged, the sending part of the
+stream enters the "Data Recvd" state. Transition from "Data Sent" to "Data
+Recvd" happens immediately when the application resets a stream and if all bytes
+up to the specified Reliable Size have been sent and acknowledged already.
+Conversely, the transition might take multiple roundtrips or require additional
+flow control credits issued by the receiver.
+
+On the receiving side, when a RESET_STREAM_AT frame is received, the receiving
+part of the stream enters the "Size Known" state. Once all data up to the
+smallest Reliable Size have been received, it enters the "Data Recvd" state.
+Similarly to
+the sending side, transition from "Size Known" to "Data Recvd" might happen
+immediately or involve issuance of additional flow control credits.
 
 # Implementation Guidance
 
