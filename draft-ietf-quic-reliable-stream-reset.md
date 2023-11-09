@@ -34,7 +34,6 @@ author:
     email: kazuhooku@gmail.com
 
 normative:
-  WEBTRANSPORT: I-D.ietf-webtrans-http3
 
 informative:
 
@@ -60,14 +59,20 @@ the receiving side, the QUIC stack is free to surface the stream reset to the
 application immediately, without providing any stream data it has received for
 that stream.
 
-Some applications running on top of QUIC send an identifier at the beginning of
-the stream in order to associate that stream with a specific subcomponent of the
-application. For example, WebTransport ({{!WEBTRANSPORT}}) uses a
+Some applications running on top of QUIC use bytes at the beginning of the
+stream to communicate critical information related to that stream. For example,
+to associate the stream with a specific subcomponent of the application.
+Concretely, WebTransport ({{?WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a
 variable-length encoded integer to associate a stream with a particular
-WebTransport session. It is desirable that the receiver is able to associate
-incoming streams with their respective subcomponent of the application, even if
-the QUIC stream is reset before the identifier at the beginning of the stream
-was read by the application.
+WebTransport session.
+
+Since QUIC does not provide guaranteed delivery of steam data for reset streams,
+it is possible that a receiver is unable to read critical information. In the
+example above, a reset stream can cause the receiver to a fail to associate
+incoming streams with their respective subcomponent of the application.
+Therefore, it is desirable that the receiver can rely on the delivery of
+critical information to applications, even if the QUIC stream is reset before
+data is read by the application.
 
 Another use case is relaying data from an external data source. When a relay is
 sending data being read from an external source and encounters an error, it
