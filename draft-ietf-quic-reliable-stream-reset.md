@@ -41,24 +41,28 @@ informative:
 
 --- abstract
 
-QUIC defines a RESET_STREAM frame to abort sending on a stream. When a sender
-resets a stream, it also stops retransmitting STREAM frames for this stream in
-the of packet loss. On the receiving side, there is no guarantee that any data
-sent on that stream is delivered.
+QUIC transport protocol streams provide an ordered and reliable byte stream.
+Once a sender has started to emit stream data, it can abort the operation using
+a RESET_STREAM frame. When a sender resets a stream, it also stops
+retransmitting stream data in the case of packet loss. At the receiver, there is
+no guarantee that any data sent on a reset stream is delivered.
 
-This document defines a new QUIC frame, the RESET_STREAM_AT frame, that allows
-resetting a stream, while guaranteeing delivery of stream data up to a certain
-byte offset.
+This document defines an extension that allows a sender to reset a stream with
+guaranteed delivery of stream data from the beginning of the stream up to an
+explicitly declared byte offset.
 
 --- middle
 
 # Introduction
 
-QUIC version 1 ({{!RFC9000}}) allows streams to be reset.  When a stream is
-reset, the sender doesn't retransmit stream data for the respective stream. On
-the receiving side, the QUIC stack is free to surface the stream reset to the
-application immediately, without providing any stream data it has received for
-that stream.
+Version 1 of the QUIC transport protocol ({{!QUIC=RFC9000}}) provides
+streams, an ordered and reliable byte stream. Once a sender has started to emit
+stream data, it can abort the operation using a RESET_STREAM frame. When a
+sender resets a stream, it also stops retransmitting stream data in the case of
+packet loss. At the receiver, there is no guarantee that any data sent on a
+reset stream is delivered. The receiver's QUIC stack is permitted to surface the
+stream reset to the application immediately, without providing any stream data
+it has received for that stream.
 
 Some applications running on top of QUIC send an identifier at the beginning of
 the stream in order to associate that stream with a specific subcomponent of the
@@ -74,10 +78,9 @@ sending data being read from an external source and encounters an error, it
 might want to use a stream reset to signal that error, while at the same time
 guaranteeing that all data received from the source is delivered to the peer.
 
-This document describes a QUIC extension defining a new frame type, the
-RESET_STREAM_AT frame. This frame allows an endpoint to mark a portion at the
-beginning of the stream which will then be reliably delivered, even if the
-stream was reset.
+This document defines the RESET_STREAM_AT frame that allows an endpoint to reset
+a stream with guaranteed delivery of stream data from the beginning of the
+stream up to an explicitly declared byte offset.
 
 # Conventions and Definitions
 
