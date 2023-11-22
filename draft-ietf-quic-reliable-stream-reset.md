@@ -60,9 +60,8 @@ application immediately, without providing any stream data it has received for
 that stream.
 
 Some applications running on top of QUIC use bytes at the beginning of the
-stream to communicate critical information related to that stream. For example,
-to associate the stream with a specific subcomponent of the application.
-Concretely, WebTransport ({{?WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a
+stream to communicate critical information related to that stream.
+For example, WebTransport ({{?WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a
 variable-length encoded integer to associate a stream with a particular
 WebTransport session.
 
