@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                             Protocol Labs
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 12 May 2024                                              Fastly
-                                                         9 November 2023
+Expires: 25 May 2024                                              Fastly
+                                                        22 November 2023
 
 
                       Reliable QUIC Stream Resets
@@ -14,10 +14,10 @@ Expires: 12 May 2024                                              Fastly
 
 Abstract
 
-   QUIC transport protocol streams provide an ordered and reliable byte
-   stream.  Once a sender has started to emit stream data, it can abort
-   the operation using a RESET_STREAM frame.  When a sender resets a
-   stream, it also stops retransmitting stream data in the case of
+   The QUIC transport protocol provides byte streams that are ordered
+   and reliable.  Once a sender has started to emit stream data, it can
+   abort the operation using a RESET_STREAM frame.  When a sender resets
+   a stream, it also stops retransmitting stream data in the case of
    packet loss.  At the receiver, there is no guarantee that any data
    sent on a reset stream is delivered.
 
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 May 2024.
+   This Internet-Draft will expire on 25 May 2024.
 
 Copyright Notice
 
