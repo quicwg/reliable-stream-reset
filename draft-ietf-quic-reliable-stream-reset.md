@@ -41,7 +41,7 @@ informative:
 
 --- abstract
 
-QUIC transport protocol streams provide an ordered and reliable byte stream.
+The QUIC transport protocol provides byte streams that are ordered and reliable.
 Once a sender has started to emit stream data, it can abort the operation using
 a RESET_STREAM frame. When a sender resets a stream, it also stops
 retransmitting stream data in the case of packet loss. At the receiver, there is
