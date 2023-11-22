@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                             Protocol Labs
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 21 April 2024                                            Fastly
-                                                         19 October 2023
+Expires: 25 May 2024                                              Fastly
+                                                        22 November 2023
 
 
                       Reliable QUIC Stream Resets
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 April 2024.
+   This Internet-Draft will expire on 25 May 2024.
 
 Copyright Notice
 
@@ -154,7 +154,9 @@ Table of Contents
      Reliable Size (i),
    }
 
-   The RESET_STREAM_AT frames contain the following fields:
+                   Figure 1: RESET_STREAM_AT Frame Format
+
+   The RESET_STREAM_AT frame contains the following fields:
 
    Stream ID:  A variable-length integer encoding of the stream ID of
       the stream being terminated.
@@ -343,9 +345,9 @@ Table of Contents
    [WEBTRANSPORT]
               Frindell, A., Kinnear, E., and V. Vasiliev, "WebTransport
               over HTTP/3", Work in Progress, Internet-Draft, draft-
-              ietf-webtrans-http3-07, 13 June 2023,
+              ietf-webtrans-http3-08, 23 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-
-              webtrans-http3-07>.
+              webtrans-http3-08>.
 
 Acknowledgments
 
