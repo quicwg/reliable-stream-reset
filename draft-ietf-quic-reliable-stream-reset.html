@@ -1185,7 +1185,15 @@ byte offset.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
@@ -1207,22 +1215,26 @@ reset, the sender doesn't retransmit stream data for the respective stream. On
 the receiving side, the QUIC stack is free to surface the stream reset to the
 application immediately, without providing any stream data it has received for
 that stream.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">Some applications running on top of QUIC send an identifier at the beginning of
-the stream in order to associate that stream with a specific subcomponent of the
-application. For example, WebTransport (<span>[<a href="#WEBTRANSPORT" class="cite xref">WEBTRANSPORT</a>]</span>) uses a
+<p id="section-1-2">Some applications running on top of QUIC use bytes at the beginning of the
+stream to communicate critical information related to that stream.
+For example, WebTransport (<span>[<a href="#WEBTRANSPORT" class="cite xref">WEBTRANSPORT</a>]</span>) uses a
 variable-length encoded integer to associate a stream with a particular
-WebTransport session. It is desirable that the receiver is able to associate
-incoming streams with their respective subcomponent of the application, even if
-the QUIC stream is reset before the identifier at the beginning of the stream
-was read by the application.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">Another use case is relaying data from an external data source. When a relay is
+WebTransport session.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">Since QUIC does not provide guaranteed delivery of steam data for reset streams,
+it is possible that a receiver is unable to read critical information. In the
+example above, a reset stream can cause the receiver to a fail to associate
+incoming streams with their respective subcomponent of the application.
+Therefore, it is desirable that the receiver can rely on the delivery of
+critical information to applications, even if the QUIC stream is reset before
+data is read by the application.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">Another use case is relaying data from an external data source. When a relay is
 sending data being read from an external source and encounters an error, it
 might want to use a stream reset to signal that error, while at the same time
-guaranteeing that all data received from the source is delivered to the peer.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">This document describes a QUIC extension defining a new frame type, the
+guaranteeing that all data received from the source is delivered to the peer.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">This document describes a QUIC extension defining a new frame type, the
 RESET_STREAM_AT frame. This frame allows an endpoint to mark a portion at the
 beginning of the stream which will then be reliably delivered, even if the
-stream was reset.<a href="#section-1-4" class="pilcrow">¶</a></p>
+stream was reset.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1511,31 +1523,45 @@ established in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-22.4" c
 </div>
 </section>
 </div>
-<div id="sec-normative-references">
 <section id="section-9">
-      <h2 id="name-normative-references">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+      <h2 id="name-references">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<div id="sec-normative-references">
+<section id="section-9.1">
+        <h3 id="name-normative-references">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9000">[RFC9000]</dt>
       <dd>
 <span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-9.2">
+        <h3 id="name-informative-references">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
 <dt id="WEBTRANSPORT">[WEBTRANSPORT]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Frindell, A.</span>, <span class="refAuthor">Kinnear, E.</span>, and <span class="refAuthor">V. Vasiliev</span>, <span class="refTitle">"WebTransport over HTTP/3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-webtrans-http3-08</span>, <time datetime="2023-10-23" class="refDate">23 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-webtrans-http3-08">https://datatracker.ietf.org/doc/html/draft-ietf-webtrans-http3-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
 </div>
+</section>
 <div id="acknowledgments">
 <section id="appendix-A">
       <h2 id="name-acknowledgments">
