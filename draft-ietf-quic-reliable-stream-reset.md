@@ -110,8 +110,9 @@ RESET_STREAM_AT Frame {
   Reliable Size (i),
 }
 ~~~
+{: #reset-stream-at-format title="RESET_STREAM_AT Frame Format"}
 
-The RESET_STREAM_AT frames contain the following fields:
+The RESET_STREAM_AT frame contains the following fields:
 
 Stream ID:
 
