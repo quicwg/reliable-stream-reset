@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                             Protocol Labs
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 12 May 2024                                              Fastly
-                                                         9 November 2023
+Expires: 25 May 2024                                              Fastly
+                                                        22 November 2023
 
 
                       Reliable QUIC Stream Resets
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 May 2024.
+   This Internet-Draft will expire on 25 May 2024.
 
 Copyright Notice
 
@@ -102,10 +102,9 @@ Table of Contents
 
    Some applications running on top of QUIC use bytes at the beginning
    of the stream to communicate critical information related to that
-   stream.  For example, to associate the stream with a specific
-   subcomponent of the application.  Concretely, WebTransport
-   ([WEBTRANSPORT]) uses a variable-length encoded integer to associate
-   a stream with a particular WebTransport session.
+   stream.  For example, WebTransport ([WEBTRANSPORT]) uses a variable-
+   length encoded integer to associate a stream with a particular
+   WebTransport session.
 
    Since QUIC does not provide guaranteed delivery of steam data for
    reset streams, it is possible that a receiver is unable to read
