@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-11-21T00:50:07.171078+00:00",
+  "timestamp": "2023-11-23T00:48:36.594789+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -433,15 +433,15 @@
       "id": "I_kwDOHuKM_s52YKr1",
       "title": "WebTransport is just one example and isn't normative",
       "url": "https://github.com/quicwg/reliable-stream-reset/issues/50",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "LPardue",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "The intro states:\r\n\r\n> Some applications running on top of QUIC send an identifier at the beginning of\r\nthe stream in order to associate that stream with a specific subcomponent of the\r\napplication. For example, WebTransport ({{!WEBTRANSPORT}}) uses a\r\nvariable-length encoded integer to associate a stream with a particular\r\nWebTransport session. It is desirable that the receiver is able to associate\r\nincoming streams with their respective subcomponent of the application, even if\r\nthe QUIC stream is reset before the identifier at the beginning of the stream\r\nwas read by the application.\r\n\r\nActual use cases for protocol extensions are good. I think the WebTransport normative reference is just an accident and we can make it informative (even if that ends up as a downref, it's adopted work we expect to be published someday).\r\n\r\nI think we can tweak this text a little bit to make the extension sound as generic as it is, and then speak to the concrete examples. I'll make a PR.",
       "createdAt": "2023-11-09T16:59:01Z",
-      "updatedAt": "2023-11-09T16:59:01Z",
-      "closedAt": null,
+      "updatedAt": "2023-11-22T16:17:21Z",
+      "closedAt": "2023-11-22T16:17:21Z",
       "comments": []
     },
     {
@@ -465,15 +465,15 @@
       "id": "I_kwDOHuKM_s52YX5n",
       "title": "Lots of \"deliver\" in section 5.1",
       "url": "https://github.com/quicwg/reliable-stream-reset/issues/54",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "LPardue",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "> When receiving a RESET_STREAM_AT frame with a lower Reliable Size, the receiver only needs to deliver data up the lower Reliable Size to the application. It MUST NOT expect the delivery of any data beyond that byte offset.\r\n\r\nThere's something about the wording here that requires me to do some mental gymnastics that I think can be avoided by some rewording of the text.",
       "createdAt": "2023-11-09T17:32:15Z",
-      "updatedAt": "2023-11-09T17:32:15Z",
-      "closedAt": null,
+      "updatedAt": "2023-11-22T16:21:13Z",
+      "closedAt": "2023-11-22T16:21:13Z",
       "comments": []
     },
     {
@@ -3343,65 +3343,325 @@
       "labels": [],
       "body": "This is intended to be a rewording of the text to align with how other QUIC extensions have come out of the RFC editor.\r\n\r\nAlso I tried to tighten up the explanation of exactly what range data is reliable.\r\n",
       "createdAt": "2023-11-09T16:53:52Z",
-      "updatedAt": "2023-11-09T16:56:04Z",
+      "updatedAt": "2023-11-22T16:04:04Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "aa3a0e6d3aecd7ead506ea99c6260909389ce462",
       "headRepository": "quicwg/reliable-stream-reset",
       "headRefName": "abstract-intro",
-      "headRefOid": "a776cec60b36937c0a803c9be0f26c6b3e4cf538",
+      "headRefOid": "330d0e9a619d5dff2d69bd22d3adfeefd390d19b",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOHuKM_s5n6iw1",
+          "commit": {
+            "abbreviatedOid": "a776cec"
+          },
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "Thank you for the PR.\r\n\r\nLooks like a great improvement.",
+          "createdAt": "2023-11-22T01:15:00Z",
+          "updatedAt": "2023-11-22T01:22:34Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\nQUIC transport protocol provides ordered and reliable byte streams.\r\n```\r\nMaybe? Just a matter of taste.",
+              "createdAt": "2023-11-22T01:15:00Z",
+              "updatedAt": "2023-11-22T01:22:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5n6kIo",
+          "commit": {
+            "abbreviatedOid": "a776cec"
+          },
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-11-22T01:23:38Z",
+          "updatedAt": "2023-11-22T01:23:39Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "Or maybe: QUIC transport protocol provides byte streams that are ordered and reliable.",
+              "createdAt": "2023-11-22T01:23:39Z",
+              "updatedAt": "2023-11-22T01:23:39Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5n_6MC",
+          "commit": {
+            "abbreviatedOid": "a776cec"
+          },
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-11-22T16:04:04Z",
+          "updatedAt": "2023-11-22T16:04:04Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "I like the second suggestion, so tweaked it and pushed up",
+              "createdAt": "2023-11-22T16:04:04Z",
+              "updatedAt": "2023-11-22T16:04:04Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 51,
       "id": "PR_kwDOHuKM_s5fDw1E",
       "title": "Rephrase intro to make the mechansim more clearly generic",
       "url": "https://github.com/quicwg/reliable-stream-reset/pull/51",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "LPardue",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "Fixes #50\n",
       "createdAt": "2023-11-09T17:15:35Z",
-      "updatedAt": "2023-11-09T17:15:35Z",
+      "updatedAt": "2023-11-22T16:17:20Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "aa3a0e6d3aecd7ead506ea99c6260909389ce462",
       "headRepository": "quicwg/reliable-stream-reset",
       "headRefName": "webtrans-is-just-example",
-      "headRefOid": "c4c5baa5f06e06bbceb96bf08a9d0fca09f58c65",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "949c06044cfa6539b7c0d6b3b3460bf9b34b5b25",
+      "closedAt": "2023-11-22T16:17:20Z",
+      "mergedAt": "2023-11-22T16:17:20Z",
+      "mergedBy": "marten-seemann",
+      "mergeCommit": {
+        "oid": "ccf9163ec4fa5c2a13e0b53f930cacc009f523fa"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOHuKM_s5n6snH",
+          "commit": {
+            "abbreviatedOid": "c4c5baa"
+          },
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-11-22T02:15:53Z",
+          "updatedAt": "2023-11-22T02:15:53Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5n7Vt0",
+          "commit": {
+            "abbreviatedOid": "c4c5baa"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-11-22T05:50:31Z",
+          "updatedAt": "2023-11-22T05:51:07Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\nstream to communicate critical information related to that stream.\r\nFor example, WebTransport ({{?WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a\r\n```",
+              "createdAt": "2023-11-22T05:50:31Z",
+              "updatedAt": "2023-11-22T05:51:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5n_32g",
+          "commit": {
+            "abbreviatedOid": "c4c5baa"
+          },
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-11-22T15:59:18Z",
+          "updatedAt": "2023-11-22T15:59:19Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "I was trying to avoid chaining \"For example,\" in consecutive sentences. How about\r\n\r\n```suggestion\r\nstream to communicate critical information related to that stream. For example,\r\nto associate the stream with a specific subcomponent of the application.\r\nFor instance, WebTransport ({{?WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a\r\n```",
+              "createdAt": "2023-11-22T15:59:18Z",
+              "updatedAt": "2023-11-22T15:59:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5n_4kB",
+          "commit": {
+            "abbreviatedOid": "c4c5baa"
+          },
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-11-22T16:00:37Z",
+          "updatedAt": "2023-11-22T16:00:37Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "oh wait, github rendering was weird, Marten's suggest is good.",
+              "createdAt": "2023-11-22T16:00:37Z",
+              "updatedAt": "2023-11-22T16:00:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5n_76W",
+          "commit": {
+            "abbreviatedOid": "949c060"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-11-22T16:06:49Z",
+          "updatedAt": "2023-11-22T16:06:49Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5oADzg",
+          "commit": {
+            "abbreviatedOid": "949c060"
+          },
+          "author": "nibanks",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-11-22T16:12:56Z",
+          "updatedAt": "2023-11-22T16:12:56Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 52,
       "id": "PR_kwDOHuKM_s5fDzW8",
       "title": "add figure anchor",
       "url": "https://github.com/quicwg/reliable-stream-reset/pull/52",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "LPardue",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-11-09T17:23:16Z",
-      "updatedAt": "2023-11-09T17:25:51Z",
+      "updatedAt": "2023-11-22T05:49:39Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "aa3a0e6d3aecd7ead506ea99c6260909389ce462",
       "headRepository": "quicwg/reliable-stream-reset",
       "headRefName": "figgy-pudding",
       "headRefOid": "8366cf5488b14457a7cdbabb6f0f6e14089bfdca",
+      "closedAt": "2023-11-22T05:49:39Z",
+      "mergedAt": "2023-11-22T05:49:39Z",
+      "mergedBy": "marten-seemann",
+      "mergeCommit": {
+        "oid": "9ecf81e09b6ab2edce93a8c267d1f3777ce8a52a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOHuKM_s5n6swf",
+          "commit": {
+            "abbreviatedOid": "8366cf5"
+          },
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-11-22T02:16:50Z",
+          "updatedAt": "2023-11-22T02:16:50Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5n7VV9",
+          "commit": {
+            "abbreviatedOid": "8366cf5"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-11-22T05:48:39Z",
+          "updatedAt": "2023-11-22T05:48:39Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 56,
+      "id": "PR_kwDOHuKM_s5gJiG5",
+      "title": "Reduce use of deliver for different actors in same para",
+      "url": "https://github.com/quicwg/reliable-stream-reset/pull/56",
+      "state": "MERGED",
+      "author": "LPardue",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "If my understanding is correct, I think this a different way to phrase things.\nIf my understanding is wrong, maybe this is inspiration for phrasing.\n\nFixes #54\n",
+      "createdAt": "2023-11-22T16:08:58Z",
+      "updatedAt": "2023-11-22T16:21:12Z",
+      "baseRepository": "quicwg/reliable-stream-reset",
+      "baseRefName": "main",
+      "baseRefOid": "9ecf81e09b6ab2edce93a8c267d1f3777ce8a52a",
+      "headRepository": "quicwg/reliable-stream-reset",
+      "headRefName": "deliveroo",
+      "headRefOid": "5f174d81aa7632dc1b02f8a85d6d988f69e99e86",
+      "closedAt": "2023-11-22T16:21:12Z",
+      "mergedAt": "2023-11-22T16:21:12Z",
+      "mergedBy": "marten-seemann",
+      "mergeCommit": {
+        "oid": "d34d6900b3a3ec0fe76b511c6ccc1de4fe0a411a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOHuKM_s5oAErV",
+          "commit": {
+            "abbreviatedOid": "5f174d8"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Your understanding is correct, and the wording is clearly better. Thank you!",
+          "createdAt": "2023-11-22T16:14:45Z",
+          "updatedAt": "2023-11-22T16:14:45Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 57,
+      "id": "PR_kwDOHuKM_s5gJxgt",
+      "title": "Move and rephrase the clause about zero Reliable Size",
+      "url": "https://github.com/quicwg/reliable-stream-reset/pull/57",
+      "state": "OPEN",
+      "author": "LPardue",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "So part of my issue as a reader is the second paragraph is focused on detailing one\nspecific edge case of RESET_STREAM_AT. It's good to cover the edge case but\nI find it distracting to the primary use case. Therefore, propose moving it to the end\nof the section. At the same time, reword things slightly so it is clear this is\njust a special clause due to zero causing an effect like REST_STREAM.\n\nAttempts to fix #53\n",
+      "createdAt": "2023-11-22T16:50:19Z",
+      "updatedAt": "2023-11-22T16:50:19Z",
+      "baseRepository": "quicwg/reliable-stream-reset",
+      "baseRefName": "main",
+      "baseRefOid": "d34d6900b3a3ec0fe76b511c6ccc1de4fe0a411a",
+      "headRepository": "quicwg/reliable-stream-reset",
+      "headRefName": "zero-length-reliable",
+      "headRefOid": "82bd10467713f1f6dda4029e8f90888beead66de",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
