@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-11-23T00:48:36.594789+00:00",
+  "timestamp": "2023-11-26T00:52:03.644320+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -3655,7 +3655,7 @@
       "labels": [],
       "body": "So part of my issue as a reader is the second paragraph is focused on detailing one\nspecific edge case of RESET_STREAM_AT. It's good to cover the edge case but\nI find it distracting to the primary use case. Therefore, propose moving it to the end\nof the section. At the same time, reword things slightly so it is clear this is\njust a special clause due to zero causing an effect like REST_STREAM.\n\nAttempts to fix #53\n",
       "createdAt": "2023-11-22T16:50:19Z",
-      "updatedAt": "2023-11-22T16:50:19Z",
+      "updatedAt": "2023-11-23T04:41:54Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "d34d6900b3a3ec0fe76b511c6ccc1de4fe0a411a",
@@ -3667,7 +3667,48 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOHuKM_s5oDPQk",
+          "commit": {
+            "abbreviatedOid": "82bd104"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-11-23T04:10:30Z",
+          "updatedAt": "2023-11-23T04:10:33Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "Technically, you don't avoid stream data delivery, you just don't commit.",
+              "createdAt": "2023-11-23T04:10:30Z",
+              "updatedAt": "2023-11-23T04:10:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5oDTVl",
+          "commit": {
+            "abbreviatedOid": "82bd104"
+          },
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-11-23T04:41:53Z",
+          "updatedAt": "2023-11-23T04:41:54Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "Split the difference and \"Avoid committing \"? \ud83d\ude03",
+              "createdAt": "2023-11-23T04:41:53Z",
+              "updatedAt": "2023-11-23T04:41:54Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
