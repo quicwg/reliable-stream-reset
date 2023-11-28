@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-11-26T00:52:03.644320+00:00",
+  "timestamp": "2023-11-28T00:49:57.104595+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -3655,7 +3655,7 @@
       "labels": [],
       "body": "So part of my issue as a reader is the second paragraph is focused on detailing one\nspecific edge case of RESET_STREAM_AT. It's good to cover the edge case but\nI find it distracting to the primary use case. Therefore, propose moving it to the end\nof the section. At the same time, reword things slightly so it is clear this is\njust a special clause due to zero causing an effect like REST_STREAM.\n\nAttempts to fix #53\n",
       "createdAt": "2023-11-22T16:50:19Z",
-      "updatedAt": "2023-11-23T04:41:54Z",
+      "updatedAt": "2023-11-27T16:17:25Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "d34d6900b3a3ec0fe76b511c6ccc1de4fe0a411a",
@@ -3705,6 +3705,46 @@
               "body": "Split the difference and \"Avoid committing \"? \ud83d\ude03",
               "createdAt": "2023-11-23T04:41:53Z",
               "updatedAt": "2023-11-23T04:41:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5oWhnx",
+          "commit": {
+            "abbreviatedOid": "82bd104"
+          },
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-11-27T15:33:26Z",
+          "updatedAt": "2023-11-27T15:33:27Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "How about:\r\n```suggestion\r\nRFC9000}}). When resetting a stream without the intent to deliver any data to\r\n the receiver, the sender MAY use either RESET_STREAM or\r\nRESET_STREAM_AT with a Reliable Size of zero.\r\n```\r\n\r\nI'm essentially picking up the original when clause and connecting it to the main clause.",
+              "createdAt": "2023-11-27T15:33:26Z",
+              "updatedAt": "2023-11-27T15:33:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5oW61j",
+          "commit": {
+            "abbreviatedOid": "82bd104"
+          },
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-11-27T16:17:24Z",
+          "updatedAt": "2023-11-27T16:17:25Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "works for me!",
+              "createdAt": "2023-11-27T16:17:25Z",
+              "updatedAt": "2023-11-27T16:17:25Z"
             }
           ]
         }
