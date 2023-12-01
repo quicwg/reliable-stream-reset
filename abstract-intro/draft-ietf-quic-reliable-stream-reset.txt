@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                             Protocol Labs
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 25 May 2024                                              Fastly
-                                                        22 November 2023
+Expires: 3 June 2024                                              Fastly
+                                                         1 December 2023
 
 
                       Reliable QUIC Stream Resets
@@ -58,7 +58,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 May 2024.
+   This Internet-Draft will expire on 3 June 2024.
 
 Copyright Notice
 
@@ -94,15 +94,15 @@ Table of Contents
 
 1.  Introduction
 
-   Version 1 of the QUIC transport protocol ([QUIC]) provides streams,
-   an ordered and reliable byte stream.  Once a sender has started to
-   emit stream data, it can abort the operation using a RESET_STREAM
-   frame.  When a sender resets a stream, it also stops retransmitting
-   stream data in the case of packet loss.  At the receiver, there is no
-   guarantee that any data sent on a reset stream is delivered.  The
-   receiver's QUIC stack is permitted to surface the stream reset to the
-   application immediately, without providing any stream data it has
-   received for that stream.
+   Version 1 of the QUIC transport protocol ([QUIC]) provides byte-
+   oriented streams that are ordered and reliable.  Once a sender has
+   started to emit stream data, it can abort the operation using a
+   RESET_STREAM frame.  When a sender resets a stream, it also stops
+   retransmitting stream data in the case of packet loss.  At the
+   receiver, there is no guarantee that any data sent on a reset stream
+   is delivered.  The receiver's QUIC stack is permitted to surface the
+   stream reset to the application immediately, without providing any
+   stream data it has received for that stream.
 
    Some applications running on top of QUIC send an identifier at the
    beginning of the stream in order to associate that stream with a
