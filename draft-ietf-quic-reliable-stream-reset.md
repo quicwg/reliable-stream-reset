@@ -56,7 +56,7 @@ explicitly declared byte offset.
 # Introduction
 
 Version 1 of the QUIC transport protocol ({{!QUIC=RFC9000}}) provides
-streams, an ordered and reliable byte stream. Once a sender has started to emit
+byte-oriented streams that are ordered and reliable. Once a sender has started to emit
 stream data, it can abort the operation using a RESET_STREAM frame. When a
 sender resets a stream, it also stops retransmitting stream data in the case of
 packet loss. At the receiver, there is no guarantee that any data sent on a
