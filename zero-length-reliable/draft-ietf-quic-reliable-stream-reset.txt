@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                             Protocol Labs
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 2 June 2024                                              Fastly
-                                                        30 November 2023
+Expires: 3 June 2024                                              Fastly
+                                                         1 December 2023
 
 
                       Reliable QUIC Stream Resets
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 June 2024.
+   This Internet-Draft will expire on 3 June 2024.
 
 Copyright Notice
 
