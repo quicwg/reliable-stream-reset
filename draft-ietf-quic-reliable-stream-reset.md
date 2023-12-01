@@ -163,7 +163,7 @@ offset to the receiving application.
 Note that a Reliable Size value of zero is valid. A RESET_STREAM_AT frame with
 this value is logically equivalent to a RESET_STREAM frame ({{Section 3.2 of
 RFC9000}}). When resetting a stream without the intent to deliver any data to
- the receiver, the sender MAY use either RESET_STREAM or
+the receiver, the sender MAY use either RESET_STREAM or
 RESET_STREAM_AT with a Reliable Size of zero.
 
 ## Multiple RESET_STREAM_AT / RESET_STREAM frames {#multiple-frames}
