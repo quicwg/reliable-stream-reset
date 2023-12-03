@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-11-30T00:49:10.475514+00:00",
+  "timestamp": "2023-12-03T00:52:03.289321+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -3343,18 +3343,26 @@
       "labels": [],
       "body": "This is intended to be a rewording of the text to align with how other QUIC extensions have come out of the RFC editor.\r\n\r\nAlso I tried to tighten up the explanation of exactly what range data is reliable.\r\n",
       "createdAt": "2023-11-09T16:53:52Z",
-      "updatedAt": "2023-11-22T16:04:04Z",
+      "updatedAt": "2023-12-01T09:18:30Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "aa3a0e6d3aecd7ead506ea99c6260909389ce462",
       "headRepository": "quicwg/reliable-stream-reset",
       "headRefName": "abstract-intro",
-      "headRefOid": "330d0e9a619d5dff2d69bd22d3adfeefd390d19b",
+      "headRefOid": "1ec4b6242663bfc48e946d38d6ad8290bc1486be",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "@kazuho @marten-seemann good to go?",
+          "createdAt": "2023-11-30T14:02:19Z",
+          "updatedAt": "2023-11-30T14:02:19Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOHuKM_s5n6iw1",
@@ -3413,6 +3421,86 @@
               "body": "I like the second suggestion, so tweaked it and pushed up",
               "createdAt": "2023-11-22T16:04:04Z",
               "updatedAt": "2023-11-22T16:04:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5oDQj5",
+          "commit": {
+            "abbreviatedOid": "330d0e9"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-11-23T04:21:39Z",
+          "updatedAt": "2023-12-01T06:38:44Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "That's a weird mix of singular and plural in this sentence.",
+              "createdAt": "2023-11-23T04:21:39Z",
+              "updatedAt": "2023-12-01T06:38:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5o2o5Z",
+          "commit": {
+            "abbreviatedOid": "330d0e9"
+          },
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-12-01T07:10:44Z",
+          "updatedAt": "2023-12-01T07:10:45Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "@marten-seemann if you are concerned about that, maybe something like:\r\n```suggestion\r\nbyte-oriented streams that are ordered and reliable. Once a sender has started to emit\r\n```\r\n\r\nIt's almost a duplicate of the first sentence of the abstract, but hopefully nobody cares.",
+              "createdAt": "2023-12-01T07:10:44Z",
+              "updatedAt": "2023-12-01T07:10:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5o2w21",
+          "commit": {
+            "abbreviatedOid": "330d0e9"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-12-01T07:32:08Z",
+          "updatedAt": "2023-12-01T07:32:08Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "I merged too quickly. Byte-oriented? I've never heard this term before.\r\nMaybe better: reliable byte-ordered streams.",
+              "createdAt": "2023-12-01T07:32:08Z",
+              "updatedAt": "2023-12-01T07:32:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5o3ZHv",
+          "commit": {
+            "abbreviatedOid": "330d0e9"
+          },
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-12-01T09:18:30Z",
+          "updatedAt": "2023-12-01T09:18:30Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "We could go for \u201cbyte streams that are ordered and reliable,\u201d if oriented sounds unfamiliar.",
+              "createdAt": "2023-12-01T09:18:30Z",
+              "updatedAt": "2023-12-01T09:18:30Z"
             }
           ]
         }
@@ -3655,18 +3743,26 @@
       "labels": [],
       "body": "So part of my issue as a reader is the second paragraph is focused on detailing one\nspecific edge case of RESET_STREAM_AT. It's good to cover the edge case but\nI find it distracting to the primary use case. Therefore, propose moving it to the end\nof the section. At the same time, reword things slightly so it is clear this is\njust a special clause due to zero causing an effect like REST_STREAM.\n\nAttempts to fix #53\n",
       "createdAt": "2023-11-22T16:50:19Z",
-      "updatedAt": "2023-11-27T16:17:25Z",
+      "updatedAt": "2023-12-01T07:36:32Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "d34d6900b3a3ec0fe76b511c6ccc1de4fe0a411a",
       "headRepository": "quicwg/reliable-stream-reset",
       "headRefName": "zero-length-reliable",
-      "headRefOid": "82bd10467713f1f6dda4029e8f90888beead66de",
+      "headRefOid": "8499251e00825dde4150f49145f4df2e3beb1c7d",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "@marten-seemann @kazuho is this GTG?",
+          "createdAt": "2023-11-30T14:01:52Z",
+          "updatedAt": "2023-11-30T14:01:52Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOHuKM_s5oDPQk",
@@ -3745,6 +3841,39 @@
               "body": "works for me!",
               "createdAt": "2023-11-27T16:17:25Z",
               "updatedAt": "2023-11-27T16:17:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5o2pH_",
+          "commit": {
+            "abbreviatedOid": "bf4424f"
+          },
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-12-01T07:11:37Z",
+          "updatedAt": "2023-12-01T07:11:37Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5o2x6n",
+          "commit": {
+            "abbreviatedOid": "bf4424f"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-12-01T07:36:06Z",
+          "updatedAt": "2023-12-01T07:36:18Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "```suggestion\r\nthe receiver, the sender MAY use either RESET_STREAM or\r\n```",
+              "createdAt": "2023-12-01T07:36:06Z",
+              "updatedAt": "2023-12-01T07:36:18Z"
             }
           ]
         }
