@@ -238,7 +238,13 @@ bit are:
 
 # Security Considerations
 
-TODO Security
+As the RESET_STREAM_AT frame is an extension to the stream machinery defined in
+QUIC version 1, the security considerations of {{RFC9000}} apply accordingly.
+Specifically, given that RESET_STREAM_AT frames indicate the offset up to which
+data is reliably transmitted, endpoints SHOULD remain vigilant against resource
+commitment and exhaustion attacks have to be taken even after sending or
+receiving RESET_STREAM_AT frames, until the stream states reach the terminal
+state.
 
 
 # IANA Considerations
