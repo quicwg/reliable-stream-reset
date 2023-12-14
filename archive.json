@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-12T00:50:09.679576+00:00",
+  "timestamp": "2023-12-14T00:48:41.671944+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -3876,6 +3876,48 @@
               "updatedAt": "2023-12-01T07:36:18Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 58,
+      "id": "PR_kwDOHuKM_s5hvsAz",
+      "title": "Security Considerations",
+      "url": "https://github.com/quicwg/reliable-stream-reset/pull/58",
+      "state": "MERGED",
+      "author": "kazuho",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-12T02:13:48Z",
+      "updatedAt": "2023-12-13T05:30:23Z",
+      "baseRepository": "quicwg/reliable-stream-reset",
+      "baseRefName": "main",
+      "baseRefOid": "d34d6900b3a3ec0fe76b511c6ccc1de4fe0a411a",
+      "headRepository": "kazuho/draft-seemann-quic-reliable-stream-reset",
+      "headRefName": "kazuho/security-considerations",
+      "headRefOid": "0e2fde101e398f95349b2a3aeaec7f3050c24b5a",
+      "closedAt": "2023-12-13T05:30:23Z",
+      "mergedAt": "2023-12-13T05:30:23Z",
+      "mergedBy": "marten-seemann",
+      "mergeCommit": {
+        "oid": "3b3ebec0b979ea3fcb5829211c09bf042860a9ff"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOHuKM_s5qB1vD",
+          "commit": {
+            "abbreviatedOid": "0e2fde1"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Not really sure how you'd pull off an attack using RESET_STERAM_AT, but being vigilant is never a bad idea.",
+          "createdAt": "2023-12-13T05:30:00Z",
+          "updatedAt": "2023-12-13T05:30:00Z",
+          "comments": []
         }
       ]
     }
