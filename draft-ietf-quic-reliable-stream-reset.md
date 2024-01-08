@@ -152,12 +152,6 @@ A sender that wants to reset a stream but also deliver some bytes to the
 receiver sends a RESET_STREAM_AT frame with the Reliable Size field specifying
 the amount of data to be delivered.
 
-When resetting a stream without the intent to deliver any data to the receiver,
-the sender uses a RESET_STREAM frame ({{Section 3.2 of RFC9000}}). The sender
-MAY also use a RESET_STREAM_AT frame with a Reliable Size of zero in place of a
-RESET_STREAM frame. These two have the same effect and the behavior of
-RESET_STREAM frame is unchanged from the behavior described in {{!RFC9000}}.
-
 When using a RESET_STREAM_AT frame, the initiator MUST guarantee reliable
 delivery of stream data of at least Reliable Size bytes. If STREAM frames
 containing data up to that byte offset are lost, the initiator MUST retransmit
@@ -169,6 +163,12 @@ suppressed or withheld, and the same applies to a stream reset signal carried in
 a RESET_STREAM_AT frame. Similary, the Reliable Size of the RESET_STREAM_AT
 frame does not prevent a QUIC stack from delivering data beyond the specified
 offset to the receiving application.
+
+Note that a Reliable Size value of zero is valid. A RESET_STREAM_AT frame with
+this value is logically equivalent to a RESET_STREAM frame ({{Section 3.2 of
+RFC9000}}). When resetting a stream without the intent to deliver any data to
+the receiver, the sender MAY use either RESET_STREAM or
+RESET_STREAM_AT with a Reliable Size of zero.
 
 ## Multiple RESET_STREAM_AT / RESET_STREAM frames {#multiple-frames}
 
