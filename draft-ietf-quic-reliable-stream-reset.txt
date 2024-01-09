@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                             Protocol Labs
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 11 July 2024                                             Fastly
-                                                          8 January 2024
+Expires: 12 July 2024                                             Fastly
+                                                          9 January 2024
 
 
                       Reliable QUIC Stream Resets
@@ -16,8 +16,8 @@ Abstract
 
    QUIC defines a RESET_STREAM frame to abort sending on a stream.  When
    a sender resets a stream, it also stops retransmitting STREAM frames
-   for this stream in the of packet loss.  On the receiving side, there
-   is no guarantee that any data sent on that stream is delivered.
+   for this stream in the event of packet loss.  On the receiving side,
+   there is no guarantee that any data sent on that stream is delivered.
 
    This document defines a new QUIC frame, the RESET_STREAM_AT frame,
    that allows resetting a stream, while guaranteeing delivery of stream
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 July 2024.
+   This Internet-Draft will expire on 12 July 2024.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
    Since QUIC does not provide guaranteed delivery of steam data for
    reset streams, it is possible that a receiver is unable to read
    critical information.  In the example above, a reset stream can cause
-   the receiver to a fail to associate incoming streams with their
+   the receiver to fail to associate incoming streams with their
    respective subcomponent of the application.  Therefore, it is
    desirable that the receiver can rely on the delivery of critical
    information to applications, even if the QUIC stream is reset before
@@ -205,7 +205,7 @@ Table of Contents
 
    As described in Section 3.2 of [RFC9000], a stream reset signal might
    be suppressed or withheld, and the same applies to a stream reset
-   signal carried in a RESET_STREAM_AT frame.  Similary, the Reliable
+   signal carried in a RESET_STREAM_AT frame.  Similarly, the Reliable
    Size of the RESET_STREAM_AT frame does not prevent a QUIC stack from
    delivering data beyond the specified offset to the receiving
    application.
@@ -297,9 +297,8 @@ Table of Contents
    apply accordingly.  Specifically, given that RESET_STREAM_AT frames
    indicate the offset up to which data is reliably transmitted,
    endpoints SHOULD remain vigilant against resource commitment and
-   exhaustion attacks have to be taken even after sending or receiving
-   RESET_STREAM_AT frames, until the stream states reach the terminal
-   state.
+   exhaustion attacks even after sending or receiving RESET_STREAM_AT
+   frames, until the stream reaches the terminal state.
 
 8.  IANA Considerations
 

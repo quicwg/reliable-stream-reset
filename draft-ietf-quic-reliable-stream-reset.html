@@ -10,8 +10,8 @@
 <meta content="
        QUIC defines a RESET_STREAM frame to abort sending on a stream. When a sender
 resets a stream, it also stops retransmitting STREAM frames for this stream in
-the of packet loss. On the receiving side, there is no guarantee that any data
-sent on that stream is delivered. 
+the event of packet loss. On the receiving side, there is no guarantee that any
+data sent on that stream is delivered. 
        This document defines a new QUIC frame, the RESET_STREAM_AT frame, that allows
 resetting a stream, while guaranteeing delivery of stream data up to a certain
 byte offset. 
@@ -1036,7 +1036,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Seemann &amp; Oku</td>
-<td class="center">Expires 11 July 2024</td>
+<td class="center">Expires 12 July 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1049,12 +1049,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-quic-reliable-stream-reset-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-01-08" class="published">8 January 2024</time>
+<time datetime="2024-01-09" class="published">9 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-07-11">11 July 2024</time></dd>
+<dd class="expires"><time datetime="2024-07-12">12 July 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1074,8 +1074,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">QUIC defines a RESET_STREAM frame to abort sending on a stream. When a sender
 resets a stream, it also stops retransmitting STREAM frames for this stream in
-the of packet loss. On the receiving side, there is no guarantee that any data
-sent on that stream is delivered.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+the event of packet loss. On the receiving side, there is no guarantee that any
+data sent on that stream is delivered.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">This document defines a new QUIC frame, the RESET_STREAM_AT frame, that allows
 resetting a stream, while guaranteeing delivery of stream data up to a certain
 byte offset.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
@@ -1115,7 +1115,7 @@ byte offset.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 11 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 12 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1222,7 +1222,7 @@ variable-length encoded integer to associate a stream with a particular
 WebTransport session.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">Since QUIC does not provide guaranteed delivery of steam data for reset streams,
 it is possible that a receiver is unable to read critical information. In the
-example above, a reset stream can cause the receiver to a fail to associate
+example above, a reset stream can cause the receiver to fail to associate
 incoming streams with their respective subcomponent of the application.
 Therefore, it is desirable that the receiver can rely on the delivery of
 critical information to applications, even if the QUIC stream is reset before
@@ -1338,7 +1338,7 @@ this data, as described in <span><a href="https://rfc-editor.org/rfc/rfc9000#sec
 byte offset <span class="bcp14">SHOULD NOT</span> be retransmitted.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <p id="section-5-3">As described in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-3.2" class="relref">Section 3.2</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>, a stream reset signal might be
 suppressed or withheld, and the same applies to a stream reset signal carried in
-a RESET_STREAM_AT frame. Similary, the Reliable Size of the RESET_STREAM_AT
+a RESET_STREAM_AT frame. Similarly, the Reliable Size of the RESET_STREAM_AT
 frame does not prevent a QUIC stack from delivering data beyond the specified
 offset to the receiving application.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <p id="section-5-4">Note that a Reliable Size value of zero is valid. A RESET_STREAM_AT frame with
@@ -1433,9 +1433,8 @@ Final Size,<a href="#section-6-3.1.1" class="pilcrow">¶</a></p>
 QUIC version 1, the security considerations of <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> apply accordingly.
 Specifically, given that RESET_STREAM_AT frames indicate the offset up to which
 data is reliably transmitted, endpoints <span class="bcp14">SHOULD</span> remain vigilant against resource
-commitment and exhaustion attacks have to be taken even after sending or
-receiving RESET_STREAM_AT frames, until the stream states reach the terminal
-state.<a href="#section-7-1" class="pilcrow">¶</a></p>
+commitment and exhaustion attacks even after sending or receiving RESET_STREAM_AT
+frames, until the stream reaches the terminal state.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
