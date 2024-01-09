@@ -41,9 +41,9 @@ informative:
 --- abstract
 
 QUIC defines a RESET_STREAM frame to abort sending on a stream. When a sender
-resets a stream, it also stops retransmitting STREAM frames for this stream. On
-the receiving side, there is no guarantee that any data sent on that stream is
-delivered.
+resets a stream, it also stops retransmitting STREAM frames for this stream in
+the event of packet loss. On the receiving side, there is no guarantee that any
+data sent on that stream is delivered.
 
 This document defines a new QUIC frame, the RESET_STREAM_AT frame, that allows
 resetting a stream, while guaranteeing delivery of stream data up to a certain
