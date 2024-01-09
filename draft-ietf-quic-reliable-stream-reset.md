@@ -42,8 +42,8 @@ informative:
 
 QUIC defines a RESET_STREAM frame to abort sending on a stream. When a sender
 resets a stream, it also stops retransmitting STREAM frames for this stream in
-the of packet loss. On the receiving side, there is no guarantee that any data
-sent on that stream is delivered.
+the event of packet loss. On the receiving side, there is no guarantee that any
+data sent on that stream is delivered.
 
 This document defines a new QUIC frame, the RESET_STREAM_AT frame, that allows
 resetting a stream, while guaranteeing delivery of stream data up to a certain
@@ -67,7 +67,7 @@ WebTransport session.
 
 Since QUIC does not provide guaranteed delivery of steam data for reset streams,
 it is possible that a receiver is unable to read critical information. In the
-example above, a reset stream can cause the receiver to a fail to associate
+example above, a reset stream can cause the receiver to fail to associate
 incoming streams with their respective subcomponent of the application.
 Therefore, it is desirable that the receiver can rely on the delivery of
 critical information to applications, even if the QUIC stream is reset before
@@ -160,7 +160,7 @@ byte offset SHOULD NOT be retransmitted.
 
 As described in {{Section 3.2 of RFC9000}}, a stream reset signal might be
 suppressed or withheld, and the same applies to a stream reset signal carried in
-a RESET_STREAM_AT frame. Similary, the Reliable Size of the RESET_STREAM_AT
+a RESET_STREAM_AT frame. Similarly, the Reliable Size of the RESET_STREAM_AT
 frame does not prevent a QUIC stack from delivering data beyond the specified
 offset to the receiving application.
 
@@ -242,9 +242,8 @@ As the RESET_STREAM_AT frame is an extension to the stream machinery defined in
 QUIC version 1, the security considerations of {{RFC9000}} apply accordingly.
 Specifically, given that RESET_STREAM_AT frames indicate the offset up to which
 data is reliably transmitted, endpoints SHOULD remain vigilant against resource
-commitment and exhaustion attacks have to be taken even after sending or
-receiving RESET_STREAM_AT frames, until the stream states reach the terminal
-state.
+commitment and exhaustion attacks even after sending or receiving RESET_STREAM_AT
+frames, until the stream reaches the terminal state.
 
 
 # IANA Considerations
