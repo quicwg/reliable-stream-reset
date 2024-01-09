@@ -298,7 +298,7 @@ Table of Contents
    indicate the offset up to which data is reliably transmitted,
    endpoints SHOULD remain vigilant against resource commitment and
    exhaustion attacks even after sending or receiving RESET_STREAM_AT
-   frames, until the stream states reach the terminal state.
+   frames, until the stream reaches the terminal state.
 
 8.  IANA Considerations
 
