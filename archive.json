@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-07T00:53:53.330511+00:00",
+  "timestamp": "2024-01-09T00:50:16.855152+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -449,15 +449,15 @@
       "id": "I_kwDOHuKM_s52YWip",
       "title": "Normative requirements on use of RESET_STREAM vs RESET_STREAM_AT",
       "url": "https://github.com/quicwg/reliable-stream-reset/issues/53",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "LPardue",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "Section 5\r\n\r\n> When resetting a stream without the intent to deliver any data to the receiver, the sender uses a RESET_STREAM frame ([Section 3.2](https://rfc-editor.org/rfc/rfc9000#section-3.2) of [[RFC9000](https://github.com/quicwg/reliable-stream-reset/issues/new#RFC9000)]). The sender MAY also use a RESET_STREAM_AT frame with a Reliable Size of zero in place of a RESET_STREAM frame. These two have the same effect and the behavior of RESET_STREAM frame is unchanged from the behavior described in [[RFC9000](https://github.com/quicwg/reliable-stream-reset/issues/new#RFC9000)].\r\n\r\nThis seems technically fine but I wonder if we can tweak the wording to make it read a little better\r\n\r\n",
       "createdAt": "2023-11-09T17:29:13Z",
-      "updatedAt": "2023-11-09T17:29:13Z",
-      "closedAt": null,
+      "updatedAt": "2024-01-08T09:47:57Z",
+      "closedAt": "2024-01-08T09:47:56Z",
       "comments": []
     },
     {
@@ -481,15 +481,15 @@
       "id": "I_kwDOHuKM_s52YdKC",
       "title": "TODO Security",
       "url": "https://github.com/quicwg/reliable-stream-reset/issues/55",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "LPardue",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "![image](https://github.com/quicwg/reliable-stream-reset/assets/6571445/ced2dc3d-c70e-41a4-8d1d-5804362b80fc)\r\n",
       "createdAt": "2023-11-09T17:46:55Z",
-      "updatedAt": "2023-11-09T17:46:55Z",
-      "closedAt": null,
+      "updatedAt": "2024-01-08T09:47:19Z",
+      "closedAt": "2024-01-08T09:47:19Z",
       "comments": []
     }
   ],
@@ -3736,24 +3736,26 @@
       "id": "PR_kwDOHuKM_s5gJxgt",
       "title": "Move and rephrase the clause about zero Reliable Size",
       "url": "https://github.com/quicwg/reliable-stream-reset/pull/57",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "LPardue",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "So part of my issue as a reader is the second paragraph is focused on detailing one\nspecific edge case of RESET_STREAM_AT. It's good to cover the edge case but\nI find it distracting to the primary use case. Therefore, propose moving it to the end\nof the section. At the same time, reword things slightly so it is clear this is\njust a special clause due to zero causing an effect like REST_STREAM.\n\nAttempts to fix #53\n",
       "createdAt": "2023-11-22T16:50:19Z",
-      "updatedAt": "2023-12-01T07:36:32Z",
+      "updatedAt": "2024-01-08T09:48:03Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "d34d6900b3a3ec0fe76b511c6ccc1de4fe0a411a",
       "headRepository": "quicwg/reliable-stream-reset",
       "headRefName": "zero-length-reliable",
       "headRefOid": "8499251e00825dde4150f49145f4df2e3beb1c7d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-01-08T09:47:56Z",
+      "mergedAt": "2024-01-08T09:47:56Z",
+      "mergedBy": "LPardue",
+      "mergeCommit": {
+        "oid": "795308a80a357ecbf4a56093eda4cc50c6eb37ec"
+      },
       "comments": [
         {
           "author": "LPardue",
@@ -3920,6 +3922,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 59,
+      "id": "PR_kwDOHuKM_s5jhytA",
+      "title": "grammer and typo",
+      "url": "https://github.com/quicwg/reliable-stream-reset/pull/59",
+      "state": "OPEN",
+      "author": "kazuho",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR removes words that do not make sense (most likely an editorial mistake) and fixes a typo.",
+      "createdAt": "2024-01-09T00:16:08Z",
+      "updatedAt": "2024-01-09T00:16:08Z",
+      "baseRepository": "quicwg/reliable-stream-reset",
+      "baseRefName": "main",
+      "baseRefOid": "795308a80a357ecbf4a56093eda4cc50c6eb37ec",
+      "headRepository": "quicwg/reliable-stream-reset",
+      "headRefName": "kazuho-patch-11",
+      "headRefOid": "53ba8f8626607104dd29b022f0e82a6535f153ee",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
