@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-09T00:50:16.855152+00:00",
+  "timestamp": "2024-01-11T00:50:41.773039+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -491,6 +491,65 @@
       "updatedAt": "2024-01-08T09:47:19Z",
       "closedAt": "2024-01-08T09:47:19Z",
       "comments": []
+    },
+    {
+      "number": 60,
+      "id": "I_kwDOHuKM_s57l2Lu",
+      "title": "Please use a draft frame codepoint",
+      "url": "https://github.com/quicwg/reliable-stream-reset/issues/60",
+      "state": "OPEN",
+      "author": "DavidSchinazi",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The draft currently uses frame type 0x20. That number requires Standards Action and can't be used in drafts as it risks conflicting with another draft. Please use a multi-byte encoding for now, we can switch to a lower number for both the transport parameter and the frame after WGLC.",
+      "createdAt": "2024-01-10T03:32:09Z",
+      "updatedAt": "2024-01-10T23:02:29Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Are you aware of any collisions, @DavidSchinazi? The only draft I'm aware of that defines new frames is ACK frequency, which uses 0x1f and 0xaf.\r\n\r\nWhile I agree that transport parameters should use random values, I don't think this applies to frames, since use of the frame is gated by the negotiation of the extension.",
+          "createdAt": "2024-01-10T03:40:30Z",
+          "updatedAt": "2024-01-10T03:40:30Z"
+        },
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "NONE",
+          "body": "> Are you aware of any collisions, @DavidSchinazi? The only draft I'm aware of that defines new frames is ACK frequency, which uses 0x1f and 0xaf.\r\n\r\nYes, we have a collision inside of Google QUICHE for an earlier Google-internal version of the DATAGRAM draft.\r\n\r\n> While I agree that transport parameters should use random values, I don't think this applies to frames, since use of the frame is gated by the negotiation of the extension.\r\n\r\nThe recommendation to use random values applies to frames as well, because they can also conflict when both extensions are negotiated.",
+          "createdAt": "2024-01-10T03:43:05Z",
+          "updatedAt": "2024-01-10T03:43:27Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "I don't 100% agree. This is an adopted work item on a standards track that is ready for a WGLC. We can provisionally register the frame codepoint under these terms IMO (for why, see https://datatracker.ietf.org/doc/html/rfc9000#section-22.1.1). Issues of interop within the extension itself are handled by the TP as Marten explains. Regardless of the value, we should request IANA to provisionally register a value for RESET_STREAM_AT as we approach RFC.\r\n\r\nI appreciate that there appears to be a conflict with a private extension but I'm not sure that's the fault of this draft. If the conflict exists now, are there plans for Google to address this on a reasonably short timescale? Absent such plans, it would appear it doesn't matter if we change to a random value today, the value 0x20 is problematic. I don't think changing the value today with an expectation we can change back for RFC should be subject to the timelines of a single vendor. \r\n\r\nTo make progress, we instead might want to consider provisional registration of a different low-numbered value for RESET_STREAM_AT today, to provide a runway to RFC. Ack frequency already has done this. If so, Google might seek to provisionally register 0x20 in order to avoid further accidental conflicts while they manage their deprecation process - the registration guidance recommends codepoints can be reclaimed after 12 months, which seems like a reasonable timescale.",
+          "createdAt": "2024-01-10T07:36:08Z",
+          "updatedAt": "2024-01-10T07:36:08Z"
+        },
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "NONE",
+          "body": "Requesting early allocation is perfectly reasonable per [IANA's rules](https://datatracker.ietf.org/doc/html/rfc7120). But until then the draft is squatting. From an engineering perspective, Google can make 0x20 work. But we've had a process for QUIC codepoints for a reason - because implementing this draft could lead to protocol changes that would lead to another conflict (which can be mitigated by changing the transport parameter value but not always). Here's how I see the QUIC codepoint process to be:\r\n1. new draft starts with random multi-byte number\r\n2. interop testing and ideally production testing\r\n3. WGLC\r\n4. early allocation of a new one-byte codepoint as provisional.\r\n5. Publication - that makes the code point permanent\r\n\r\n[The early allocation process in (4)](https://datatracker.ietf.org/doc/html/rfc7120#section-3.1) ensures that there cannot be a collision because the IESG is involved.\r\n\r\nIn this case, we need to replace (1) with \"replace incorrect first choice of codepoint with random multi-byte number\" and then follow the rest of the process accordingly.\r\n\r\nFor what it's worth, this draft did the right thing for the transport parameter - so it will need to make a wire-breaking change to switch to the final transport parameter codepoint. Doing the same for the frame avoids the risk of a conflict and does not have any downside.",
+          "createdAt": "2024-01-10T15:36:50Z",
+          "updatedAt": "2024-01-10T15:36:50Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "I'm ready to start WGLC. Given where we're at I don't see there being much value in changing the frame code point for 2-4 weeks to then change it back.",
+          "createdAt": "2024-01-10T17:10:02Z",
+          "updatedAt": "2024-01-10T17:10:02Z"
+        },
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "NONE",
+          "body": "Is this deployed to production anywhere? Is there a cost to following our process and using the right codepoint for drafts?",
+          "createdAt": "2024-01-10T23:02:28Z",
+          "updatedAt": "2024-01-10T23:02:28Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -3928,26 +3987,88 @@
       "id": "PR_kwDOHuKM_s5jhytA",
       "title": "grammer and typo",
       "url": "https://github.com/quicwg/reliable-stream-reset/pull/59",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "kazuho",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "This PR removes words that do not make sense (most likely an editorial mistake) and fixes a typo.",
       "createdAt": "2024-01-09T00:16:08Z",
-      "updatedAt": "2024-01-09T00:16:08Z",
+      "updatedAt": "2024-01-09T08:46:23Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "795308a80a357ecbf4a56093eda4cc50c6eb37ec",
       "headRepository": "quicwg/reliable-stream-reset",
       "headRefName": "kazuho-patch-11",
-      "headRefOid": "53ba8f8626607104dd29b022f0e82a6535f153ee",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "4a579e98b275b49bc3bf37f92bdc8407ebea25d5",
+      "closedAt": "2024-01-09T08:46:23Z",
+      "mergedAt": "2024-01-09T08:46:23Z",
+      "mergedBy": "marten-seemann",
+      "mergeCommit": {
+        "oid": "e8b4c8133eba5d1af354d3e3db3ca8f1083f313a"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOHuKM_s5r6L4X",
+          "commit": {
+            "abbreviatedOid": "53ba8f8"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-09T05:14:16Z",
+          "updatedAt": "2024-01-09T05:14:58Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "I'd prefer to just add the missing \"event\".",
+              "createdAt": "2024-01-09T05:14:16Z",
+              "updatedAt": "2024-01-09T05:14:58Z"
+            },
+            {
+              "originalPosition": 39,
+              "body": "```suggestion\r\nframes, until the stream reaches the terminal state.\r\n```",
+              "createdAt": "2024-01-09T05:14:55Z",
+              "updatedAt": "2024-01-09T05:14:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5r6M7R",
+          "commit": {
+            "abbreviatedOid": "53ba8f8"
+          },
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-01-09T05:20:16Z",
+          "updatedAt": "2024-01-09T05:20:16Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "Makes sense. Done in 4a579e9.",
+              "createdAt": "2024-01-09T05:20:16Z",
+              "updatedAt": "2024-01-09T05:20:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5r7Hk1",
+          "commit": {
+            "abbreviatedOid": "4a579e9"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-01-09T08:46:17Z",
+          "updatedAt": "2024-01-09T08:46:17Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
