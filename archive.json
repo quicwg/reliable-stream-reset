@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-11T00:50:41.773039+00:00",
+  "timestamp": "2024-01-14T00:54:10.717654+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -504,7 +504,7 @@
       "labels": [],
       "body": "The draft currently uses frame type 0x20. That number requires Standards Action and can't be used in drafts as it risks conflicting with another draft. Please use a multi-byte encoding for now, we can switch to a lower number for both the transport parameter and the frame after WGLC.",
       "createdAt": "2024-01-10T03:32:09Z",
-      "updatedAt": "2024-01-10T23:02:29Z",
+      "updatedAt": "2024-01-12T17:49:13Z",
       "closedAt": null,
       "comments": [
         {
@@ -548,6 +548,41 @@
           "body": "Is this deployed to production anywhere? Is there a cost to following our process and using the right codepoint for drafts?",
           "createdAt": "2024-01-10T23:02:28Z",
           "updatedAt": "2024-01-10T23:02:28Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "The process makes sense for other documents in early stages for sure. We should take this as a learning exercise and write it up on quicwg.org so future drafts do the right thing no matter what WG they are using. The chairs can hold the pen.\r\n\r\nWhat I'm suggesting here is that we be pragmatic. The value has been active for 6+ months and there are implementations. Changing that now will require changing the frame type and the transport parameter and explaining, somehow, that we expect to change them again once WGLC finishes. That sounds like busy work to me, and worse if it distracts the WG. What technical upside is there to do so in this specific case?",
+          "createdAt": "2024-01-11T07:01:17Z",
+          "updatedAt": "2024-01-11T07:01:17Z"
+        },
+        {
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "body": "Could we rev a new draft that uses a different 1-byte frame type (e.g., 0x21) before starting WGLC and call it a day?\r\n\r\nAs we become near to publishing the final RFC, it becomes harder to change code points, and I totally agree with @LPardue that we do not want to switch twice.\r\n\r\nBut maybe we can switch just once at this moment, as we do not have any production code (or dependency from other drafts) yet that uses reliable resets.",
+          "createdAt": "2024-01-11T12:15:19Z",
+          "updatedAt": "2024-01-11T12:15:19Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "That sounds a reasonable compromise to me (ensuring we note the registration is proviaion in iana instructions). I would use WGLC as the barometer for consensus to then formally initiate the early allocation process.",
+          "createdAt": "2024-01-11T12:39:40Z",
+          "updatedAt": "2024-01-11T12:39:40Z"
+        },
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "NONE",
+          "body": "Switching to a different one-byte value works for me. The draft should say something like `Status:\r\nProvisional (but will become Permanent once this document is approved)`. Please pick it randomly (though I'll let the authors define [randomness](https://xkcd.com/221/)). Then you can immediately ask the designated experts for provisional registration, no need for the early allocation process.",
+          "createdAt": "2024-01-11T15:46:03Z",
+          "updatedAt": "2024-01-11T15:46:03Z"
+        },
+        {
+          "author": "vasilvv",
+          "authorAssociation": "NONE",
+          "body": "I believe the one we have conflict for is a pair of 0x20/0x21.  For what it's worth, I could probably work this around, but it would take less time if I didn't have to (= we'd get to interop for the draft sooner, which is something I was hoping for here).",
+          "createdAt": "2024-01-12T17:49:12Z",
+          "updatedAt": "2024-01-12T17:49:12Z"
         }
       ]
     }
