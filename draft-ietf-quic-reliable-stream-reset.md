@@ -284,7 +284,7 @@ Frame Type Name:
 : RESET_STREAM_AT
 
 Status:
-: Provisional  (will become Permanent once this document is approved)
+: Provisional (will become Permanent once this document is approved)
 
 Specification:
 : This document
