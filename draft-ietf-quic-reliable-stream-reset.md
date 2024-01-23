@@ -261,7 +261,7 @@ Parameter Name:
 : reliable_stream_reset
 
 Status:
-: Provisional
+: Provisional (note that, prior to publication, the value will be replaced by a new value lower than 64)
 
 Specification:
 : This document
