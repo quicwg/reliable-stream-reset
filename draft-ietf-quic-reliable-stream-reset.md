@@ -90,10 +90,10 @@ stream was reset.
 # Negotiating Extension Use
 
 Endpoints advertise their support of the extension described in this document by
-sending the reliable_stream_reset (0x24) transport parameter ({{Section 7.4 of
-RFC9000}}) with an empty value. An implementation that understands this
-transport parameter MUST treat the receipt of a non-empty value as a connection
-error of type TRANSPORT_PARAMETER_ERROR.
+sending the reliable_stream_reset (0x17f7586d2cb571) transport parameter
+({{Section 7.4 of RFC9000}}) with an empty value. An implementation that
+understands this transport parameter MUST treat the receipt of a non-empty value
+as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
 When using 0-RTT, both endpoints MUST remember the value of this transport
 parameter. This allows use of this extension in 0-RTT packets. When the server
@@ -255,13 +255,13 @@ This document registers the reliable_stream_reset transport parameter in the
 The following fields are registered:
 
 Value:
-: 0x24
+: 0x17f7586d2cb571
 
 Parameter Name:
 : reliable_stream_reset
 
 Status:
-: Provisional (will become Permanent once this document is approved)
+: Provisional
 
 Specification:
 : This document
