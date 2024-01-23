@@ -107,7 +107,7 @@ added Reliable Size field.
 
 ~~~
 RESET_STREAM_AT Frame {
-  Type (i) = 0x20,
+  Type (i) = 0x24,
   Stream ID (i),
   Application Protocol Error Code (i),
   Final Size (i),
@@ -261,7 +261,7 @@ Parameter Name:
 : reliable_stream_reset
 
 Status:
-: Permanent
+: Provisional (will become Permanent once this document is approved)
 
 Specification:
 : This document
@@ -278,13 +278,13 @@ This document registers one new value in the "QUIC Frame Types" registry
 established in {{Section 22.4 of RFC9000}}. The following fields are registered:
 
 Value:
-: 0x20
+: 0x24
 
 Frame Type Name:
 : RESET_STREAM_AT
 
 Status:
-: Permanent
+: Provisional  (will become Permanent once this document is approved)
 
 Specification:
 : This document
