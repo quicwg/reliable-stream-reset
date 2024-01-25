@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-23T00:51:31.624952+00:00",
+  "timestamp": "2024-01-25T00:51:21.563211+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -497,15 +497,15 @@
       "id": "I_kwDOHuKM_s57l2Lu",
       "title": "Please use a draft frame codepoint",
       "url": "https://github.com/quicwg/reliable-stream-reset/issues/60",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "DavidSchinazi",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "The draft currently uses frame type 0x20. That number requires Standards Action and can't be used in drafts as it risks conflicting with another draft. Please use a multi-byte encoding for now, we can switch to a lower number for both the transport parameter and the frame after WGLC.",
       "createdAt": "2024-01-10T03:32:09Z",
-      "updatedAt": "2024-01-12T17:49:13Z",
-      "closedAt": null,
+      "updatedAt": "2024-01-23T12:45:08Z",
+      "closedAt": "2024-01-23T12:45:08Z",
       "comments": [
         {
           "author": "marten-seemann",
@@ -516,7 +516,7 @@
         },
         {
           "author": "DavidSchinazi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> Are you aware of any collisions, @DavidSchinazi? The only draft I'm aware of that defines new frames is ACK frequency, which uses 0x1f and 0xaf.\r\n\r\nYes, we have a collision inside of Google QUICHE for an earlier Google-internal version of the DATAGRAM draft.\r\n\r\n> While I agree that transport parameters should use random values, I don't think this applies to frames, since use of the frame is gated by the negotiation of the extension.\r\n\r\nThe recommendation to use random values applies to frames as well, because they can also conflict when both extensions are negotiated.",
           "createdAt": "2024-01-10T03:43:05Z",
           "updatedAt": "2024-01-10T03:43:27Z"
@@ -530,7 +530,7 @@
         },
         {
           "author": "DavidSchinazi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Requesting early allocation is perfectly reasonable per [IANA's rules](https://datatracker.ietf.org/doc/html/rfc7120). But until then the draft is squatting. From an engineering perspective, Google can make 0x20 work. But we've had a process for QUIC codepoints for a reason - because implementing this draft could lead to protocol changes that would lead to another conflict (which can be mitigated by changing the transport parameter value but not always). Here's how I see the QUIC codepoint process to be:\r\n1. new draft starts with random multi-byte number\r\n2. interop testing and ideally production testing\r\n3. WGLC\r\n4. early allocation of a new one-byte codepoint as provisional.\r\n5. Publication - that makes the code point permanent\r\n\r\n[The early allocation process in (4)](https://datatracker.ietf.org/doc/html/rfc7120#section-3.1) ensures that there cannot be a collision because the IESG is involved.\r\n\r\nIn this case, we need to replace (1) with \"replace incorrect first choice of codepoint with random multi-byte number\" and then follow the rest of the process accordingly.\r\n\r\nFor what it's worth, this draft did the right thing for the transport parameter - so it will need to make a wire-breaking change to switch to the final transport parameter codepoint. Doing the same for the frame avoids the risk of a conflict and does not have any downside.",
           "createdAt": "2024-01-10T15:36:50Z",
           "updatedAt": "2024-01-10T15:36:50Z"
@@ -544,7 +544,7 @@
         },
         {
           "author": "DavidSchinazi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Is this deployed to production anywhere? Is there a cost to following our process and using the right codepoint for drafts?",
           "createdAt": "2024-01-10T23:02:28Z",
           "updatedAt": "2024-01-10T23:02:28Z"
@@ -572,7 +572,7 @@
         },
         {
           "author": "DavidSchinazi",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Switching to a different one-byte value works for me. The draft should say something like `Status:\r\nProvisional (but will become Permanent once this document is approved)`. Please pick it randomly (though I'll let the authors define [randomness](https://xkcd.com/221/)). Then you can immediately ask the designated experts for provisional registration, no need for the early allocation process.",
           "createdAt": "2024-01-11T15:46:03Z",
           "updatedAt": "2024-01-11T15:46:03Z"
@@ -4104,6 +4104,189 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 61,
+      "id": "PR_kwDOHuKM_s5kyPoy",
+      "title": "provisional registrations, changing frame type to 0x24",
+      "url": "https://github.com/quicwg/reliable-stream-reset/pull/61",
+      "state": "MERGED",
+      "author": "kazuho",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #60.",
+      "createdAt": "2024-01-23T02:09:11Z",
+      "updatedAt": "2024-01-23T12:45:08Z",
+      "baseRepository": "quicwg/reliable-stream-reset",
+      "baseRefName": "main",
+      "baseRefOid": "e8b4c8133eba5d1af354d3e3db3ca8f1083f313a",
+      "headRepository": "kazuho/draft-seemann-quic-reliable-stream-reset",
+      "headRefName": "kazuho/change-codepoint",
+      "headRefOid": "b2a5cbbbd62e5c649889c940933c20b47e486d72",
+      "closedAt": "2024-01-23T12:45:07Z",
+      "mergedAt": "2024-01-23T12:45:07Z",
+      "mergedBy": "marten-seemann",
+      "mergeCommit": {
+        "oid": "be369fec5cb6bd4f5871f0549291ddbf9e2c1083"
+      },
+      "comments": [
+        {
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "body": "@marten-seemann Makes sense. Switched to using 0x24 for the TP as well.",
+          "createdAt": "2024-01-23T02:33:43Z",
+          "updatedAt": "2024-01-23T02:33:43Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "I'm happy to hold off the TP a little longer. \r\n\r\nWhile I certainly hope that there are no reasons that things need to substantially change, the TP is our way to control change ratcheting for this extension. Lets do WGLC with present TP and take a further view.",
+          "createdAt": "2024-01-23T02:48:00Z",
+          "updatedAt": "2024-01-23T02:48:00Z"
+        },
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Oh I forgot to mention this before: if you change the value of the frame type you need to also change the transport parameter value. Though I'd change it to another 4-byte or 8-byte value as @LPardue suggests.",
+          "createdAt": "2024-01-23T02:50:32Z",
+          "updatedAt": "2024-01-23T02:50:32Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "David's right, I missed that",
+          "createdAt": "2024-01-23T02:53:01Z",
+          "updatedAt": "2024-01-23T02:53:01Z"
+        },
+        {
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "body": "@LPardue @DavidSchinazi Thank you for the comments.\r\n\r\nUpdated the PR so that:\r\n* TP ID is 8-byte,\r\n* TP ID specified is latest draft + 1,\r\n* TP ID is marked as provisional (with no intent to become permanent).",
+          "createdAt": "2024-01-23T03:06:09Z",
+          "updatedAt": "2024-01-23T03:06:09Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOHuKM_s5tibme",
+          "commit": {
+            "abbreviatedOid": "d49a3e1"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Thank you for making this change!",
+          "createdAt": "2024-01-23T02:11:22Z",
+          "updatedAt": "2024-01-23T02:11:22Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5ticBK",
+          "commit": {
+            "abbreviatedOid": "d49a3e1"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Should we also choose the final transport parameter, and get it provisionally registered?",
+          "createdAt": "2024-01-23T02:13:28Z",
+          "updatedAt": "2024-01-23T02:14:11Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "```suggestion\r\n: Provisional (will become Permanent once this document is approved)\r\n```",
+              "createdAt": "2024-01-23T02:13:28Z",
+              "updatedAt": "2024-01-23T02:14:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5tigME",
+          "commit": {
+            "abbreviatedOid": "90dc649"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM, but I'd like to get @LPardue's review on this PR, since we're now applying for provisional registration of the transport parameter as well.",
+          "createdAt": "2024-01-23T02:36:13Z",
+          "updatedAt": "2024-01-23T02:36:13Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5til7g",
+          "commit": {
+            "abbreviatedOid": "3d0fdc7"
+          },
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-01-23T03:07:29Z",
+          "updatedAt": "2024-01-23T03:07:29Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5tix1R",
+          "commit": {
+            "abbreviatedOid": "3d0fdc7"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-01-23T04:23:24Z",
+          "updatedAt": "2024-01-23T04:23:30Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "```suggestion\r\n: Provisional (note that, prior to publication, the value will be replaced by a new value lower than 64)\r\n```",
+              "createdAt": "2024-01-23T04:23:24Z",
+              "updatedAt": "2024-01-23T04:23:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5tmGol",
+          "commit": {
+            "abbreviatedOid": "b2a5cbb"
+          },
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-01-23T12:44:38Z",
+          "updatedAt": "2024-01-23T12:44:38Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "id": "PR_kwDOHuKM_s5k6Caz",
+      "title": "update Marten's organization",
+      "url": "https://github.com/quicwg/reliable-stream-reset/pull/62",
+      "state": "OPEN",
+      "author": "marten-seemann",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-01-24T04:33:20Z",
+      "updatedAt": "2024-01-24T04:33:20Z",
+      "baseRepository": "quicwg/reliable-stream-reset",
+      "baseRefName": "main",
+      "baseRefOid": "be369fec5cb6bd4f5871f0549291ddbf9e2c1083",
+      "headRepository": "quicwg/reliable-stream-reset",
+      "headRefName": "update-martens-org",
+      "headRefOid": "354f2845b96344878009f1c2a702e971642ecf4f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
