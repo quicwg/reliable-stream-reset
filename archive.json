@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-25T00:51:21.563211+00:00",
+  "timestamp": "2024-01-28T00:49:48.471587+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -583,6 +583,44 @@
           "body": "I believe the one we have conflict for is a pair of 0x20/0x21.  For what it's worth, I could probably work this around, but it would take less time if I didn't have to (= we'd get to interop for the draft sooner, which is something I was hoping for here).",
           "createdAt": "2024-01-12T17:49:12Z",
           "updatedAt": "2024-01-12T17:49:12Z"
+        }
+      ]
+    },
+    {
+      "number": 63,
+      "id": "I_kwDOHuKM_s59I6tE",
+      "title": "Applications might require that the Reliable Size not reduce",
+      "url": "https://github.com/quicwg/reliable-stream-reset/issues/63",
+      "state": "OPEN",
+      "author": "martinthomson",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "In Section 5.1, should this say something like:\r\n\r\n> While multiple RESET_STREAM_AT frames can reduce Reliable Size, some applications might need to ensure that a minimum amount of data is always delivered on a stream.  Application protocols can establish rules for streams that ensure that Reliable Size is not reduced below a certain threshold if that is necessary to ensure correct operation of the protocol.\r\n\r\nTo explicitly signal this WebTransport, as it were.",
+      "createdAt": "2024-01-25T03:23:43Z",
+      "updatedAt": "2024-01-25T05:13:19Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "body": "How would an application enforce this, without reaching deep down into the QUIC layer?",
+          "createdAt": "2024-01-25T04:22:33Z",
+          "updatedAt": "2024-01-25T04:22:33Z"
+        },
+        {
+          "author": "martinthomson",
+          "authorAssociation": "MEMBER",
+          "body": "I'm not thinking about enforcement, just a \"if you implement this protocol and you reset a stream (or a particular type of stream), you MUST use RESET_STREAM_AT and not set Reliable Size less than X\".  This would not be a requirement in this document, merely a suggestion that users of this document could say this sort of thing.\r\n\r\nIf you are looking for consequences, that's something the protocol would have to manage.",
+          "createdAt": "2024-01-25T05:09:20Z",
+          "updatedAt": "2024-01-25T05:10:36Z"
+        },
+        {
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Makes sense. I think we can apply your suggestion, although I believe that even if we don't, applications can still impose this kind of requirement.",
+          "createdAt": "2024-01-25T05:13:18Z",
+          "updatedAt": "2024-01-25T05:13:18Z"
         }
       ]
     }
