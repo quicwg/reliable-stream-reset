@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-28T00:49:48.471587+00:00",
+  "timestamp": "2024-01-30T00:46:05.636634+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -4305,24 +4305,26 @@
       "id": "PR_kwDOHuKM_s5k6Caz",
       "title": "update Marten's organization",
       "url": "https://github.com/quicwg/reliable-stream-reset/pull/62",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marten-seemann",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-01-24T04:33:20Z",
-      "updatedAt": "2024-01-24T04:33:20Z",
+      "updatedAt": "2024-01-29T00:27:17Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "be369fec5cb6bd4f5871f0549291ddbf9e2c1083",
       "headRepository": "quicwg/reliable-stream-reset",
       "headRefName": "update-martens-org",
       "headRefOid": "354f2845b96344878009f1c2a702e971642ecf4f",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-01-29T00:27:17Z",
+      "mergedAt": "2024-01-29T00:27:17Z",
+      "mergedBy": "kazuho",
+      "mergeCommit": {
+        "oid": "168dd38bb526a6bc5a5210eca5ac09a363612337"
+      },
       "comments": [],
       "reviews": []
     }
