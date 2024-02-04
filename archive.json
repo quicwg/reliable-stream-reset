@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-01T00:48:51.258322+00:00",
+  "timestamp": "2024-02-04T00:50:26.368097+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -621,6 +621,44 @@
           "body": "Makes sense. I think we can apply your suggestion, although I believe that even if we don't, applications can still impose this kind of requirement.",
           "createdAt": "2024-01-25T05:13:18Z",
           "updatedAt": "2024-01-25T05:13:18Z"
+        }
+      ]
+    },
+    {
+      "number": 64,
+      "id": "I_kwDOHuKM_s599CDw",
+      "title": "Remove the \"reliable reset\" phrasing from the draft",
+      "url": "https://github.com/quicwg/reliable-stream-reset/issues/64",
+      "state": "OPEN",
+      "author": "vasilvv",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Resets are always reliable in QUIC itself, so the phrasing is in general confusing.  We already renamed the frame to RESET_STREAM_AT, so the rest of the draft should probably be updated too.",
+      "createdAt": "2024-02-01T18:21:32Z",
+      "updatedAt": "2024-02-03T05:55:36Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Can you point me to where you think the phrasing is confusing? Do you mean the name of the Markdown file? We could rename it, but I don't think that matters for the RFC.\r\n\r\nAs far as I can see, the draft doesn't contain the words \"reliable reset\" anymore.",
+          "createdAt": "2024-02-03T04:45:19Z",
+          "updatedAt": "2024-02-03T04:45:19Z"
+        },
+        {
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Do you mean the title of the document? I'm wondering what a better title would be. Any suggestions?",
+          "createdAt": "2024-02-03T05:00:32Z",
+          "updatedAt": "2024-02-03T05:00:32Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "We don't need to change the filename.\r\n\r\nAs far as title alternatives, perhaps \"QUIC Stream Resets with Guaranteed Delivery\"",
+          "createdAt": "2024-02-03T05:55:35Z",
+          "updatedAt": "2024-02-03T05:55:35Z"
         }
       ]
     }
