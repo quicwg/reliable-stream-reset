@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-04T00:50:26.368097+00:00",
+  "timestamp": "2024-02-06T00:45:22.134021+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -598,7 +598,7 @@
       "labels": [],
       "body": "In Section 5.1, should this say something like:\r\n\r\n> While multiple RESET_STREAM_AT frames can reduce Reliable Size, some applications might need to ensure that a minimum amount of data is always delivered on a stream.  Application protocols can establish rules for streams that ensure that Reliable Size is not reduced below a certain threshold if that is necessary to ensure correct operation of the protocol.\r\n\r\nTo explicitly signal this WebTransport, as it were.",
       "createdAt": "2024-01-25T03:23:43Z",
-      "updatedAt": "2024-01-25T05:13:19Z",
+      "updatedAt": "2024-02-06T00:31:04Z",
       "closedAt": null,
       "comments": [
         {
@@ -621,6 +621,13 @@
           "body": "Makes sense. I think we can apply your suggestion, although I believe that even if we don't, applications can still impose this kind of requirement.",
           "createdAt": "2024-01-25T05:13:18Z",
           "updatedAt": "2024-01-25T05:13:18Z"
+        },
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Nothing in the current document prevents applications from doing this, but explicitly mentioning that it's possible is a good idea. So +1 to MT's suggestion.",
+          "createdAt": "2024-02-06T00:31:02Z",
+          "updatedAt": "2024-02-06T00:31:02Z"
         }
       ]
     },
@@ -636,7 +643,7 @@
       "labels": [],
       "body": "Resets are always reliable in QUIC itself, so the phrasing is in general confusing.  We already renamed the frame to RESET_STREAM_AT, so the rest of the draft should probably be updated too.",
       "createdAt": "2024-02-01T18:21:32Z",
-      "updatedAt": "2024-02-03T05:55:36Z",
+      "updatedAt": "2024-02-06T00:22:50Z",
       "closedAt": null,
       "comments": [
         {
@@ -659,6 +666,13 @@
           "body": "We don't need to change the filename.\r\n\r\nAs far as title alternatives, perhaps \"QUIC Stream Resets with Guaranteed Delivery\"",
           "createdAt": "2024-02-03T05:55:35Z",
           "updatedAt": "2024-02-03T05:55:35Z"
+        },
+        {
+          "author": "martinthomson",
+          "authorAssociation": "MEMBER",
+          "body": "I agree with Victor and was going to open a similar message.  \"Guaranteed\" is not in fact guaranteed.  The sender can just set the amount to zero at any time. \r\n\r\nSimilarly, the value implied by \"Reliable Size\" is not reliable.\r\n\r\nInstead, I would suggest \"Delivered Size\" or \"Retained Size\", with a slight preference for the latter, but I would be happy to entertain other suggestions.  That suggests \"QUIC Stream Resets with Retained Data\".\r\n\r\n",
+          "createdAt": "2024-02-06T00:22:49Z",
+          "updatedAt": "2024-02-06T00:22:49Z"
         }
       ]
     }
