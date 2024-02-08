@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-06T00:45:22.134021+00:00",
+  "timestamp": "2024-02-08T00:45:16.910369+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -598,7 +598,7 @@
       "labels": [],
       "body": "In Section 5.1, should this say something like:\r\n\r\n> While multiple RESET_STREAM_AT frames can reduce Reliable Size, some applications might need to ensure that a minimum amount of data is always delivered on a stream.  Application protocols can establish rules for streams that ensure that Reliable Size is not reduced below a certain threshold if that is necessary to ensure correct operation of the protocol.\r\n\r\nTo explicitly signal this WebTransport, as it were.",
       "createdAt": "2024-01-25T03:23:43Z",
-      "updatedAt": "2024-02-06T00:31:04Z",
+      "updatedAt": "2024-02-06T07:31:21Z",
       "closedAt": null,
       "comments": [
         {
@@ -628,6 +628,13 @@
           "body": "Nothing in the current document prevents applications from doing this, but explicitly mentioning that it's possible is a good idea. So +1 to MT's suggestion.",
           "createdAt": "2024-02-06T00:31:02Z",
           "updatedAt": "2024-02-06T00:31:02Z"
+        },
+        {
+          "author": "huitema",
+          "authorAssociation": "NONE",
+          "body": "I think the initial goal is to protect the web transport header when the WT application \"resets\" a stream. I would implement that in the WT API itself, so that a bare API level \"Reset\" always map to a \"RESET AT <after the WT header>\". ",
+          "createdAt": "2024-02-06T07:31:20Z",
+          "updatedAt": "2024-02-06T07:31:20Z"
         }
       ]
     },
@@ -643,7 +650,7 @@
       "labels": [],
       "body": "Resets are always reliable in QUIC itself, so the phrasing is in general confusing.  We already renamed the frame to RESET_STREAM_AT, so the rest of the draft should probably be updated too.",
       "createdAt": "2024-02-01T18:21:32Z",
-      "updatedAt": "2024-02-06T00:22:50Z",
+      "updatedAt": "2024-02-07T07:54:50Z",
       "closedAt": null,
       "comments": [
         {
@@ -673,6 +680,79 @@
           "body": "I agree with Victor and was going to open a similar message.  \"Guaranteed\" is not in fact guaranteed.  The sender can just set the amount to zero at any time. \r\n\r\nSimilarly, the value implied by \"Reliable Size\" is not reliable.\r\n\r\nInstead, I would suggest \"Delivered Size\" or \"Retained Size\", with a slight preference for the latter, but I would be happy to entertain other suggestions.  That suggests \"QUIC Stream Resets with Retained Data\".\r\n\r\n",
           "createdAt": "2024-02-06T00:22:49Z",
           "updatedAt": "2024-02-06T00:22:49Z"
+        },
+        {
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "body": "Or maybe \"QUIC Stream Resets with Data Delivery.\"",
+          "createdAt": "2024-02-06T01:50:12Z",
+          "updatedAt": "2024-02-06T01:50:12Z"
+        },
+        {
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Any objections to calling it partial reliability?",
+          "createdAt": "2024-02-06T02:04:14Z",
+          "updatedAt": "2024-02-06T02:04:14Z"
+        },
+        {
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "body": "Yeah I think it would be better to have a title that is technically accurate than using a broad and ambiguous term; I'd rather not see people arguing this is not what they perceive as \"partial reliability.\"",
+          "createdAt": "2024-02-06T06:20:53Z",
+          "updatedAt": "2024-02-06T06:21:25Z"
+        },
+        {
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Discussed with @kazuho OOB. It's a kind of partial reliability, and we won't be claiming anything incorrect as long as we don't claim to present an all-encompassing solution for partial reliability.\r\n\r\nFor example, \"QUIC Stream Resets with Partially Reliable Stream Data Delivery\" would be a possible title.",
+          "createdAt": "2024-02-07T07:54:49Z",
+          "updatedAt": "2024-02-07T07:54:49Z"
+        }
+      ]
+    },
+    {
+      "number": 65,
+      "id": "I_kwDOHuKM_s5-WTCR",
+      "title": "Does this frame class as an abrupt or clean close?",
+      "url": "https://github.com/quicwg/reliable-stream-reset/issues/65",
+      "state": "OPEN",
+      "author": "LPardue",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "QUIC [section 2.4](https://datatracker.ietf.org/doc/html/rfc9000#section-2.4) describes operations on streams that includes:\r\n\r\n> * write data, understanding when stream flow control credit ([Section 4.1](https://datatracker.ietf.org/doc/html/rfc9000#data-flow-control)) has successfully been reserved to send the written data;\r\n> \r\n> * end the stream (clean termination), resulting in a STREAM frame ([Section 19.8](https://datatracker.ietf.org/doc/html/rfc9000#frame-stream)) with the FIN bit set; and\r\n> \r\n> * reset the stream (abrupt termination), resulting in a RESET_STREAM frame ([Section 19.4](https://datatracker.ietf.org/doc/html/rfc9000#frame-reset-stream)) if the stream was not already in a terminal state.\r\n\r\nI'm going to say that implicitly this spec counts as an abrupt termination, if so it might help to state that explicitly and point to the RFC section. The reason I care is because HTTP/3 has different rules about handling stream data (frames) depending on whether things are clean or abrupt; see https://www.rfc-editor.org/rfc/rfc9114.html#section-7.1-6",
+      "createdAt": "2024-02-06T01:44:16Z",
+      "updatedAt": "2024-02-07T10:02:40Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I have to admit I'm a bit confused by the terminology here. As far as I can tell, RFC 9000 doesn't define what \"abrupt termination\" means.\r\n\r\nOn the sender side, both FIN and RESET_STREAM are abrupt: No data is sent after either of them. On the receiver side, the abruptness depends on the API exposed by the QUIC stack. In an order-byte-stream API, the FIN is only delivered to the application once all data is read (-> not abrupt), whereas a RESET_STREAM _can_ be exposed immediately (-> abrupt), but it's totally valid to first deliver received stream data first.\r\n\r\nWith that argument, RESET_STREAM_AT would be a non-abrupt termination, since the receiver will potentially have to wait for transmission of STREAM data up to the Reliable Offset.",
+          "createdAt": "2024-02-07T08:01:57Z",
+          "updatedAt": "2024-02-07T08:01:57Z"
+        },
+        {
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "body": "\u201cAbrupt termination\u201d is a concept of HTTP/3 that maps to resets in QUIC; see [RFC 9114 section 4.1.1](https://www.rfc-editor.org/rfc/rfc9114.html#name-request-cancellation-and-re).\r\n\r\nI\u2019m not sure if QUICWG is at a position to specify what a QUIC extensions means to HTTP/3, but considering that RESET_STREAM_AT is a form of reset, it would be natural to consider the use of the frame as a form of an abrupt termination (and that matches the intended use case of reliably forwarding a partial response).",
+          "createdAt": "2024-02-07T08:30:31Z",
+          "updatedAt": "2024-02-07T08:30:31Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "> I have to admit I'm a bit confused by the terminology here. As far as I can tell, RFC 9000 doesn't define what \"abrupt termination\" means.\r\n\r\nIt does in section 2.4 of RFC 9000 that I quoted",
+          "createdAt": "2024-02-07T09:56:10Z",
+          "updatedAt": "2024-02-07T09:56:10Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "> I'm not sure if QUICWG is at a position to specify what a QUIC extensions means to HTTP/3, but considering that RESET_STREAM_AT is a form of reset\r\n\r\nI agree with both these statements. My thinking is that if any new text is needed at the H3 later, we make WebTransport over H3 responsible for doing it, even if thet requires a formal `Updates` on RFC 9114.\r\n\r\nWe can probably avoid thst though if we can frame the terms in a way that already align, as suggested. The point of this issue is to make sure we've considered that.\r\n",
+          "createdAt": "2024-02-07T10:02:38Z",
+          "updatedAt": "2024-02-07T10:02:38Z"
         }
       ]
     }
