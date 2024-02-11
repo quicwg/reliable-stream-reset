@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-08T00:45:16.910369+00:00",
+  "timestamp": "2024-02-11T00:50:22.828192+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -723,7 +723,7 @@
       "labels": [],
       "body": "QUIC [section 2.4](https://datatracker.ietf.org/doc/html/rfc9000#section-2.4) describes operations on streams that includes:\r\n\r\n> * write data, understanding when stream flow control credit ([Section 4.1](https://datatracker.ietf.org/doc/html/rfc9000#data-flow-control)) has successfully been reserved to send the written data;\r\n> \r\n> * end the stream (clean termination), resulting in a STREAM frame ([Section 19.8](https://datatracker.ietf.org/doc/html/rfc9000#frame-stream)) with the FIN bit set; and\r\n> \r\n> * reset the stream (abrupt termination), resulting in a RESET_STREAM frame ([Section 19.4](https://datatracker.ietf.org/doc/html/rfc9000#frame-reset-stream)) if the stream was not already in a terminal state.\r\n\r\nI'm going to say that implicitly this spec counts as an abrupt termination, if so it might help to state that explicitly and point to the RFC section. The reason I care is because HTTP/3 has different rules about handling stream data (frames) depending on whether things are clean or abrupt; see https://www.rfc-editor.org/rfc/rfc9114.html#section-7.1-6",
       "createdAt": "2024-02-06T01:44:16Z",
-      "updatedAt": "2024-02-07T10:02:40Z",
+      "updatedAt": "2024-02-08T04:05:41Z",
       "closedAt": null,
       "comments": [
         {
@@ -753,6 +753,20 @@
           "body": "> I'm not sure if QUICWG is at a position to specify what a QUIC extensions means to HTTP/3, but considering that RESET_STREAM_AT is a form of reset\r\n\r\nI agree with both these statements. My thinking is that if any new text is needed at the H3 later, we make WebTransport over H3 responsible for doing it, even if thet requires a formal `Updates` on RFC 9114.\r\n\r\nWe can probably avoid thst though if we can frame the terms in a way that already align, as suggested. The point of this issue is to make sure we've considered that.\r\n",
           "createdAt": "2024-02-07T10:02:38Z",
           "updatedAt": "2024-02-07T10:02:38Z"
+        },
+        {
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "body": "How about changing the [last sentence of the Introduction](https://quicwg.org/reliable-stream-reset/draft-ietf-quic-reliable-stream-reset.html#section-1-5) from:\r\n_This frame allows an endpoint to mark a portion at the beginning of the stream which will then be reliably delivered, even if the stream was reset._\r\nto something like: \r\n_This frame allows endpoints to communicate a variant of reset that reliably delivers the beginning stream up to a specified offset._\r\n\r\nIn this way, we can convey that Reliable Resets are a form of a stream reset (a.k.a. abrupt termination) as defined in RFC 9000 section 2.4.",
+          "createdAt": "2024-02-08T03:30:47Z",
+          "updatedAt": "2024-02-08T03:30:47Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "I might go further and switch the paragraph around to match how things are presented in rfc 9000. Something like\r\n\r\n> This document extends QUIC with a variant of stream resets that reliably delivers the beginning of a stream up to a sender-specified offset, communicated using the RESET_STREAM_AT frame. As a variant of reset, application protocols continue to treat this stream function as an abrupt termination; see  Section 2.4 of RFC 9000.\r\n\r\nIf you don't like my suggestion, that's OK. This is editors discretion. ",
+          "createdAt": "2024-02-08T04:05:41Z",
+          "updatedAt": "2024-02-08T04:05:41Z"
         }
       ]
     }
