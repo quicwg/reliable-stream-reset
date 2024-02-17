@@ -77,10 +77,11 @@ sending data being read from an external source and encounters an error, it
 might want to use a stream reset to signal that error, while at the same time
 guaranteeing that all data received from the source is delivered to the peer.
 
-This document describes a QUIC extension defining a new frame type, the
-RESET_STREAM_AT frame. This frame allows an endpoint to mark a portion at the
-beginning of the stream which will then be reliably delivered, even if the
-stream was reset.
+This document extends QUIC with a variant of stream resets that reliably
+delivers the beginning of a stream up to a sender-specified offset, communicated
+using the RESET_STREAM_AT frame. As a variant of reset, application protocols
+continue to treat this stream function as an abrupt termination; see Section 2.4
+of RFC 9000.
 
 # Conventions and Definitions
 
