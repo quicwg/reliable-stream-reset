@@ -196,6 +196,12 @@ bit for the same stream, the initiator MUST NOT change the Application Error
 Code or the Final Size. If the receiver detects a change in those fields, it
 MUST close the connection with a connection error of type STREAM_STATE_ERROR.
 
+While multiple RESET_STREAM_AT frames can reduce Reliable Size, some
+applications might need to ensure that a minimum amount of data is always
+delivered on a stream. Application protocols can establish rules for streams
+that ensure that Reliable Size is not reduced below a certain threshold if that
+is necessary to ensure correct operation of the protocol.
+
 ## Stream States {#stream-states}
 
 In terms of stream state transitions ({{Section 3 of RFC9000}}), the effect of a
