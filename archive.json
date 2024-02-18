@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-15T00:46:30.964721+00:00",
+  "timestamp": "2024-02-18T00:49:36.005115+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -4473,6 +4473,145 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 66,
+      "id": "PR_kwDOHuKM_s5nJm8r",
+      "title": "clarify that RESET_STREAM_AT is an abrupt termination",
+      "url": "https://github.com/quicwg/reliable-stream-reset/pull/66",
+      "state": "OPEN",
+      "author": "marten-seemann",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #65.\r\n\r\nThis is exactly what @LPardue suggested.",
+      "createdAt": "2024-02-17T02:52:27Z",
+      "updatedAt": "2024-02-17T18:27:34Z",
+      "baseRepository": "quicwg/reliable-stream-reset",
+      "baseRefName": "main",
+      "baseRefOid": "168dd38bb526a6bc5a5210eca5ac09a363612337",
+      "headRepository": "quicwg/reliable-stream-reset",
+      "headRefName": "abrupt-termination",
+      "headRefOid": "b22767a826aa76ffddf118a02b21719df04d7251",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOHuKM_s5wdiZn",
+          "commit": {
+            "abbreviatedOid": "b22767a"
+          },
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-17T18:27:24Z",
+          "updatedAt": "2024-02-17T18:27:25Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "deeplinks are nice\r\n\r\n```suggestion\r\ncontinue to treat this stream function as an abrupt termination; see {{Section 2.4\r\nof RFC9000}}.\r\n```",
+              "createdAt": "2024-02-17T18:27:25Z",
+              "updatedAt": "2024-02-17T18:27:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5wdidK",
+          "commit": {
+            "abbreviatedOid": "b22767a"
+          },
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "LGTM modulo nit",
+          "createdAt": "2024-02-17T18:27:34Z",
+          "updatedAt": "2024-02-17T18:27:34Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 67,
+      "id": "PR_kwDOHuKM_s5nJobc",
+      "title": "change document title",
+      "url": "https://github.com/quicwg/reliable-stream-reset/pull/67",
+      "state": "OPEN",
+      "author": "marten-seemann",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #64.\r\n\r\n@kazuho You wanted to add some more text regarding the different types of partial reliability. Want to make a suggestion here?",
+      "createdAt": "2024-02-17T02:58:39Z",
+      "updatedAt": "2024-02-17T02:58:49Z",
+      "baseRepository": "quicwg/reliable-stream-reset",
+      "baseRefName": "main",
+      "baseRefOid": "168dd38bb526a6bc5a5210eca5ac09a363612337",
+      "headRepository": "quicwg/reliable-stream-reset",
+      "headRefName": "title",
+      "headRefOid": "b74bd906911cfb69d3f25c50c75312cf2aa3ce53",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 68,
+      "id": "PR_kwDOHuKM_s5nJpKS",
+      "title": "application protocols might constrain use of RESET_STREAM_AT",
+      "url": "https://github.com/quicwg/reliable-stream-reset/pull/68",
+      "state": "OPEN",
+      "author": "marten-seemann",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #63.\r\n\r\nThis applies @martinthomson's suggestion.",
+      "createdAt": "2024-02-17T03:01:46Z",
+      "updatedAt": "2024-02-17T20:03:12Z",
+      "baseRepository": "quicwg/reliable-stream-reset",
+      "baseRefName": "main",
+      "baseRefOid": "168dd38bb526a6bc5a5210eca5ac09a363612337",
+      "headRepository": "quicwg/reliable-stream-reset",
+      "headRefName": "application-protocol-limitations",
+      "headRefOid": "f37d5ca695009885748fc8e207fe0b4e521e63d0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOHuKM_s5wditN",
+          "commit": {
+            "abbreviatedOid": "f37d5ca"
+          },
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2024-02-17T18:28:19Z",
+          "updatedAt": "2024-02-17T18:28:19Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5weF__",
+          "commit": {
+            "abbreviatedOid": "f37d5ca"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-17T20:03:12Z",
+          "updatedAt": "2024-02-17T20:03:12Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
