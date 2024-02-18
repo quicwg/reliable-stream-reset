@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 1 August 2024                                            Fastly
-                                                         29 January 2024
+Expires: 21 August 2024                                           Fastly
+                                                        18 February 2024
 
 
                       Reliable QUIC Stream Resets
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 August 2024.
+   This Internet-Draft will expire on 21 August 2024.
 
 Copyright Notice
 
@@ -245,6 +245,13 @@ Table of Contents
    the Application Error Code or the Final Size.  If the receiver
    detects a change in those fields, it MUST close the connection with a
    connection error of type STREAM_STATE_ERROR.
+
+   While multiple RESET_STREAM_AT frames can reduce Reliable Size, some
+   applications might need to ensure that a minimum amount of data is
+   always delivered on a stream.  Application protocols can establish
+   rules for streams that ensure that Reliable Size is not reduced below
+   a certain threshold if that is necessary to ensure correct operation
+   of the protocol.
 
 5.2.  Stream States
 
