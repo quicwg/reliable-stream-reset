@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 21 August 2024                                           Fastly
-                                                        18 February 2024
+Expires: 22 August 2024                                           Fastly
+                                                        19 February 2024
 
 
                       Reliable QUIC Stream Resets
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 August 2024.
+   This Internet-Draft will expire on 22 August 2024.
 
 Copyright Notice
 
@@ -121,10 +121,11 @@ Table of Contents
    that error, while at the same time guaranteeing that all data
    received from the source is delivered to the peer.
 
-   This document describes a QUIC extension defining a new frame type,
-   the RESET_STREAM_AT frame.  This frame allows an endpoint to mark a
-   portion at the beginning of the stream which will then be reliably
-   delivered, even if the stream was reset.
+   This document extends QUIC with a variant of stream resets that
+   reliably delivers the beginning of a stream up to a sender-specified
+   offset, communicated using the RESET_STREAM_AT frame.  As a variant
+   of reset, application protocols continue to treat this stream
+   function as an abrupt termination; see Section 2.4 of [RFC9000].
 
 2.  Conventions and Definitions
 
