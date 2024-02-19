@@ -80,8 +80,8 @@ guaranteeing that all data received from the source is delivered to the peer.
 This document extends QUIC with a variant of stream resets that reliably
 delivers the beginning of a stream up to a sender-specified offset, communicated
 using the RESET_STREAM_AT frame. As a variant of reset, application protocols
-continue to treat this stream function as an abrupt termination; see Section 2.4
-of RFC 9000.
+continue to treat this stream function as an abrupt termination; see {{Section 2.4
+of RFC9000}}.
 
 # Conventions and Definitions
 
