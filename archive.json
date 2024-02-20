@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-18T00:49:36.005115+00:00",
+  "timestamp": "2024-02-20T00:44:45.931400+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -591,15 +591,15 @@
       "id": "I_kwDOHuKM_s59I6tE",
       "title": "Applications might require that the Reliable Size not reduce",
       "url": "https://github.com/quicwg/reliable-stream-reset/issues/63",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "martinthomson",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "In Section 5.1, should this say something like:\r\n\r\n> While multiple RESET_STREAM_AT frames can reduce Reliable Size, some applications might need to ensure that a minimum amount of data is always delivered on a stream.  Application protocols can establish rules for streams that ensure that Reliable Size is not reduced below a certain threshold if that is necessary to ensure correct operation of the protocol.\r\n\r\nTo explicitly signal this WebTransport, as it were.",
       "createdAt": "2024-01-25T03:23:43Z",
-      "updatedAt": "2024-02-06T07:31:21Z",
-      "closedAt": null,
+      "updatedAt": "2024-02-18T10:03:41Z",
+      "closedAt": "2024-02-18T10:03:41Z",
       "comments": [
         {
           "author": "marten-seemann",
@@ -716,15 +716,15 @@
       "id": "I_kwDOHuKM_s5-WTCR",
       "title": "Does this frame class as an abrupt or clean close?",
       "url": "https://github.com/quicwg/reliable-stream-reset/issues/65",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "LPardue",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "QUIC [section 2.4](https://datatracker.ietf.org/doc/html/rfc9000#section-2.4) describes operations on streams that includes:\r\n\r\n> * write data, understanding when stream flow control credit ([Section 4.1](https://datatracker.ietf.org/doc/html/rfc9000#data-flow-control)) has successfully been reserved to send the written data;\r\n> \r\n> * end the stream (clean termination), resulting in a STREAM frame ([Section 19.8](https://datatracker.ietf.org/doc/html/rfc9000#frame-stream)) with the FIN bit set; and\r\n> \r\n> * reset the stream (abrupt termination), resulting in a RESET_STREAM frame ([Section 19.4](https://datatracker.ietf.org/doc/html/rfc9000#frame-reset-stream)) if the stream was not already in a terminal state.\r\n\r\nI'm going to say that implicitly this spec counts as an abrupt termination, if so it might help to state that explicitly and point to the RFC section. The reason I care is because HTTP/3 has different rules about handling stream data (frames) depending on whether things are clean or abrupt; see https://www.rfc-editor.org/rfc/rfc9114.html#section-7.1-6",
       "createdAt": "2024-02-06T01:44:16Z",
-      "updatedAt": "2024-02-08T04:05:41Z",
-      "closedAt": null,
+      "updatedAt": "2024-02-19T03:19:40Z",
+      "closedAt": "2024-02-19T03:19:40Z",
       "comments": [
         {
           "author": "marten-seemann",
@@ -4479,25 +4479,35 @@
       "id": "PR_kwDOHuKM_s5nJm8r",
       "title": "clarify that RESET_STREAM_AT is an abrupt termination",
       "url": "https://github.com/quicwg/reliable-stream-reset/pull/66",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marten-seemann",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Fixes #65.\r\n\r\nThis is exactly what @LPardue suggested.",
       "createdAt": "2024-02-17T02:52:27Z",
-      "updatedAt": "2024-02-17T18:27:34Z",
+      "updatedAt": "2024-02-19T03:20:01Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "168dd38bb526a6bc5a5210eca5ac09a363612337",
       "headRepository": "quicwg/reliable-stream-reset",
       "headRefName": "abrupt-termination",
-      "headRefOid": "b22767a826aa76ffddf118a02b21719df04d7251",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "headRefOid": "d1f631797f453aee5fbadafad7b0803ccecd4a54",
+      "closedAt": "2024-02-19T03:19:39Z",
+      "mergedAt": "2024-02-19T03:19:39Z",
+      "mergedBy": "kazuho",
+      "mergeCommit": {
+        "oid": "4ed8c2304e3fc0194db47215381efa009df297e6"
+      },
+      "comments": [
+        {
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "body": "LG!",
+          "createdAt": "2024-02-19T03:20:00Z",
+          "updatedAt": "2024-02-19T03:20:00Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOHuKM_s5wdiZn",
@@ -4546,43 +4556,74 @@
       "labels": [],
       "body": "Fixes #64.\r\n\r\n@kazuho You wanted to add some more text regarding the different types of partial reliability. Want to make a suggestion here?",
       "createdAt": "2024-02-17T02:58:39Z",
-      "updatedAt": "2024-02-17T02:58:49Z",
+      "updatedAt": "2024-02-19T03:48:54Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
-      "baseRefOid": "168dd38bb526a6bc5a5210eca5ac09a363612337",
+      "baseRefOid": "4ed8c2304e3fc0194db47215381efa009df297e6",
       "headRepository": "quicwg/reliable-stream-reset",
       "headRefName": "title",
-      "headRefOid": "b74bd906911cfb69d3f25c50c75312cf2aa3ce53",
+      "headRefOid": "a257ea5f920bbc47835306404967fe8b40644e0a",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "body": "Merged main to incorporate other changes.",
+          "createdAt": "2024-02-19T03:33:53Z",
+          "updatedAt": "2024-02-19T03:33:53Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOHuKM_s5wgQk6",
+          "commit": {
+            "abbreviatedOid": "a257ea5"
+          },
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "Merged main to suggest changes inline but it seems I cannot.\r\n\r\n@marten-seemann \r\n> You wanted to add some more text regarding the different types of partial reliability. Want to make a suggestion here?\r\n\r\nRight, maybe add something like below (the sentence in bold) to the last paragraph of Introductions?\r\n\r\n> This document extends QUIC with a variant of stream resets that reliably delivers the beginning of a stream up to a sender-specified offset, communicated using the RESET_STREAM_AT frame. **It can be considered a form of partial reliability that is range-based.** As a variant of reset, application protocols continue to treat this stream function as an abrupt termination; see [Section 2.4](https://rfc-editor.org/rfc/rfc9000#section-2.4) of [[RFC9000](https://quicwg.org/reliable-stream-reset/draft-ietf-quic-reliable-stream-reset.html#RFC9000)].",
+          "createdAt": "2024-02-19T03:48:42Z",
+          "updatedAt": "2024-02-19T03:48:54Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\ntitle: \"QUIC Stream Resets with Partial Delivery\"\r\n```\r\n\r\nTo me it seems \"stream data\" is verbose (what else would you deliver on streams)? Maybe \"reliable\" also is.",
+              "createdAt": "2024-02-19T03:48:42Z",
+              "updatedAt": "2024-02-19T03:50:50Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 68,
       "id": "PR_kwDOHuKM_s5nJpKS",
       "title": "application protocols might constrain use of RESET_STREAM_AT",
       "url": "https://github.com/quicwg/reliable-stream-reset/pull/68",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marten-seemann",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Fixes #63.\r\n\r\nThis applies @martinthomson's suggestion.",
       "createdAt": "2024-02-17T03:01:46Z",
-      "updatedAt": "2024-02-17T20:03:12Z",
+      "updatedAt": "2024-02-18T10:03:40Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "168dd38bb526a6bc5a5210eca5ac09a363612337",
       "headRepository": "quicwg/reliable-stream-reset",
       "headRefName": "application-protocol-limitations",
       "headRefOid": "f37d5ca695009885748fc8e207fe0b4e521e63d0",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-02-18T10:03:40Z",
+      "mergedAt": "2024-02-18T10:03:40Z",
+      "mergedBy": "marten-seemann",
+      "mergeCommit": {
+        "oid": "75c9955c5e1a0aff12b008c70dc5e209586ac688"
+      },
       "comments": [],
       "reviews": [
         {
