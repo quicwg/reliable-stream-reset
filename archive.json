@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-20T00:44:45.931400+00:00",
+  "timestamp": "2024-02-22T00:45:13.936615+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -4591,9 +4591,9 @@
           "comments": [
             {
               "originalPosition": 4,
-              "body": "```suggestion\r\ntitle: \"QUIC Stream Resets with Partial Delivery\"\r\n```\r\n\r\nTo me it seems \"stream data\" is verbose (what else would you deliver on streams)? Maybe \"reliable\" also is.",
+              "body": "```suggestion\r\ntitle: \"QUIC Stream Resets with Partial Delivery\"\r\n```\r\n\r\nTo me it seems \"stream data\" is verbose (what else would you deliver on streams)? Maybe \"reliable\" also is (but if we want to keep \"partially reliable\" in the title then \"partially reliable delivery\" then that's fine, maybe?).",
               "createdAt": "2024-02-19T03:48:42Z",
-              "updatedAt": "2024-02-19T03:50:50Z"
+              "updatedAt": "2024-02-20T06:03:27Z"
             }
           ]
         }
