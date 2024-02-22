@@ -1232,9 +1232,9 @@ might want to use a stream reset to signal that error, while at the same time
 guaranteeing that all data received from the source is delivered to the peer.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">This document extends QUIC with a variant of stream resets that reliably
 delivers the beginning of a stream up to a sender-specified offset, communicated
-using the RESET_STREAM_AT frame. It can be considered a form of partial
-reliability that is range-based. As a variant of reset, application protocols
-continue to treat this stream function as an abrupt termination; see <span><a href="https://rfc-editor.org/rfc/rfc9000#section-2.4" class="relref">Section 2.4</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>.<a href="#section-1-5" class="pilcrow">¶</a></p>
+using the RESET_STREAM_AT frame. It can be considered a form of range-based
+partial reliability. As a variant of reset, application protocols continue to
+treat this stream function as an abrupt termination; see <span><a href="https://rfc-editor.org/rfc/rfc9000#section-2.4" class="relref">Section 2.4</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
