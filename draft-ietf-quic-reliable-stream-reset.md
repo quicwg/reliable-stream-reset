@@ -1,5 +1,5 @@
 ---
-title: "QUIC Stream Resets with Partially Reliable Stream Data Delivery"
+title: "QUIC Stream Resets with Partial Delivery"
 docname: draft-ietf-quic-reliable-stream-reset-latest
 category: std
 
