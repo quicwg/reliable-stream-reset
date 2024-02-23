@@ -1,6 +1,5 @@
 ---
-title: "Reliable QUIC Stream Resets"
-abbrev: "QUIC Reliable Stream Reset"
+title: "QUIC Stream Resets with Partial Delivery"
 docname: draft-ietf-quic-reliable-stream-reset-latest
 category: std
 
@@ -79,9 +78,10 @@ guaranteeing that all data received from the source is delivered to the peer.
 
 This document extends QUIC with a variant of stream resets that reliably
 delivers the beginning of a stream up to a sender-specified offset, communicated
-using the RESET_STREAM_AT frame. As a variant of reset, application protocols
-continue to treat this stream function as an abrupt termination; see {{Section 2.4
-of RFC9000}}.
+using the RESET_STREAM_AT frame. It can be considered a form of range-based
+partial reliability. As a variant of reset, application protocols continue to
+treat this stream function as an abrupt termination; see {{Section 2.4 of
+RFC9000}}.
 
 # Conventions and Definitions
 
