@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-22T00:45:13.936615+00:00",
+  "timestamp": "2024-02-25T00:49:59.019817+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -643,15 +643,15 @@
       "id": "I_kwDOHuKM_s599CDw",
       "title": "Remove the \"reliable reset\" phrasing from the draft",
       "url": "https://github.com/quicwg/reliable-stream-reset/issues/64",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "vasilvv",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Resets are always reliable in QUIC itself, so the phrasing is in general confusing.  We already renamed the frame to RESET_STREAM_AT, so the rest of the draft should probably be updated too.",
       "createdAt": "2024-02-01T18:21:32Z",
-      "updatedAt": "2024-02-07T07:54:50Z",
-      "closedAt": null,
+      "updatedAt": "2024-02-23T07:46:12Z",
+      "closedAt": "2024-02-23T07:46:12Z",
       "comments": [
         {
           "author": "marten-seemann",
@@ -4549,24 +4549,26 @@
       "id": "PR_kwDOHuKM_s5nJobc",
       "title": "change document title",
       "url": "https://github.com/quicwg/reliable-stream-reset/pull/67",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "marten-seemann",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Fixes #64.\r\n\r\n@kazuho You wanted to add some more text regarding the different types of partial reliability. Want to make a suggestion here?",
       "createdAt": "2024-02-17T02:58:39Z",
-      "updatedAt": "2024-02-19T03:48:54Z",
+      "updatedAt": "2024-02-23T07:46:11Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "4ed8c2304e3fc0194db47215381efa009df297e6",
       "headRepository": "quicwg/reliable-stream-reset",
       "headRefName": "title",
-      "headRefOid": "a257ea5f920bbc47835306404967fe8b40644e0a",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "45bce25ff8118ad0576191a7e975df8de7f3fa99",
+      "closedAt": "2024-02-23T07:46:11Z",
+      "mergedAt": "2024-02-23T07:46:11Z",
+      "mergedBy": "marten-seemann",
+      "mergeCommit": {
+        "oid": "b1dcbe3bf65e1633ef2e4b9f69344e7a6ad0a140"
+      },
       "comments": [
         {
           "author": "kazuho",
@@ -4574,6 +4576,13 @@
           "body": "Merged main to incorporate other changes.",
           "createdAt": "2024-02-19T03:33:53Z",
           "updatedAt": "2024-02-19T03:33:53Z"
+        },
+        {
+          "author": "marten-seemann",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Rebased and applied both of @kazuho's suggestions.",
+          "createdAt": "2024-02-22T23:56:37Z",
+          "updatedAt": "2024-02-22T23:56:37Z"
         }
       ],
       "reviews": [
@@ -4596,6 +4605,19 @@
               "updatedAt": "2024-02-20T06:03:27Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOHuKM_s5xFNNF",
+          "commit": {
+            "abbreviatedOid": "45bce25"
+          },
+          "author": "kazuho",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-23T00:03:45Z",
+          "updatedAt": "2024-02-23T00:03:45Z",
+          "comments": []
         }
       ]
     },
