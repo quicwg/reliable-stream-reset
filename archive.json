@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-27T00:44:53.470768+00:00",
+  "timestamp": "2024-02-29T00:45:08.757316+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -3621,7 +3621,7 @@
       "labels": [],
       "body": "This is intended to be a rewording of the text to align with how other QUIC extensions have come out of the RFC editor.\r\n\r\nAlso I tried to tighten up the explanation of exactly what range data is reliable.\r\n",
       "createdAt": "2023-11-09T16:53:52Z",
-      "updatedAt": "2023-12-01T09:18:30Z",
+      "updatedAt": "2024-02-29T00:39:25Z",
       "baseRepository": "quicwg/reliable-stream-reset",
       "baseRefName": "main",
       "baseRefOid": "aa3a0e6d3aecd7ead506ea99c6260909389ce462",
@@ -3639,6 +3639,13 @@
           "body": "@kazuho @marten-seemann good to go?",
           "createdAt": "2023-11-30T14:02:19Z",
           "updatedAt": "2023-11-30T14:02:19Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "body": "We can deal with this as part of shepherd writeup",
+          "createdAt": "2024-02-29T00:39:24Z",
+          "updatedAt": "2024-02-29T00:39:24Z"
         }
       ],
       "reviews": [
