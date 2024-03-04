@@ -90,7 +90,7 @@ RFC9000}}.
 # Negotiating Extension Use
 
 Endpoints advertise their support of the extension described in this document by
-sending the reliable_stream_reset (0x17f7586d2cb571) transport parameter
+sending the reset_stream_at (0x17f7586d2cb571) transport parameter
 ({{Section 7.4 of RFC9000}}) with an empty value. An implementation that
 understands this transport parameter MUST treat the receipt of a non-empty value
 as a connection error of type TRANSPORT_PARAMETER_ERROR.
@@ -256,7 +256,7 @@ frames, until the stream reaches the terminal state.
 
 ## QUIC Transport Parameter
 
-This document registers the reliable_stream_reset transport parameter in the
+This document registers the reset_stream_at transport parameter in the
 "QUIC Transport Parameters" registry established in {{Section 22.3 of RFC9000}}.
 The following fields are registered:
 
@@ -264,7 +264,7 @@ Value:
 : 0x17f7586d2cb571
 
 Parameter Name:
-: reliable_stream_reset
+: reset_stream_at
 
 Status:
 : Provisional (note that, prior to publication, the value will be replaced by a new value lower than 64)
