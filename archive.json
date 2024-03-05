@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-03T00:48:51.228579+00:00",
+  "timestamp": "2024-03-05T00:45:28.592743+00:00",
   "repo": "quicwg/reliable-stream-reset",
   "labels": [
     {
@@ -4679,6 +4679,48 @@
           "body": "",
           "createdAt": "2024-02-17T20:03:12Z",
           "updatedAt": "2024-02-17T20:03:12Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 69,
+      "id": "PR_kwDOHuKM_s5okuM_",
+      "title": "rename the transport parameter to reset_stream_at",
+      "url": "https://github.com/quicwg/reliable-stream-reset/pull/69",
+      "state": "MERGED",
+      "author": "marten-seemann",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-04T10:51:25Z",
+      "updatedAt": "2024-03-04T10:56:13Z",
+      "baseRepository": "quicwg/reliable-stream-reset",
+      "baseRefName": "main",
+      "baseRefOid": "b1dcbe3bf65e1633ef2e4b9f69344e7a6ad0a140",
+      "headRepository": "quicwg/reliable-stream-reset",
+      "headRefName": "rename-transport-parameter",
+      "headRefOid": "453577b4bb08d293b8dcc6bf432ec8341e7ac229",
+      "closedAt": "2024-03-04T10:56:12Z",
+      "mergedAt": "2024-03-04T10:56:12Z",
+      "mergedBy": "marten-seemann",
+      "mergeCommit": {
+        "oid": "1309703a125299d96f553f0adb090af0ae70176e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOHuKM_s5yFWy9",
+          "commit": {
+            "abbreviatedOid": "453577b"
+          },
+          "author": "LPardue",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2024-03-04T10:54:06Z",
+          "updatedAt": "2024-03-04T10:54:06Z",
           "comments": []
         }
       ]
