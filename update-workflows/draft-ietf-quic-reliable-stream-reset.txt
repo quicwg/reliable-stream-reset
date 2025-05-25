@@ -5,11 +5,11 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 20 August 2024                                           Fastly
-                                                        17 February 2024
+Expires: 26 November 2025                                         Fastly
+                                                             25 May 2025
 
 
-                      Reliable QUIC Stream Resets
+                QUIC Stream Resets with Partial Delivery
               draft-ietf-quic-reliable-stream-reset-latest
 
 Abstract
@@ -56,11 +56,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 August 2024.
+   This Internet-Draft will expire on 26 November 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -121,10 +121,12 @@ Table of Contents
    that error, while at the same time guaranteeing that all data
    received from the source is delivered to the peer.
 
-   This document describes a QUIC extension defining a new frame type,
-   the RESET_STREAM_AT frame.  This frame allows an endpoint to mark a
-   portion at the beginning of the stream which will then be reliably
-   delivered, even if the stream was reset.
+   This document extends QUIC with a variant of stream resets that
+   reliably delivers the beginning of a stream up to a sender-specified
+   offset, communicated using the RESET_STREAM_AT frame.  It can be
+   considered a form of range-based partial reliability.  As a variant
+   of reset, application protocols continue to treat this stream
+   function as an abrupt termination; see Section 2.4 of [RFC9000].
 
 2.  Conventions and Definitions
 
@@ -137,10 +139,10 @@ Table of Contents
 3.  Negotiating Extension Use
 
    Endpoints advertise their support of the extension described in this
-   document by sending the reliable_stream_reset (0x17f7586d2cb571)
-   transport parameter (Section 7.4 of [RFC9000]) with an empty value.
-   An implementation that understands this transport parameter MUST
-   treat the receipt of a non-empty value as a connection error of type
+   document by sending the reset_stream_at (0x17f7586d2cb571) transport
+   parameter (Section 7.4 of [RFC9000]) with an empty value.  An
+   implementation that understands this transport parameter MUST treat
+   the receipt of a non-empty value as a connection error of type
    TRANSPORT_PARAMETER_ERROR.
 
    When using 0-RTT, both endpoints MUST remember the value of this
@@ -311,13 +313,13 @@ Table of Contents
 
 8.1.  QUIC Transport Parameter
 
-   This document registers the reliable_stream_reset transport parameter
-   in the "QUIC Transport Parameters" registry established in
-   Section 22.3 of [RFC9000].  The following fields are registered:
+   This document registers the reset_stream_at transport parameter in
+   the "QUIC Transport Parameters" registry established in Section 22.3
+   of [RFC9000].  The following fields are registered:
 
    Value:  0x17f7586d2cb571
 
-   Parameter Name:  reliable_stream_reset
+   Parameter Name:  reset_stream_at
 
    Status:  Provisional (note that, prior to publication, the value will
       be replaced by a new value lower than 64)
@@ -370,9 +372,9 @@ Table of Contents
    [WEBTRANSPORT]
               Frindell, A., Kinnear, E., and V. Vasiliev, "WebTransport
               over HTTP/3", Work in Progress, Internet-Draft, draft-
-              ietf-webtrans-http3-08, 23 October 2023,
+              ietf-webtrans-http3-12, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-
-              webtrans-http3-08>.
+              webtrans-http3-12>.
 
 Acknowledgments
 
