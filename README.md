@@ -1,6 +1,8 @@
-# Reliable QUIC Stream Resets
+<!-- regenerate: on (set to off if you edit this file) -->
 
-This is the working area for the IETF [QUIC Working Group](https://datatracker.ietf.org/wg/quic/documents/) Internet-Draft, "Reliable QUIC Stream Resets".
+# QUIC Stream Resets with Partial Delivery
+
+This is the working area for the IETF [QUIC Working Group](https://datatracker.ietf.org/group/quic/documents/) Internet-Draft, "QUIC Stream Resets with Partial Delivery".
 
 * [Editor's Copy](https://quicwg.github.io/reliable-stream-reset/#go.draft-ietf-quic-reliable-stream-reset.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-quic-reliable-stream-reset)
