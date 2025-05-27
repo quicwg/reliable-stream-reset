@@ -87,13 +87,13 @@ RFC9000}}.
 
 {::boilerplate bcp14-tagged}
 
-# Negotiating Extension Use
+# Transport Parameter
 
-Endpoints advertise their support of the extension described in this document by
-sending the reset_stream_at (0x17f7586d2cb571) transport parameter
-({{Section 7.4 of RFC9000}}) with an empty value. An implementation that
-understands this transport parameter MUST treat the receipt of a non-empty value
-as a connection error of type TRANSPORT_PARAMETER_ERROR.
+Support for receiving RESET_STREAM_AT frames is advertised by sending the
+reset_stream_at (0x17f7586d2cb571) transport parameter ({{Section 7.4 of
+RFC9000}}) with an empty value. An implementation that understands this
+transport parameter MUST treat the receipt of a non-empty value as a connection
+error of type TRANSPORT_PARAMETER_ERROR.
 
 When using 0-RTT, both endpoints MUST remember the value of this transport
 parameter. This allows use of this extension in 0-RTT packets. When the server
