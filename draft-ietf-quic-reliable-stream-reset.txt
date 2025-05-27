@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 26 November 2025                                         Fastly
-                                                             25 May 2025
+Expires: 28 November 2025                                         Fastly
+                                                             27 May 2025
 
 
                 QUIC Stream Resets with Partial Delivery
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 November 2025.
+   This Internet-Draft will expire on 28 November 2025.
 
 Copyright Notice
 
@@ -76,7 +76,7 @@ Table of Contents
 
    1.  Introduction
    2.  Conventions and Definitions
-   3.  Negotiating Extension Use
+   3.  Transport Parameter
    4.  RESET_STREAM_AT Frame
    5.  Resetting Streams
      5.1.  Multiple RESET_STREAM_AT / RESET_STREAM frames
@@ -136,13 +136,13 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  Negotiating Extension Use
+3.  Transport Parameter
 
-   Endpoints advertise their support of the extension described in this
-   document by sending the reset_stream_at (0x17f7586d2cb571) transport
-   parameter (Section 7.4 of [RFC9000]) with an empty value.  An
-   implementation that understands this transport parameter MUST treat
-   the receipt of a non-empty value as a connection error of type
+   Support for receiving RESET_STREAM_AT frames is advertised by sending
+   the reset_stream_at (0x17f7586d2cb571) transport parameter
+   (Section 7.4 of [RFC9000]) with an empty value.  An implementation
+   that understands this transport parameter MUST treat the receipt of a
+   non-empty value as a connection error of type
    TRANSPORT_PARAMETER_ERROR.
 
    When using 0-RTT, both endpoints MUST remember the value of this
