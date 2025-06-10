@@ -170,6 +170,20 @@ RFC9000}}). When resetting a stream without the intent to deliver any data to
 the receiver, the sender MAY use either RESET_STREAM or
 RESET_STREAM_AT with a Reliable Size of zero.
 
+As stated in {{Section 4.5 of RFC9000}}, the final size for a stream cannot
+change once it is known. If a frame is received indicating a change in the final
+size for the stream, an endpoint SHOULD respond with an error of type
+FINAL_SIZE_ERROR.
+
+## Sending RESET_STREAM_AT after FIN
+
+Similar to how it is possible to send a RESET_STREAM frame after a STREAM frame
+carrying the FIN bit, it is possible to send a RESET_STREAM_AT frame after a
+STREAM frame carrying the FIN bit.
+
+Due to packet reordering, it is possible for a receiver to receive the
+RESET_STREAM_AT frame before receiving the STREAM frame carrying the FIN bit.
+
 ## Multiple RESET_STREAM_AT / RESET_STREAM frames {#multiple-frames}
 
 The initiator MAY send multiple RESET_STREAM_AT frames for the same stream in
