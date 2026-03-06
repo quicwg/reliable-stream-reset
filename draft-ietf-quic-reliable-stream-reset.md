@@ -141,6 +141,15 @@ Reliable Size:
 If the Reliable Size is larger than the Final Size, the receiver MUST close the
 connection with a connection error of type FRAME_ENCODING_ERROR.
 
+As with RESET_STREAM ({{Section 19.4 of RFC9000}}), Final Size is subject to
+stream flow control. An endpoint MUST NOT send a RESET_STREAM_AT frame with a
+Final Size larger than the largest maximum stream data value advertised by the
+receiver. Consequently, the sender might need to defer sending RESET_STREAM_AT
+until enough stream flow control credit is available. If an endpoint receives a
+RESET_STREAM_AT frame with a Final Size larger than the advertised maximum
+stream data value, it MUST close the connection with an error of type
+FLOW_CONTROL_ERROR.
+
 RESET_STREAM_AT frames are ack-eliciting, and MUST only be sent in the
 application data packet number space. When lost, they MUST be retransmitted,
 unless the stream state has transitioned to "Data Recvd" or "Reset Recvd" due to
