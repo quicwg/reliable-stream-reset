@@ -1340,12 +1340,13 @@ delivered to the application even though the stream is reset.<a href="#section-4
 <p id="section-4-5">If the Reliable Size is larger than the Final Size, the receiver <span class="bcp14">MUST</span> close the
 connection with a connection error of type FRAME_ENCODING_ERROR.<a href="#section-4-5" class="pilcrow">¶</a></p>
 <p id="section-4-6">As with RESET_STREAM (<span><a href="https://rfc-editor.org/rfc/rfc9000#section-19.4" class="relref">Section 19.4</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>), Final Size is subject to
-stream flow control. An endpoint <span class="bcp14">MUST NOT</span> send a RESET_STREAM_AT frame with a
-Final Size larger than the largest maximum stream data value advertised by the
-receiver. Consequently, the sender might need to defer sending RESET_STREAM_AT
-until enough stream flow control credit is available. If an endpoint receives a
-RESET_STREAM_AT frame with a Final Size larger than the advertised maximum
-stream data value, it <span class="bcp14">MUST</span> close the connection with an error of type
+stream and connection-level flow control. An endpoint <span class="bcp14">MUST NOT</span> send a
+RESET_STREAM_AT frame that exceeds the largest maximum stream data value
+advertised by the receiver for the stream, or that violates the receiver's
+maximum data limit. Consequently, the sender might need to defer sending
+RESET_STREAM_AT until enough stream or connection-level flow control credit is
+available. If an endpoint receives a RESET_STREAM_AT frame that violates either
+flow control limit, it <span class="bcp14">MUST</span> close the connection with an error of type
 FLOW_CONTROL_ERROR.<a href="#section-4-6" class="pilcrow">¶</a></p>
 <p id="section-4-7">RESET_STREAM_AT frames are ack-eliciting, and <span class="bcp14">MUST</span> only be sent in the
 application data packet number space. When lost, they <span class="bcp14">MUST</span> be retransmitted,
