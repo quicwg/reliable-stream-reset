@@ -230,15 +230,18 @@ carrying the smallest Reliable Size and all stream data up to that byte offset
 have been acknowledged, the sending part of the stream enters the "Data Recvd"
 state. The transition from "Data Sent" to "Data Recvd" happens immediately if
 the application resets a stream and all bytes up to the specified Reliable Size
-have already been sent and acknowledged. Conversely, the transition might take
-multiple network roundtrips or require additional flow control credit issued by
+have already been sent and acknowledged. Conversely, if bytes below that offset
+still need to be sent or acknowledged, the transition might take multiple
+network roundtrips and might require additional flow control credit issued by
 the receiver.
 
 On the receiving side, when a RESET_STREAM_AT frame is received, the receiving
 part of the stream enters the "Size Known" state. Once all data up to the
 smallest Reliable Size have been received, it enters the "Data Recvd" state.
 Similarly to the sending side, transition from "Size Known" to "Data Recvd"
-might happen immediately or involve issuance of additional flow control credit.
+might happen immediately, or might require additional network roundtrips while
+the sender transmits remaining bytes up to the smallest Reliable Size. This might
+require the receiver to issue additional flow control credit.
 
 # Implementation Guidance
 
