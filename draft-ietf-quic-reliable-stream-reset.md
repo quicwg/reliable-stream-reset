@@ -274,8 +274,6 @@ This document registers the reset_stream_at transport parameter in the
 "QUIC Transport Parameters" registry established in {{Section 22.3 of RFC9000}}.
 The following fields are registered:
 
-<!-- https://martinthomson.github.io/quic-pick/#seed=draft-ietf-quic-reliable-stream-reset;field=tp;codepoint=0x1d;size=1 -->
-
 Value:
 : 0x1d
 
