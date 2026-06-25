@@ -90,7 +90,7 @@ RFC9000}}.
 # Transport Parameter
 
 Support for receiving RESET_STREAM_AT frames is advertised by sending the
-reset_stream_at (0x17f7586d2cb571) transport parameter ({{Section 7.4 of
+reset_stream_at (0x1d) transport parameter ({{Section 7.4 of
 RFC9000}}) with an empty value. An implementation that understands this
 transport parameter MUST treat the receipt of a non-empty value as a connection
 error of type TRANSPORT_PARAMETER_ERROR.
@@ -274,8 +274,10 @@ This document registers the reset_stream_at transport parameter in the
 "QUIC Transport Parameters" registry established in {{Section 22.3 of RFC9000}}.
 The following fields are registered:
 
+<!-- https://martinthomson.github.io/quic-pick/#seed=draft-ietf-quic-reliable-stream-reset;field=tp;codepoint=0x1d;size=1 -->
+
 Value:
-: 0x17f7586d2cb571
+: 0x1d
 
 Parameter Name:
 : reset_stream_at
