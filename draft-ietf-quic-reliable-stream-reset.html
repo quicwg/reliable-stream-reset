@@ -1415,7 +1415,8 @@ increases the Reliable Size.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 <p id="section-5.2-5">When sending another RESET_STREAM_AT, RESET_STREAM or STREAM frame carrying a FIN
 bit for the same stream, the initiator <span class="bcp14">MUST NOT</span> change the Application Error
 Code or the Final Size. If the receiver detects a change in those fields, it
-<span class="bcp14">MUST</span> close the connection with a connection error of type STREAM_STATE_ERROR.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<span class="bcp14">MUST</span> close the connection with a connection error of type STREAM_STATE_ERROR
+or FINAL_SIZE_ERROR, respectively.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
 <p id="section-5.2-6">While multiple RESET_STREAM_AT frames can reduce Reliable Size, some
 applications might need to ensure that a minimum amount of data is always
 delivered on a stream. Application protocols can establish rules for streams
