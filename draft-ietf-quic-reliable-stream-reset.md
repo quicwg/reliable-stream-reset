@@ -219,7 +219,8 @@ increases the Reliable Size.
 When sending another RESET_STREAM_AT, RESET_STREAM or STREAM frame carrying a FIN
 bit for the same stream, the initiator MUST NOT change the Application Error
 Code or the Final Size. If the receiver detects a change in those fields, it
-MUST close the connection with a connection error of type STREAM_STATE_ERROR.
+MUST close the connection with a connection error of type STREAM_STATE_ERROR
+or FINAL_SIZE_ERROR, respectively.
 
 While multiple RESET_STREAM_AT frames can reduce Reliable Size, some
 applications might need to ensure that a minimum amount of data is always
