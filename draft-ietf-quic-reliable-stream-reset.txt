@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 27 December 2026                                         Fastly
-                                                            25 June 2026
+Expires: 28 December 2026                                         Fastly
+                                                            26 June 2026
 
 
                 QUIC Stream Resets with Partial Delivery
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 December 2026.
+   This Internet-Draft will expire on 28 December 2026.
 
 Copyright Notice
 
@@ -140,11 +140,10 @@ Table of Contents
 3.  Transport Parameter
 
    Support for receiving RESET_STREAM_AT frames is advertised by sending
-   the reset_stream_at (0x17f7586d2cb571) transport parameter
-   (Section 7.4 of [RFC9000]) with an empty value.  An implementation
-   that understands this transport parameter MUST treat the receipt of a
-   non-empty value as a connection error of type
-   TRANSPORT_PARAMETER_ERROR.
+   the reset_stream_at (0x1d) transport parameter (Section 7.4 of
+   [RFC9000]) with an empty value.  An implementation that understands
+   this transport parameter MUST treat the receipt of a non-empty value
+   as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
    When using 0-RTT, both endpoints MUST remember the value of this
    transport parameter.  This allows use of this extension in 0-RTT
@@ -347,7 +346,7 @@ Table of Contents
    the "QUIC Transport Parameters" registry established in Section 22.3
    of [RFC9000].  The following fields are registered:
 
-   Value:  0x17f7586d2cb571
+   Value:  0x1d
 
    Parameter Name:  reset_stream_at
 
