@@ -293,7 +293,7 @@ Parameter Name:
 : reset_stream_at
 
 Status:
-: Provisional (note that, prior to publication, the value will be replaced by a new value lower than 64)
+: Provisional (will become Permanent once this document is approved)
 
 Specification:
 : This document
