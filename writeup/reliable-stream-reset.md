@@ -118,7 +118,7 @@ tool is not enough; please review the "Content Guidelines" on
 authors.ietf.org. (Also note that the current idnits tool generates
 some incorrect warnings; a rewrite is underway.)
 
-No true posititve nits.
+No true positive nits.
 
 15. Should any informative references be normative or vice-versa? See the IESG
 Statement on Normative and Informative References.
@@ -144,7 +144,7 @@ No
 submitted to the IESG for publication or are otherwise in an unclear state?
 If so, what is the plan for their completion?
 
-Bo
+No
 
 
 19. Will publication of this document change the status of any existing RFCs? If
