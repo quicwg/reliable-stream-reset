@@ -174,3 +174,6 @@ future allocations. Are the instructions to the Designated Expert clear?
 Please include suggestions of designated experts, if appropriate.
 
 N/A
+
+Shepherd disclaimer: This report was generated with the assistance of AI tooling:
+NotebookLM trained on the the document, together with QUIC WG public resources
