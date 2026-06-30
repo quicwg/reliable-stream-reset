@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 28 December 2026                                         Fastly
-                                                            26 June 2026
+Expires: 1 January 2027                                           Fastly
+                                                            30 June 2026
 
 
                 QUIC Stream Resets with Partial Delivery
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 December 2026.
+   This Internet-Draft will expire on 1 January 2027.
 
 Copyright Notice
 
@@ -349,8 +349,8 @@ Table of Contents
 
    Parameter Name:  reset_stream_at
 
-   Status:  Provisional (note that, prior to publication, the value will
-      be replaced by a new value lower than 64)
+   Status:  Provisional (will become Permanent once this document is
+      approved)
 
    Specification:  This document
 
