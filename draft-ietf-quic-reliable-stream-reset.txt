@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 1 January 2027                                           Fastly
-                                                            30 June 2026
+Expires: 2 January 2027                                           Fastly
+                                                             1 July 2026
 
 
                 QUIC Stream Resets with Partial Delivery
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 January 2027.
+   This Internet-Draft will expire on 2 January 2027.
 
 Copyright Notice
 
@@ -96,7 +96,7 @@ Table of Contents
 1.  Introduction
 
    QUIC version 1 ([RFC9000]) allows streams to be reset.  When a stream
-   is reset, the sender doesn't retransmit stream data for the
+   is reset, the sender does not retransmit stream data for the
    respective stream.  On the receiving side, the QUIC stack is free to
    surface the stream reset to the application immediately, without
    providing any stream data it has received for that stream.
@@ -112,9 +112,9 @@ Table of Contents
    critical information.  In the example above, a reset stream can cause
    the receiver to fail to associate incoming streams with their
    respective subcomponent of the application.  Therefore, it is
-   desirable that the receiver can rely on the delivery of critical
+   desirable to allow a receiver to rely on the delivery of critical
    information to applications, even if the QUIC stream is reset before
-   data is read by the application.
+   this data is read by the application.
 
    Another use case is relaying data from an external data source.  When
    a relay is sending data being read from an external source and
