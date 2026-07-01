@@ -52,7 +52,7 @@ byte offset.
 # Introduction
 
 QUIC version 1 ({{!RFC9000}}) allows streams to be reset.  When a stream is
-reset, the sender doesn't retransmit stream data for the respective stream. On
+reset, the sender does not retransmit stream data for the respective stream. On
 the receiving side, the QUIC stack is free to surface the stream reset to the
 application immediately, without providing any stream data it has received for
 that stream.
@@ -67,9 +67,9 @@ Since QUIC does not provide guaranteed delivery of steam data for reset streams,
 it is possible that a receiver is unable to read critical information. In the
 example above, a reset stream can cause the receiver to fail to associate
 incoming streams with their respective subcomponent of the application.
-Therefore, it is desirable that the receiver can rely on the delivery of
-critical information to applications, even if the QUIC stream is reset before
-data is read by the application.
+Therefore, it is desirable to allow a receiver to rely on the delivery of 
+critical information to applications, even if the QUIC stream is reset before 
+this data is read by the application.
 
 Another use case is relaying data from an external data source. When a relay is
 sending data being read from an external source and encounters an error, it
