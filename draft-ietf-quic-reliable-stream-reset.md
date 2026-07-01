@@ -67,8 +67,8 @@ Since QUIC does not provide guaranteed delivery of steam data for reset streams,
 it is possible that a receiver is unable to read critical information. In the
 example above, a reset stream can cause the receiver to fail to associate
 incoming streams with their respective subcomponent of the application.
-Therefore, it is desirable to allow a receiver to rely on the delivery of 
-critical information to applications, even if the QUIC stream is reset before 
+Therefore, it is desirable to allow a receiver to rely on the delivery of
+critical information to applications, even if the QUIC stream is reset before
 this data is read by the application.
 
 Another use case is relaying data from an external data source. When a relay is
