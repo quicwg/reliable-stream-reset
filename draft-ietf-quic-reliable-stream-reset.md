@@ -275,13 +275,6 @@ data is reliably transmitted, endpoints SHOULD remain vigilant against resource
 commitment and exhaustion attacks even after sending or receiving RESET_STREAM_AT
 frames, until the stream reaches the terminal state.
 
-Maintaining the state necessary to transmit and retransmit data
-on streams that have been reset
-can represent an additional state retention burden
-on endpoints with memory constraints.
-Implementations therefore cannot always ignore streams that have been reset
-once this feature is in use.
-
 
 # IANA Considerations
 
