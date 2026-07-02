@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 2 January 2027                                           Fastly
-                                                             1 July 2026
+Expires: 3 January 2027                                           Fastly
+                                                             2 July 2026
 
 
                 QUIC Stream Resets with Partial Delivery
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 January 2027.
+   This Internet-Draft will expire on 3 January 2027.
 
 Copyright Notice
 
@@ -406,7 +406,9 @@ Table of Contents
 
 Acknowledgments
 
-   TODO acknowledge.
+   This document had reviews and input from many contributors in the
+   IETF QUIC Working Group, with substantive input from Lucas Pardue and
+   Martin Thomson.
 
 Authors' Addresses
 
