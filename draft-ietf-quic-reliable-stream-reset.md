@@ -332,4 +332,5 @@ Contact:
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+This document had reviews and input from many contributors in the IETF QUIC
+Working Group, with substantive input from Lucas Pardue and Martin Thomson.
