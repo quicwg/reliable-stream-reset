@@ -281,11 +281,11 @@ bit are:
 
 As the RESET_STREAM_AT frame is an extension to the stream machinery defined in
 QUIC version 1, the security considerations of {{RFC9000}} apply accordingly.
-Specifically, given that RESET_STREAM_AT frames indicate the offset up to which
-data is reliably transmitted, endpoints SHOULD remain vigilant against resource
-commitment and exhaustion attacks even after sending or receiving RESET_STREAM_AT
-frames until the stream reaches a terminal state, similarly to the handling of
-the FIN bit; see {{stream-states}}.
+Specifically, given that RESET_STREAM_AT frames do not cause data exchange to
+terminate, endpoints need to continue to monitor for resource commitment and
+exhaustion attacks even after sending or receiving RESET_STREAM_AT. This
+persists until all data is delivered, similar to the handling of normal stream
+termination; see {{stream-states}}.
 
 
 # IANA Considerations
