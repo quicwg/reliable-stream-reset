@@ -242,12 +242,11 @@ might happen immediately or involve issuance of additional flow control credit.
 
 ## Handling STOP_SENDING
 
-An endpoint that receives a STOP_SENDING frame
-is required to send a RESET_STREAM frame in some stream states,
-as described in {{Section 3.5 of RFC9000}}.
-While it is permissible to send a RESET_STREAM_AT frame in this case,
-endpoints SHOULD send a RESET_STREAM frame,
-since the peer has already indicated that it does not intend to process any further data.
+An endpoint that receives a STOP_SENDING frame is required to send a
+RESET_STREAM frame in some stream states, as described in {{Section 3.5 of
+RFC9000}}. While it is permissible to send a RESET_STREAM_AT frame in this case,
+endpoints SHOULD send a RESET_STREAM frame, since the peer has already indicated
+that it does not intend to process any further data.
 
 
 # Implementation Guidance
