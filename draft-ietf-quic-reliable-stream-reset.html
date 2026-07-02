@@ -1186,6 +1186,9 @@ byte offset.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-stream-states" class="internal xref">Stream States</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-handling-stop_sending" class="internal xref">Handling STOP_SENDING</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
@@ -1448,6 +1451,17 @@ Similarly to the sending side, transition from "Size Known" to "Data Recvd"
 might happen immediately, or might require additional network roundtrips while
 the sender transmits remaining bytes up to the smallest Reliable Size. This might
 require the receiver to issue additional flow control credit.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="handling-stopsending">
+<section id="section-5.4">
+        <h3 id="name-handling-stop_sending">
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-handling-stop_sending" class="section-name selfRef">Handling STOP_SENDING</a>
+        </h3>
+<p id="section-5.4-1">An endpoint that receives a STOP_SENDING frame is required to send a
+RESET_STREAM frame in some stream states, as described in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-3.5" class="relref">Section 3.5</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>. While it is permissible to send a RESET_STREAM_AT frame in this case,
+endpoints <span class="bcp14">SHOULD</span> send a RESET_STREAM frame, since the peer has already indicated
+that it does not intend to process any further data.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
