@@ -275,7 +275,8 @@ QUIC version 1, the security considerations of {{RFC9000}} apply accordingly.
 Specifically, given that RESET_STREAM_AT frames indicate the offset up to which
 data is reliably transmitted, endpoints SHOULD remain vigilant against resource
 commitment and exhaustion attacks even after sending or receiving RESET_STREAM_AT
-frames, until the stream reaches the terminal state.
+frames until the stream reaches a terminal state, similarly to the handling of
+the FIN bit; see {{stream-states}}.
 
 
 # IANA Considerations
