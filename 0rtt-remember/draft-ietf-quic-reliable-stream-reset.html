@@ -1279,8 +1279,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 reset_stream_at (0x1d) transport parameter (<span><a href="https://rfc-editor.org/rfc/rfc9000#section-7.4" class="relref">Section 7.4</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>) with an empty value. An implementation that understands this
 transport parameter <span class="bcp14">MUST</span> treat the receipt of a non-empty value as a connection
 error of type TRANSPORT_PARAMETER_ERROR.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">When using 0-RTT, both endpoints <span class="bcp14">MUST</span> remember that this extension was
-negotiated. This allows use of this extension in 0-RTT packets. When the server
+<p id="section-3-2">When using 0-RTT, both endpoints <span class="bcp14">MUST</span> remember whether this extension was
+advertised by the server (<span><a href="https://rfc-editor.org/rfc/rfc9000#section-7.4.1" class="relref">Section 7.4.1</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>). This allows use of this extension in 0-RTT packets. When the server
 accepts 0-RTT data, the server <span class="bcp14">MUST NOT</span> disable this extension on the resumed
 connection.<a href="#section-3-2" class="pilcrow">¶</a></p>
 </section>
