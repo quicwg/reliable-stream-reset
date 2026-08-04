@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 3 January 2027                                           Fastly
-                                                             2 July 2026
+Expires: 5 February 2027                                          Fastly
+                                                           4 August 2026
 
 
                 QUIC Stream Resets with Partial Delivery
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 January 2027.
+   This Internet-Draft will expire on 5 February 2027.
 
 Copyright Notice
 
@@ -82,6 +82,7 @@ Table of Contents
      5.1.  Sending RESET_STREAM_AT after FIN
      5.2.  Multiple RESET_STREAM_AT / RESET_STREAM frames
      5.3.  Stream States
+     5.4.  Handling STOP_SENDING
    6.  Implementation Guidance
    7.  Security Considerations
    8.  IANA Considerations
@@ -145,10 +146,10 @@ Table of Contents
    this transport parameter MUST treat the receipt of a non-empty value
    as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
-   When using 0-RTT, both endpoints MUST remember the value of this
-   transport parameter.  This allows use of this extension in 0-RTT
-   packets.  When the server accepts 0-RTT data, the server MUST NOT
-   disable this extension on the resumed connection.
+   When using 0-RTT, both endpoints MUST remember that this extension
+   was negotiated.  This allows use of this extension in 0-RTT packets.
+   When the server accepts 0-RTT data, the server MUST NOT disable this
+   extension on the resumed connection.
 
 4.  RESET_STREAM_AT Frame
 
@@ -309,6 +310,15 @@ Table of Contents
    remaining bytes up to the smallest Reliable Size.  This might require
    the receiver to issue additional flow control credit.
 
+5.4.  Handling STOP_SENDING
+
+   An endpoint that receives a STOP_SENDING frame is required to send a
+   RESET_STREAM frame in some stream states, as described in Section 3.5
+   of [RFC9000].  While it is permissible to send a RESET_STREAM_AT
+   frame in this case, endpoints SHOULD send a RESET_STREAM frame, since
+   the peer has already indicated that it does not intend to process any
+   further data.
+
 6.  Implementation Guidance
 
    In terms of transport machinery, the RESET_STREAM_AT frame is more
@@ -332,11 +342,11 @@ Table of Contents
    As the RESET_STREAM_AT frame is an extension to the stream machinery
    defined in QUIC version 1, the security considerations of [RFC9000]
    apply accordingly.  Specifically, given that RESET_STREAM_AT frames
-   indicate the offset up to which data is reliably transmitted,
-   endpoints SHOULD remain vigilant against resource commitment and
-   exhaustion attacks even after sending or receiving RESET_STREAM_AT
-   frames until the stream reaches a terminal state, similarly to the
-   handling of the FIN bit; see Section 5.3.
+   do not cause data exchange to terminate, endpoints need to continue
+   to monitor for resource commitment and exhaustion attacks even after
+   sending or receiving RESET_STREAM_AT.  This persists until all data
+   is delivered, similar to the handling of normal stream termination;
+   see Section 5.3.
 
 8.  IANA Considerations
 
@@ -401,9 +411,9 @@ Table of Contents
    [WEBTRANSPORT]
               Frindell, A., Kinnear, E., and V. Vasiliev, "WebTransport
               over HTTP/3", Work in Progress, Internet-Draft, draft-
-              ietf-webtrans-http3-15, 2 March 2026,
+              ietf-webtrans-http3-16, 6 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-
-              webtrans-http3-15>.
+              webtrans-http3-16>.
 
 Acknowledgments
 
