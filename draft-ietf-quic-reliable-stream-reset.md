@@ -196,11 +196,11 @@ RESET_STREAM_AT frame before receiving the STREAM frame carrying the FIN bit.
 
 The initiator MAY send multiple RESET_STREAM_AT frames for the same stream in
 order to reduce the Reliable Size.  It MAY also send a RESET_STREAM frame, which
-is equivalent to sending a RESET_STREAM_AT frame with a Reliable Size of 0. When
-reducing the Reliable Size, the sender MUST retransmit the RESET_STREAM_AT frame
-carrying the smallest Reliable Size as well as stream data up to that size,
-until all acknowledgements for the stream data and the RESET_STREAM_AT frame are
-received.
+for purposes of data delivery is equivalent to sending a RESET_STREAM_AT frame
+with a Reliable Size of 0. When reducing the Reliable Size, the sender MUST
+retransmit the RESET_STREAM_AT frame carrying the smallest Reliable Size as well
+as stream data up to that size, until all acknowledgements for the stream data
+and the RESET_STREAM_AT frame are received.
 
 When sending multiple RESET_STREAM_AT or RESET_STREAM frames for the same
 stream, the initiator MUST NOT increase the Reliable Size.
