@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 3 January 2027                                           Fastly
-                                                             2 July 2026
+Expires: 9 February 2027                                          Fastly
+                                                           8 August 2026
 
 
                 QUIC Stream Resets with Partial Delivery
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 January 2027.
+   This Internet-Draft will expire on 9 February 2027.
 
 Copyright Notice
 
@@ -146,10 +146,11 @@ Table of Contents
    this transport parameter MUST treat the receipt of a non-empty value
    as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
-   When using 0-RTT, both endpoints MUST remember the value of this
-   transport parameter.  This allows use of this extension in 0-RTT
-   packets.  When the server accepts 0-RTT data, the server MUST NOT
-   disable this extension on the resumed connection.
+   When using 0-RTT, both endpoints MUST remember whether this extension
+   was advertised by the server (Section 7.4.1 of [RFC9000]).  This
+   allows use of this extension in 0-RTT packets.  When the server
+   accepts 0-RTT data, the server MUST NOT disable this extension on the
+   resumed connection.
 
 4.  RESET_STREAM_AT Frame
 
@@ -411,9 +412,9 @@ Table of Contents
    [WEBTRANSPORT]
               Frindell, A., Kinnear, E., and V. Vasiliev, "WebTransport
               over HTTP/3", Work in Progress, Internet-Draft, draft-
-              ietf-webtrans-http3-15, 2 March 2026,
+              ietf-webtrans-http3-16, 6 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-
-              webtrans-http3-15>.
+              webtrans-http3-16>.
 
 Acknowledgments
 
