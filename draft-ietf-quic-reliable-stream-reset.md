@@ -95,10 +95,10 @@ RFC9000}}) with an empty value. An implementation that understands this
 transport parameter MUST treat the receipt of a non-empty value as a connection
 error of type TRANSPORT_PARAMETER_ERROR.
 
-When using 0-RTT, both endpoints MUST remember the value of this transport
-parameter. This allows use of this extension in 0-RTT packets. When the server
-accepts 0-RTT data, the server MUST NOT disable this extension on the resumed
-connection.
+When using 0-RTT, both endpoints MUST remember whether this extension was
+advertised by the server ({{Section 7.4.1 of RFC9000}}). This allows use of this
+extension in 0-RTT packets. When the server accepts 0-RTT data, the server MUST
+NOT disable this extension on the resumed connection.
 
 # RESET_STREAM_AT Frame
 
