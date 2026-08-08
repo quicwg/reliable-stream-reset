@@ -1396,11 +1396,11 @@ RESET_STREAM_AT frame before receiving the STREAM frame carrying the FIN bit.<a 
         </h3>
 <p id="section-5.2-1">The initiator <span class="bcp14">MAY</span> send multiple RESET_STREAM_AT frames for the same stream in
 order to reduce the Reliable Size.  It <span class="bcp14">MAY</span> also send a RESET_STREAM frame, which
-is equivalent to sending a RESET_STREAM_AT frame with a Reliable Size of 0. When
-reducing the Reliable Size, the sender <span class="bcp14">MUST</span> retransmit the RESET_STREAM_AT frame
-carrying the smallest Reliable Size as well as stream data up to that size,
-until all acknowledgements for the stream data and the RESET_STREAM_AT frame are
-received.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+for purposes of data delivery is equivalent to sending a RESET_STREAM_AT frame
+with a Reliable Size of 0. When reducing the Reliable Size, the sender <span class="bcp14">MUST</span>
+retransmit the RESET_STREAM_AT frame carrying the smallest Reliable Size as well
+as stream data up to that size, until all acknowledgements for the stream data
+and the RESET_STREAM_AT frame are received.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">When sending multiple RESET_STREAM_AT or RESET_STREAM frames for the same
 stream, the initiator <span class="bcp14">MUST NOT</span> increase the Reliable Size.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.2-3">When receiving a RESET_STREAM_AT frame with a lower Reliable Size, the receiver
