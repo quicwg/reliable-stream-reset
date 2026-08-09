@@ -63,7 +63,7 @@ For example, WebTransport ({{?WEBTRANSPORT=I-D.ietf-webtrans-http3}}) uses a
 variable-length encoded integer to associate a stream with a particular
 WebTransport session.
 
-Since QUIC does not provide guaranteed delivery of steam data for reset streams,
+Since QUIC does not provide guaranteed delivery of stream data for reset streams,
 it is possible that a receiver is unable to read critical information. In the
 example above, a reset stream can cause the receiver to fail to associate
 incoming streams with their respective subcomponent of the application.
@@ -207,7 +207,7 @@ When sending multiple RESET_STREAM_AT or RESET_STREAM frames for the same
 stream, the initiator MUST NOT increase the Reliable Size.
 
 When receiving a RESET_STREAM_AT frame with a lower Reliable Size, the receiver
-only needs to provide data up the lower Reliable Size to the application. It
+only needs to provide data up to the lower Reliable Size to the application. It
 MUST NOT expect the sender to deliver any data beyond that byte offset.
 
 Reordering of packets might lead to a RESET_STREAM_AT frame with a higher
@@ -251,7 +251,7 @@ control can prevent the sender from transmitting the RESET_STREAM_AT frame; see
 On the receiving side, when a RESET_STREAM_AT frame is received, the receiving
 part of the stream enters the "Size Known" state. Once all data up to the
 smallest Reliable Size have been received, it enters the "Data Recvd" state.
-Similarly to the sending side, transition from "Size Known" to "Data Recvd"
+Similarly to the sending side, the transition from "Size Known" to "Data Recvd"
 might happen immediately, or might require additional network roundtrips while
 the sender transmits remaining bytes up to the smallest Reliable Size.
 
