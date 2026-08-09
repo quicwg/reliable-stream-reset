@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 9 February 2027                                          Fastly
-                                                           8 August 2026
+Expires: 10 February 2027                                         Fastly
+                                                           9 August 2026
 
 
                 QUIC Stream Resets with Partial Delivery
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 February 2027.
+   This Internet-Draft will expire on 10 February 2027.
 
 Copyright Notice
 
@@ -250,8 +250,8 @@ Table of Contents
    The initiator MAY send multiple RESET_STREAM_AT frames for the same
    stream in order to reduce the Reliable Size.  It MAY also send a
    RESET_STREAM frame, which for purposes of data delivery is equivalent
-   to sending a RESET_STREAM_AT frame with a Reliable Size of 0.  When
-   reducing the Reliable Size, the sender MUST retransmit the
+   to sending a RESET_STREAM_AT frame with a Reliable Size of zero.
+   When reducing the Reliable Size, the sender MUST retransmit the
    RESET_STREAM_AT frame carrying the smallest Reliable Size as well as
    stream data up to that size, until all acknowledgements for the
    stream data and the RESET_STREAM_AT frame are received.
