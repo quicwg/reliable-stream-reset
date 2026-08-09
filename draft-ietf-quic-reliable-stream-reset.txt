@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 9 February 2027                                          Fastly
-                                                           8 August 2026
+Expires: 10 February 2027                                         Fastly
+                                                           9 August 2026
 
 
                 QUIC Stream Resets with Partial Delivery
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 February 2027.
+   This Internet-Draft will expire on 10 February 2027.
 
 Copyright Notice
 
@@ -126,9 +126,11 @@ Table of Contents
    This document extends QUIC with a variant of stream resets that
    reliably delivers the beginning of a stream up to a sender-specified
    offset, communicated using the RESET_STREAM_AT frame.  It can be
-   considered a form of range-based partial reliability.  As a variant
-   of reset, application protocols continue to treat this stream
-   function as an abrupt termination; see Section 2.4 of [RFC9000].
+   considered a form of range-based partial reliability.  For the
+   receiving application, RESET_STREAM_AT remains an abrupt termination:
+   after providing the stream data guaranteed by the Reliable Size, the
+   QUIC implementation signals a stream reset rather than a clean end of
+   the stream; see Section 2.4 of [RFC9000].
 
 2.  Conventions and Definitions
 
