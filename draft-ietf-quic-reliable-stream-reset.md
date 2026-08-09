@@ -101,7 +101,7 @@ advertised by the server ({{Section 7.4.1 of RFC9000}}). This allows use of this
 extension in 0-RTT packets. When the server accepts 0-RTT data, the server MUST
 NOT disable this extension on the resumed connection.
 
-# RESET_STREAM_AT Frame
+# RESET_STREAM_AT Frame {#reset-stream-at-frame}
 
 Conceptually, the RESET_STREAM_AT frame is a RESET_STREAM frame with an
 added Reliable Size field.
@@ -242,16 +242,18 @@ state. The transition from "Data Sent" to "Data Recvd" happens immediately if
 the application resets a stream and all bytes up to the specified Reliable Size
 have already been sent and acknowledged. Conversely, if bytes below that offset
 still need to be sent or acknowledged, the transition might take multiple
-network roundtrips and might require additional flow control credit issued by
-the receiver.
+network roundtrips.
+
+Note that entering the "Data Sent" state might itself be deferred, because flow
+control can prevent the sender from transmitting the RESET_STREAM_AT frame; see
+{{reset-stream-at-frame}}.
 
 On the receiving side, when a RESET_STREAM_AT frame is received, the receiving
 part of the stream enters the "Size Known" state. Once all data up to the
 smallest Reliable Size have been received, it enters the "Data Recvd" state.
 Similarly to the sending side, transition from "Size Known" to "Data Recvd"
 might happen immediately, or might require additional network roundtrips while
-the sender transmits remaining bytes up to the smallest Reliable Size. This might
-require the receiver to issue additional flow control credit.
+the sender transmits remaining bytes up to the smallest Reliable Size.
 
 ## Handling STOP_SENDING
 
