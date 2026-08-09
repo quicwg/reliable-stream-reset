@@ -1286,7 +1286,7 @@ advertised by the server (<span><a href="https://rfc-editor.org/rfc/rfc9000#sect
 extension in 0-RTT packets. When the server accepts 0-RTT data, the server <span class="bcp14">MUST NOT</span> disable this extension on the resumed connection.<a href="#section-3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="resetstreamat-frame">
+<div id="reset-stream-at-frame">
 <section id="section-4">
       <h2 id="name-reset_stream_at-frame">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-reset_stream_at-frame" class="section-name selfRef">RESET_STREAM_AT Frame</a>
@@ -1441,15 +1441,16 @@ state. The transition from "Data Sent" to "Data Recvd" happens immediately if
 the application resets a stream and all bytes up to the specified Reliable Size
 have already been sent and acknowledged. Conversely, if bytes below that offset
 still need to be sent or acknowledged, the transition might take multiple
-network roundtrips and might require additional flow control credit issued by
-the receiver.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
-<p id="section-5.3-3">On the receiving side, when a RESET_STREAM_AT frame is received, the receiving
+network roundtrips.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-3">Note that entering the "Data Sent" state might itself be deferred, because flow
+control can prevent the sender from transmitting the RESET_STREAM_AT frame; see
+<a href="#reset-stream-at-frame" class="auto internal xref">Section 4</a>.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.3-4">On the receiving side, when a RESET_STREAM_AT frame is received, the receiving
 part of the stream enters the "Size Known" state. Once all data up to the
 smallest Reliable Size have been received, it enters the "Data Recvd" state.
 Similarly to the sending side, transition from "Size Known" to "Data Recvd"
 might happen immediately, or might require additional network roundtrips while
-the sender transmits remaining bytes up to the smallest Reliable Size. This might
-require the receiver to issue additional flow control credit.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
+the sender transmits remaining bytes up to the smallest Reliable Size.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="handling-stopsending">
