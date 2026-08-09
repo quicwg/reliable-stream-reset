@@ -1372,10 +1372,11 @@ suppressed or withheld, and the same applies to a stream reset signal carried in
 a RESET_STREAM_AT frame. Similarly, the Reliable Size of the RESET_STREAM_AT
 frame does not prevent a QUIC stack from delivering data beyond the specified
 offset to the receiving application.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">Note that a Reliable Size value of zero is valid. A RESET_STREAM_AT frame with
-this value is logically equivalent to a RESET_STREAM frame (<span><a href="https://rfc-editor.org/rfc/rfc9000#section-3.2" class="relref">Section 3.2</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>). When resetting a stream without the intent to deliver any data to
-the receiver, the sender <span class="bcp14">MAY</span> use either RESET_STREAM or
-RESET_STREAM_AT with a Reliable Size of zero.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-4">Note that a Reliable Size value of zero is valid. For purposes of data delivery,
+a RESET_STREAM_AT frame with this value is logically equivalent to a
+RESET_STREAM frame (<span><a href="https://rfc-editor.org/rfc/rfc9000#section-3.2" class="relref">Section 3.2</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>). When resetting a stream without
+the intent to deliver any data to the receiver, the sender <span class="bcp14">MAY</span> use either
+RESET_STREAM or RESET_STREAM_AT with a Reliable Size of zero.<a href="#section-5-4" class="pilcrow">¶</a></p>
 <p id="section-5-5">As stated in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-4.5" class="relref">Section 4.5</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>, the final size for a stream cannot
 change once it is known.<a href="#section-5-5" class="pilcrow">¶</a></p>
 <div id="sending-resetstreamat-after-fin">
@@ -1397,11 +1398,11 @@ RESET_STREAM_AT frame before receiving the STREAM frame carrying the FIN bit.<a 
         </h3>
 <p id="section-5.2-1">The initiator <span class="bcp14">MAY</span> send multiple RESET_STREAM_AT frames for the same stream in
 order to reduce the Reliable Size.  It <span class="bcp14">MAY</span> also send a RESET_STREAM frame, which
-is equivalent to sending a RESET_STREAM_AT frame with a Reliable Size of 0. When
-reducing the Reliable Size, the sender <span class="bcp14">MUST</span> retransmit the RESET_STREAM_AT frame
-carrying the smallest Reliable Size as well as stream data up to that size,
-until all acknowledgements for the stream data and the RESET_STREAM_AT frame are
-received.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+for purposes of data delivery is equivalent to sending a RESET_STREAM_AT frame
+with a Reliable Size of zero. When reducing the Reliable Size, the sender <span class="bcp14">MUST</span>
+retransmit the RESET_STREAM_AT frame carrying the smallest Reliable Size as well
+as stream data up to that size, until all acknowledgements for the stream data
+and the RESET_STREAM_AT frame are received.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">When sending multiple RESET_STREAM_AT or RESET_STREAM frames for the same
 stream, the initiator <span class="bcp14">MUST NOT</span> increase the Reliable Size.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.2-3">When receiving a RESET_STREAM_AT frame with a lower Reliable Size, the receiver
