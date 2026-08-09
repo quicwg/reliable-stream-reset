@@ -1241,7 +1241,7 @@ stream to communicate critical information related to that stream.
 For example, WebTransport (<span>[<a href="#WEBTRANSPORT" class="cite xref">WEBTRANSPORT</a>]</span>) uses a
 variable-length encoded integer to associate a stream with a particular
 WebTransport session.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">Since QUIC does not provide guaranteed delivery of steam data for reset streams,
+<p id="section-1-3">Since QUIC does not provide guaranteed delivery of stream data for reset streams,
 it is possible that a receiver is unable to read critical information. In the
 example above, a reset stream can cause the receiver to fail to associate
 incoming streams with their respective subcomponent of the application.
@@ -1406,7 +1406,7 @@ and the RESET_STREAM_AT frame are received.<a href="#section-5.2-1" class="pilcr
 <p id="section-5.2-2">When sending multiple RESET_STREAM_AT or RESET_STREAM frames for the same
 stream, the initiator <span class="bcp14">MUST NOT</span> increase the Reliable Size.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.2-3">When receiving a RESET_STREAM_AT frame with a lower Reliable Size, the receiver
-only needs to provide data up the lower Reliable Size to the application. It
+only needs to provide data up to the lower Reliable Size to the application. It
 <span class="bcp14">MUST NOT</span> expect the sender to deliver any data beyond that byte offset.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <p id="section-5.2-4">Reordering of packets might lead to a RESET_STREAM_AT frame with a higher
 Reliable Size being received after a RESET_STREAM_AT frame with a lower
@@ -1448,7 +1448,7 @@ control can prevent the sender from transmitting the RESET_STREAM_AT frame; see
 <p id="section-5.3-4">On the receiving side, when a RESET_STREAM_AT frame is received, the receiving
 part of the stream enters the "Size Known" state. Once all data up to the
 smallest Reliable Size have been received, it enters the "Data Recvd" state.
-Similarly to the sending side, transition from "Size Known" to "Data Recvd"
+Similarly to the sending side, the transition from "Size Known" to "Data Recvd"
 might happen immediately, or might require additional network roundtrips while
 the sender transmits remaining bytes up to the smallest Reliable Size.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 </section>
