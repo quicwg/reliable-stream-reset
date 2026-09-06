@@ -320,12 +320,13 @@ Table of Contents
 
 5.4.  Handling STOP_SENDING
 
-   An endpoint that receives a STOP_SENDING frame is required to send a
-   RESET_STREAM frame in some stream states, as described in Section 3.5
-   of [RFC9000].  As the peer has indicated that it does not intend to
-   process any further data, the endpoint SHOULD relinquish its
-   commitment to deliver data reliably, reducing the Reliable Size to
-   zero, and reset the stream immediately.
+   Section 3.5 of [RFC9000] specifies that an endpoint receiving a
+   STOP_SENDING frame ceases sending new stream data immediately.  As
+   the peer has indicated that it does not intend to process any further
+   data, the sending part of the stream is terminated abruptly,
+   discarding any outstanding stream data.  The endpoint therefore
+   relinquishes its commitment to deliver data reliably, and SHOULD
+   immediately send a reset with a Reliable Size of zero.
 
 6.  Implementation Guidance
 

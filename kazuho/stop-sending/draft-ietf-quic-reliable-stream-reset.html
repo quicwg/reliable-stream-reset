@@ -1459,10 +1459,12 @@ the sender transmits remaining bytes up to the smallest Reliable Size.<a href="#
         <h3 id="name-handling-stop_sending">
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-handling-stop_sending" class="section-name selfRef">Handling STOP_SENDING</a>
         </h3>
-<p id="section-5.4-1">An endpoint that receives a STOP_SENDING frame is required to send a
-RESET_STREAM frame in some stream states, as described in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-3.5" class="relref">Section 3.5</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>. As the peer has indicated that it does not intend to process any
-further data, the endpoint <span class="bcp14">SHOULD</span> relinquish its commitment to deliver data
-reliably, reducing the Reliable Size to zero, and reset the stream immediately.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-1"><span><a href="https://rfc-editor.org/rfc/rfc9000#section-3.5" class="relref">Section 3.5</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> specifies that an endpoint receiving a STOP_SENDING
+frame ceases sending new stream data immediately. As the peer has indicated that
+it does not intend to process any further data, the sending part of the stream
+is terminated abruptly, discarding any outstanding stream data. The endpoint
+therefore relinquishes its commitment to deliver data reliably, and <span class="bcp14">SHOULD</span>
+immediately send a reset with a Reliable Size of zero.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
