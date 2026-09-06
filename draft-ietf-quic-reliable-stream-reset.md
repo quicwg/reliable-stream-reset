@@ -213,14 +213,14 @@ MUST NOT expect the sender to deliver any data beyond that byte offset.
 
 Reordering of packets might lead to a RESET_STREAM_AT frame with a higher
 Reliable Size being received after a RESET_STREAM_AT frame with a lower
-Reliable Size.  The receiver MUST ignore any RESET_STREAM_AT frame that
-increases the Reliable Size.
+Reliable Size. The receiver MUST ignore the increase in Reliable Size and
+continue to use the smallest Reliable Size received.
 
-When sending another RESET_STREAM_AT, RESET_STREAM or STREAM frame carrying a FIN
-bit for the same stream, the initiator MUST NOT change the Application Error
-Code or the Final Size. If the receiver detects a change in those fields, it
-MUST close the connection with a connection error of type STREAM_STATE_ERROR
-or FINAL_SIZE_ERROR, respectively.
+For the same stream, the initiator MUST NOT change the Application Error Code
+in subsequent RESET_STREAM_AT or RESET_STREAM frames, or the Final Size in any
+such frame or a STREAM frame carrying the FIN bit. A receiver that detects a
+change MUST close the connection with a connection error of type
+STREAM_STATE_ERROR or FINAL_SIZE_ERROR, respectively.
 
 While multiple RESET_STREAM_AT frames can reduce Reliable Size, some
 applications might need to ensure that a minimum amount of data is always
