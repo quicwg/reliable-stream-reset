@@ -258,11 +258,12 @@ the sender transmits remaining bytes up to the smallest Reliable Size.
 
 ## Handling STOP_SENDING
 
-An endpoint that receives a STOP_SENDING frame is required to send a
-RESET_STREAM frame in some stream states, as described in {{Section 3.5 of
-RFC9000}}. While it is permissible to send a RESET_STREAM_AT frame in this case,
-endpoints SHOULD send a RESET_STREAM frame, since the peer has already indicated
-that it does not intend to process any further data.
+{{Section 3.5 of RFC9000}} specifies that an endpoint receiving a STOP_SENDING
+frame ceases sending new stream data immediately. As the peer has indicated that
+it does not intend to process any further data, the sending part of the stream
+is terminated abruptly, discarding any outstanding stream data. The endpoint
+therefore relinquishes its commitment to deliver data reliably, and SHOULD
+immediately send a reset with a Reliable Size of zero.
 
 
 # Implementation Guidance
