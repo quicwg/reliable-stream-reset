@@ -88,6 +88,9 @@ the stream; see {{Section 2.4 of RFC9000}}.
 
 {::boilerplate bcp14-tagged}
 
+The frame format diagram uses the notation described in
+{{Section 1.3 of RFC9000}}.
+
 # Transport Parameter
 
 Support for receiving RESET_STREAM_AT frames is advertised by sending the
