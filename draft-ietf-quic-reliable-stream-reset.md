@@ -258,12 +258,12 @@ the sender transmits remaining bytes up to the smallest Reliable Size.
 
 ## Handling STOP_SENDING
 
-{{Section 3.5 of RFC9000}} specifies that an endpoint receiving a STOP_SENDING
+{{Section 3.5 of RFC9000}} specifies that a sender that receives a STOP_SENDING
 frame ceases sending new stream data immediately. As the peer has indicated that
 it does not intend to process any further data, the sending part of the stream
-is terminated abruptly, discarding any outstanding stream data. The endpoint
-therefore relinquishes its commitment to deliver data reliably, and SHOULD
-immediately send a reset with a Reliable Size of zero.
+is terminated abruptly, discarding any outstanding stream data. The sender
+therefore relinquishes its commitment to deliver data reliably; the reset that
+it sends SHOULD carry a Reliable Size of zero.
 
 
 # Implementation Guidance
