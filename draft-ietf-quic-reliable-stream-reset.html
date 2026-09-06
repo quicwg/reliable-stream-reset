@@ -1411,13 +1411,13 @@ only needs to provide data up to the lower Reliable Size to the application. It
 <span class="bcp14">MUST NOT</span> expect the sender to deliver any data beyond that byte offset.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.2-3">Reordering of packets might lead to a RESET_STREAM_AT frame with a higher
 Reliable Size being received after a RESET_STREAM_AT frame with a lower
-Reliable Size.  The receiver <span class="bcp14">MUST</span> ignore any RESET_STREAM_AT frame that
-increases the Reliable Size.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
-<p id="section-5.2-4">When sending another RESET_STREAM_AT, RESET_STREAM or STREAM frame carrying a FIN
-bit for the same stream, the initiator <span class="bcp14">MUST NOT</span> change the Application Error
-Code or the Final Size. If the receiver detects a change in those fields, it
-<span class="bcp14">MUST</span> close the connection with a connection error of type STREAM_STATE_ERROR
-or FINAL_SIZE_ERROR, respectively.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+Reliable Size. The receiver <span class="bcp14">MUST</span> ignore the increase in Reliable Size and
+continue to use the smallest Reliable Size received.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">For the same stream, the initiator <span class="bcp14">MUST NOT</span> change the Application Error Code
+in subsequent RESET_STREAM_AT or RESET_STREAM frames, or the Final Size in any
+such frame or a STREAM frame carrying the FIN bit. A receiver that detects a
+change <span class="bcp14">MUST</span> close the connection with a connection error of type
+STREAM_STATE_ERROR or FINAL_SIZE_ERROR, respectively.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 <p id="section-5.2-5">While multiple RESET_STREAM_AT frames can reduce Reliable Size, some
 applications might need to ensure that a minimum amount of data is always
 delivered on a stream. Application protocols can establish rules for streams
