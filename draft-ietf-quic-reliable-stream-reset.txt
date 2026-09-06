@@ -5,8 +5,8 @@
 QUIC                                                          M. Seemann
 Internet-Draft                                                          
 Intended status: Standards Track                         奥一穂 (K. Oku)
-Expires: 10 February 2027                                         Fastly
-                                                           9 August 2026
+Expires: 10 March 2027                                            Fastly
+                                                        6 September 2026
 
 
                 QUIC Stream Resets with Partial Delivery
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 February 2027.
+   This Internet-Draft will expire on 10 March 2027.
 
 Copyright Notice
 
@@ -148,6 +148,9 @@ Table of Contents
    this transport parameter MUST treat the receipt of a non-empty value
    as a connection error of type TRANSPORT_PARAMETER_ERROR.
 
+   An endpoint MUST NOT send a RESET_STREAM_AT frame unless the peer
+   advertised support using the reset_stream_at transport parameter.
+
    When using 0-RTT, both endpoints MUST remember whether this extension
    was advertised by the server (Section 7.4.1 of [RFC9000]).  This
    allows use of this extension in 0-RTT packets.  When the server
@@ -182,9 +185,9 @@ Table of Contents
       the stream by the sender, in units of bytes; see Section 4.5 of
       [RFC9000].
 
-   Reliable Size:  A variable-length integer indicating the amount of
-      data that needs to be delivered to the application even though the
-      stream is reset.
+   Reliable Size:  A variable-length integer indicating the minimum
+      amount of data that needs to be delivered to the application even
+      though the stream is reset.
 
    If the Reliable Size is larger than the Final Size, the receiver MUST
    close the connection with a connection error of type
@@ -209,9 +212,9 @@ Table of Contents
 
 5.  Resetting Streams
 
-   A sender that wants to reset a stream but also deliver some bytes to
-   the receiver sends a RESET_STREAM_AT frame with the Reliable Size
-   field specifying the amount of data to be delivered.
+   A sender that wants to reset a stream while retaining reliable
+   delivery of certain data sends a RESET_STREAM_AT frame with the
+   Reliable Size field specifying the amount of data to be delivered.
 
    When using a RESET_STREAM_AT frame, the initiator MUST guarantee
    reliable delivery of stream data of at least Reliable Size bytes.  If
@@ -220,12 +223,12 @@ Table of Contents
    [RFC9000].  Data sent beyond that byte offset SHOULD NOT be
    retransmitted.
 
-   As described in Section 3.2 of [RFC9000], a stream reset signal might
-   be suppressed or withheld, and the same applies to a stream reset
-   signal carried in a RESET_STREAM_AT frame.  Similarly, the Reliable
-   Size of the RESET_STREAM_AT frame does not prevent a QUIC stack from
-   delivering data beyond the specified offset to the receiving
-   application.
+   As described in Section 3.2 of [RFC9000], an implementation might
+   suppress or withhold a stream reset signal from the application.  The
+   same applies to a stream reset signal carried in a RESET_STREAM_AT
+   frame.  Similarly, the Reliable Size of the RESET_STREAM_AT frame
+   does not prevent a QUIC stack from delivering data beyond the
+   specified offset to the receiving application.
 
    Note that a Reliable Size value of zero is valid.  For purposes of
    data delivery, a RESET_STREAM_AT frame with this value is logically
@@ -252,14 +255,13 @@ Table of Contents
    The initiator MAY send multiple RESET_STREAM_AT frames for the same
    stream in order to reduce the Reliable Size.  It MAY also send a
    RESET_STREAM frame, which for purposes of data delivery is equivalent
-   to sending a RESET_STREAM_AT frame with a Reliable Size of zero.
-   When reducing the Reliable Size, the sender MUST retransmit the
-   RESET_STREAM_AT frame carrying the smallest Reliable Size as well as
-   stream data up to that size, until all acknowledgements for the
-   stream data and the RESET_STREAM_AT frame are received.
-
-   When sending multiple RESET_STREAM_AT or RESET_STREAM frames for the
-   same stream, the initiator MUST NOT increase the Reliable Size.
+   to sending a RESET_STREAM_AT frame with a Reliable Size of zero.  The
+   Reliable Size can only decrease; when sending multiple
+   RESET_STREAM_AT or RESET_STREAM frames for the same stream, the
+   initiator MUST NOT increase the Reliable Size.  The sender MUST
+   retransmit the information from the RESET_STREAM_AT frame carrying
+   the current Reliable Size, as well as stream data up to that size,
+   until both have been acknowledged.
 
    When receiving a RESET_STREAM_AT frame with a lower Reliable Size,
    the receiver only needs to provide data up to the lower Reliable Size
