@@ -140,6 +140,9 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
+   The frame format diagram uses the notation described in Section 1.3
+   of [RFC9000].
+
 3.  Transport Parameter
 
    Support for receiving RESET_STREAM_AT frames is advertised by sending
