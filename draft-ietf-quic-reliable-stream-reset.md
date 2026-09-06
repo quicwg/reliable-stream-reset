@@ -169,11 +169,11 @@ containing data up to that byte offset are lost, the initiator MUST retransmit
 this data, as described in {{Section 13.3 of RFC9000}}. Data sent beyond that
 byte offset SHOULD NOT be retransmitted.
 
-As described in {{Section 3.2 of RFC9000}}, a stream reset signal might be
-suppressed or withheld, and the same applies to a stream reset signal carried in
-a RESET_STREAM_AT frame. Similarly, the Reliable Size of the RESET_STREAM_AT
-frame does not prevent a QUIC stack from delivering data beyond the specified
-offset to the receiving application.
+As described in {{Section 3.2 of RFC9000}}, an implementation might suppress or
+withhold a stream reset signal from the application. The same applies to a
+stream reset signal carried in a RESET_STREAM_AT frame. Similarly, the Reliable
+Size of the RESET_STREAM_AT frame does not prevent a QUIC stack from delivering
+data beyond the specified offset to the receiving application.
 
 Note that a Reliable Size value of zero is valid. For purposes of data delivery,
 a RESET_STREAM_AT frame with this value is logically equivalent to a
@@ -200,7 +200,7 @@ order to reduce the Reliable Size.  It MAY also send a RESET_STREAM frame, which
 for purposes of data delivery is equivalent to sending a RESET_STREAM_AT frame
 with a Reliable Size of zero. When reducing the Reliable Size, the sender MUST
 retransmit the RESET_STREAM_AT frame carrying the smallest Reliable Size as well
-as stream data up to that size, until all acknowledgements for the stream data
+as stream data up to that size, until all acknowledgements for that stream data
 and the RESET_STREAM_AT frame are received.
 
 When sending multiple RESET_STREAM_AT or RESET_STREAM frames for the same
